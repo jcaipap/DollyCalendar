@@ -5,11 +5,13 @@
  */
 package data;
 
+import java.util.Objects;
+
 /**
  *
  * @author JAndres
  */
-public abstract class Persona {
+public abstract class Persona implements Comparable<Persona> {
 
     private int codigo;
     private String nombre;
@@ -59,6 +61,33 @@ public abstract class Persona {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+    @Override
+    public int compareTo(Persona persona) {
+        int result=0;
+        if(codigo<persona.getCodigo()){
+            result=-1;
+        } else if(codigo>persona.getCodigo()){
+            result=1;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object persona) {
+        if(!(persona instanceof Persona)){
+            return false;
+        }
+        Persona otherPersona
+                = (Persona) persona;
+        return (codigo == otherPersona.codigo);
+    }
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + this.codigo;
+        hash = 61 * hash + Objects.hashCode(this.nombre);
+        hash = 61 * hash + Objects.hashCode(this.apellido);
+        hash = 61 * hash + Objects.hashCode(this.correo);
+        return hash;
+    }
 }

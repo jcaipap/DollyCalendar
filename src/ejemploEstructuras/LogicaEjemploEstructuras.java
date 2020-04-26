@@ -33,7 +33,7 @@ public class LogicaEjemploEstructuras {
     public static void main(String[] args) {
        
         //Pruebas de E.Time
-        pruebaLinkedList();
+        pruebasCasillasComplejas(10);
         
         
         
@@ -42,7 +42,7 @@ public class LogicaEjemploEstructuras {
     static void pruebasUsuariosStack(int testerNum){
         
         long startTime=System.nanoTime();
-        ArrayList<Casilla> testerSpot=new ArrayList<>();
+        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
         HashMap <String,Grupo> testerGroups=new HashMap<>();
         System.out.println("Prueba con "+testerNum+" datos en StackArray");
         StackArrayGeneric <Usuario> testerStack=new StackArrayGeneric <>(testerNum);
@@ -68,7 +68,7 @@ public class LogicaEjemploEstructuras {
     }
     static void pruebasUsuariosQueue(int testerNum){
         long startTime=System.nanoTime();
-        ArrayList<Casilla> testerSpot=new ArrayList<>();
+        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
         HashMap <String,Grupo> testerGroups=new HashMap<>();
         System.out.println("Prueba con "+testerNum+" datos en QueueArray");
         QueueArrayGeneric <Usuario> testerQueue=new QueueArrayGeneric <> (testerNum);
@@ -114,16 +114,17 @@ public class LogicaEjemploEstructuras {
     }
     static void pruebaLinkedList(){
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
-        Casilla casilla1= new Casilla("pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,5,0));
-        Casilla casilla2= new Casilla("no pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,1,13,6,0));
-        Casilla casilla3= new Casilla("casi pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,6,0));
-        Casilla casilla4= new Casilla("unpvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,13,5,0));
+        Casilla casilla1= new Casilla("pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
+        Casilla casilla2= new Casilla("no pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,1,13,6,0),calendarGenerator(2020,1,13,8,0));
+        Casilla casilla3= new Casilla("casi pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,6,0),calendarGenerator(2020,2,12,8,0));
+        Casilla casilla4= new Casilla("unpvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,13,5,0), calendarGenerator(2020,2,13,7,0));
         casillas.insert(casilla4);
         casillas.insert(casilla3);
         casillas.insert(casilla2);
         casillas.insert(casilla1);
         casillas.delete(casilla4);
         modifySpot(casilla2,casillas);
+        System.out.println(casillas.size());
         casillas.printRecursive();
     }
    static void pruebasCasillasComplejas(int testerNum){
@@ -131,16 +132,17 @@ public class LogicaEjemploEstructuras {
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
         System.out.println("Prueba con "+testerNum+" datos para casillas");
         for (int i=0;i<testerNum;i++){
-            Casilla testerRec= new Casilla("Casilla de prueba", "Prueba de tiempos", 2, calendarGenerator(2020,2,12,5,0));
+            Casilla testerRec= new Casilla("Casilla de prueba", "Prueba de tiempos", 2, calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
         }
         long create=System.nanoTime()-startTime;
         System.out.println("Tiempo de creación de casillas: "+create);
-        Casilla testerModif= new Casilla("Materia","Prueba", 3,calendarGenerator(2020,2,12,5,0));
+        Casilla testerModif= new Casilla("Materia","Prueba", 3,calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
         for (int j=0;j<testerNum;j++){
             testerModif.setDescripcion("Cambio en descripción");
             testerModif.setTitulo("Recordatorio");
             testerModif.setImportancia(4);
-            testerModif.setFecha(calendarGenerator(2020,3,14,4,0));
+            testerModif.setFechaInicio(calendarGenerator(2020,3,14,4,0));
+            testerModif.setFechaFinalizacion(calendarGenerator(2020,3,14,6,0));
         }
         long modif=System.nanoTime()-startTime;
         System.out.println("Tiempo de actualización de casillas: "+modif);

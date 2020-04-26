@@ -30,7 +30,39 @@ public class LinkedListGeneric<T extends Comparable<T>> {
     public int size() {
            return N;
        }
-    public void insert(T item) {
+    public boolean insert(T item) {
+        boolean inserted;
+        NodeGeneric<T> ptr, prev,tail,preTail;
+        inserted = false;
+        ptr = head;
+        prev = null;
+        tail=head;
+        preTail=null;
+        while (ptr != null && ptr.getData().compareTo(item) <= 0) {
+            prev = ptr;
+            ptr = ptr.getNext();
+        }
+        if (ptr == null) {
+            inserted = true;
+            NodeGeneric<T> newp = new NodeGeneric();
+            newp.setData(item);
+            newp.setNext(ptr);
+            if (prev == null) {
+                head = newp;
+                N++;
+            } else {
+                prev.setNext(newp);
+                N++;
+            }
+        }
+        while (tail!=null){
+            preTail=tail;
+            tail=tail.next;
+            last=preTail;
+        }
+        return inserted;
+    }
+   /* public void insert(T item) {
            if (item == null) { throw new NullPointerException("The first argument for addLast() is null."); }
            if (!isEmpty()) {
                NodeGeneric prev = last;
@@ -42,7 +74,7 @@ public class LinkedListGeneric<T extends Comparable<T>> {
                head = last;
            }
            N++;
-       }
+       }*/
     public boolean delete(T item) {
            if (isEmpty()) { throw new IllegalStateException("Cannot remove() from and empty list."); }
            boolean result = false;

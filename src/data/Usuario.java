@@ -5,6 +5,7 @@
  */
 package data;
 
+import estructuas.LinkedListGeneric;
 import java.util.ArrayList;
 
 /**
@@ -14,21 +15,21 @@ import java.util.ArrayList;
 public class Usuario extends Persona{
     private String usuario;
     private String contraseña;
-    private ArrayList<Casilla> casilla;
+    private LinkedListGeneric<Casilla> casillas;
     private String pregado;
 
-    public Usuario(String usuario, String contraseña, ArrayList<Casilla> casilla, String pregado) {
+    public Usuario(String usuario, String contraseña, LinkedListGeneric<Casilla> casillas, String pregado) {
         this.usuario = usuario;
         this.contraseña = contraseña;
-        this.casilla = casilla;
+        this.casillas = casillas;
         this.pregado = pregado;
     }
 
-    public Usuario(String usuario, String contraseña, ArrayList<Casilla> casilla, String pregado, int codigo, String nombre, String apellido, String correo) {
+    public Usuario(String usuario, String contraseña, LinkedListGeneric<Casilla> casillas, String pregado, int codigo, String nombre, String apellido, String correo) {
         super(codigo, nombre, apellido, correo);
         this.usuario = usuario;
         this.contraseña = contraseña;
-        this.casilla = casilla;
+        this.casillas = casillas;
         this.pregado = pregado;
     }
 
@@ -60,14 +61,14 @@ public class Usuario extends Persona{
         this.contraseña = contraseña;
     }
 
-    public ArrayList<Casilla> getCasilla() {
-        return casilla;
+    public LinkedListGeneric<Casilla> getCasillas() {
+        return casillas;
     }
 
-
-    public void setCasilla(ArrayList<Casilla> casilla) {
-        this.casilla = casilla;
+    public void setCasillas(LinkedListGeneric<Casilla> casillas) {
+        this.casillas = casillas;
     }
+
 
     public String getPregado() {
         return pregado;

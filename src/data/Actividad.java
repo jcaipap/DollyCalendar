@@ -14,12 +14,12 @@ import java.util.Calendar;
 public class Actividad extends Casilla {
     private String [] comentarios;
 
-    public Actividad(String titulo, String descripcion, int importancia, Calendar fecha) {
-        super(titulo, descripcion, importancia,fecha);
+    public Actividad(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
+        super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
     }
 
-    public Actividad(String[] comentarios, String titulo, String descripcion, int importancia, Calendar fecha) {
-        super(titulo, descripcion, importancia,fecha);
+    public Actividad(String[] comentarios, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
+        super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
         this.comentarios = comentarios;
     }
 

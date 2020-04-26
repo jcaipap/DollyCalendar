@@ -20,8 +20,8 @@ public class Materia extends Casilla{
     private String profesor;
     private HashMap <String,Grupo> grupos;
 
-    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fecha) {
-        super(titulo, descripcion, importancia, fecha);
+    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
+        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
         super.setImportancia(creditos);
         this.codigo = codigo;
         this.creditos = creditos;
@@ -31,8 +31,8 @@ public class Materia extends Casilla{
         this.grupos = grupos;
     }
 
-    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, String titulo, String descripcion, int importancia, Calendar fecha) {
-        super(titulo, descripcion, importancia, fecha);
+    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, String titulo, String descripcion, int importancia,Calendar fechaInicio, Calendar fechaFinalizacion) {
+        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
@@ -40,8 +40,8 @@ public class Materia extends Casilla{
         this.profesor = profesor;
     }
 
-    public Materia(String codigo, int creditos, String tipologia, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fecha) {
-        super(titulo, descripcion, importancia, fecha);
+    public Materia(String codigo, int creditos, String tipologia, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
+        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
