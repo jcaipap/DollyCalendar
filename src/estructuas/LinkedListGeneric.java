@@ -30,6 +30,7 @@ public class LinkedListGeneric<T extends Comparable<T>> {
     public int size() {
            return N;
        }
+    //putoelquelolea excepto el profe
     public boolean insert(T item) {
         boolean inserted;
         NodeGeneric<T> ptr, prev,tail,preTail;
