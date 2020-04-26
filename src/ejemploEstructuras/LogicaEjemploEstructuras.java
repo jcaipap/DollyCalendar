@@ -34,11 +34,9 @@ public class LogicaEjemploEstructuras {
        
         //Pruebas de E.Time
         pruebaLinkedList();
-        pruebaLinkedList();
-        pruebaLinkedList();
+
         
-        
-        
+       
     }
     
     static void pruebasUsuariosStack(int testerNum){
