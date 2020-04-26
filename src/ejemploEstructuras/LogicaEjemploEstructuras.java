@@ -35,6 +35,7 @@ public class LogicaEjemploEstructuras {
        
         //Pruebas de E.Time
         pruebasCasillasComplejas(10);
+        pruebasCasillasComplejas(10);
 
         
         
