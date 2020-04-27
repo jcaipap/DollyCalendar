@@ -6,12 +6,14 @@
  */
 package ejemploEstructuras;
 
+import data.Actividad;
+import data.Administrador;
 import data.Casilla;
 import data.Grupo;
 import data.Materia;
+import data.Persona;
 import data.Usuario;
 import java.util.Scanner;
-import estructuas.ListArrayGeneric;
 import estructuas.QueueArrayGeneric;
 import estructuas.StackArrayGeneric;
 import estructuas.LinkedListGeneric;
@@ -34,10 +36,8 @@ public class LogicaEjemploEstructuras {
     public static void main(String[] args) {
        
         //Pruebas de E.Time
-        pruebasCasillasComplejas(10);
-        pruebasCasillasComplejas(10);
-        pruebasUsuariosQueue(10);
-        
+        //si tomas un usuario y le pulsas .toStringAdmin(), saldrá impreso el 
+        //estudiante y una seccion que dice Admin y tiene la contra
         
     }
     
@@ -71,7 +71,6 @@ public class LogicaEjemploEstructuras {
     static void pruebasUsuariosQueue(int testerNum){
         long startTime=System.nanoTime();
         LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
-        HashMap <String,Grupo> testerGroups=new HashMap<>();
         System.out.println("Prueba con "+testerNum+" datos en QueueArray");
         QueueArrayGeneric <Usuario> testerQueue=new QueueArrayGeneric <> (testerNum);
         for(int i=0;i<testerNum;i++){
@@ -94,10 +93,34 @@ public class LogicaEjemploEstructuras {
         long endTime=System.nanoTime()-startTime;
         System.out.println("Tiempo de actualización de usuarios: "+endTime);
     }
+    static void pruebasUsuariosLinkedlist(int testerNum){
+        long startTime=System.nanoTime();
+        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
+        System.out.println("Prueba con "+testerNum+" datos en LinkedList");
+        LinkedListGeneric <Persona> testerList=new LinkedListGeneric <> ();
+        Usuario testerUser= new Usuario("jcaipap", "f", testerSpot, "Mecatronica", 10100,"Julian", "Caipa", "jcaipap");
+        for(int i=0;i<testerNum;i++){
+            testerList.insert(testerUser);
+        }
+        long create=System.nanoTime()-startTime;
+        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
+        for (int j=0;j<testerNum;j++){
+            testerList.delete(testerUser);
+        }
+        long elim=System.nanoTime()-startTime;
+        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
+        Usuario modificableUser= new Usuario("aholguinr", "h", testerSpot,"Mecatronica",100049,"Andres ", "Holguin", "aholguinr");
+        for(int k=0;k<testerNum;k++){
+            modificableUser.setNombre("Andrew");
+            modificableUser.setApellido("Restrepo");
+            modificableUser.setContraseña("config");
+        }
+        long endTime=System.nanoTime()-startTime;
+        System.out.println("Tiempo de actualización de usuarios: "+endTime);
+    }
     static void pruebasCasillasSencillas(int testerNum){
         long startTime=System.nanoTime();
         ArrayList<Casilla> testerSpot=new ArrayList<>();
-        HashMap <String,Grupo> testerGroups=new HashMap<>();
         System.out.println("Prueba con "+testerNum+" datos para casillas");
         for (int i=0;i<testerNum;i++){
             Casilla testerRec= new Casilla("Recordatorio", "Recordatorio de prueba", 2);
@@ -115,30 +138,39 @@ public class LogicaEjemploEstructuras {
         
     }
     static void pruebaLinkedList(){
+        LinkedListGeneric<Persona> testerLinkedlist= new LinkedListGeneric<>();
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
-        Casilla casilla1= new Casilla("pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
-        Casilla casilla2= new Casilla("no pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,1,13,6,0),calendarGenerator(2020,1,13,8,0));
-        Casilla casilla3= new Casilla("casi pvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,12,6,0),calendarGenerator(2020,2,12,8,0));
-        Casilla casilla4= new Casilla("unpvto","Materia pa el que lo lea", 2, calendarGenerator(2020,2,13,5,0), calendarGenerator(2020,2,13,7,0));
-        casillas.insert(casilla4);
-        casillas.insert(casilla3);
-        casillas.insert(casilla2);
-        casillas.insert(casilla1);
-        casillas.delete(casilla4);
-        modifySpot(casilla2,casillas);
+        Persona andres= new Usuario("aholguinr","contra",casillas,"meca",2, "Andres","Holguin", "aholguinr");
+        Persona admin=new Administrador("admin", "admi", 5, "admin", "administrador","adiminmail");
+        Persona admin2=new Administrador("admin", "admi", 6, "admin", "administrador","adiminmail");
+        testerLinkedlist.insert(admin);
+        testerLinkedlist.insert(new Usuario("aholguinr","contra",casillas,"meca",2, "Andres","Holguin", "aholguinr"));
+        testerLinkedlist.insert(andres);
+        testerLinkedlist.printRecursive();
+        String[] coments= new String[2];
+        coments[0]="A";
+        coments[1]="B";
+        Actividad actividad1= new Actividad(coments,"Parcial", "Parcial1", 4, calendarGenerator(2020,5,13,5,0), calendarGenerator(2020,5,13,7,0));
+        Materia materia1=new Materia("15b", 4,"Disciplinar", 5, "David", "Estructuras", "clase ED", 4,calendarGenerator(2020,2,12,6,0),calendarGenerator(2020,2,12,8,0));
+        casillas.insert(actividad1);
+        casillas.insert(materia1);
+        modifySpot(actividad1,casillas);
         System.out.println(casillas.size());
         casillas.printRecursive();
     }
-   static void pruebasCasillasComplejas(int testerNum){
+    static void pruebasCasillasComplejas(int testerNum){
         long startTime=System.nanoTime();
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
+        StackArrayGeneric<Casilla> stackCasillas=new StackArrayGeneric<>(testerNum);
+        QueueArrayGeneric<Casilla> queueCasillas=new QueueArrayGeneric<>(testerNum);
         System.out.println("Prueba con "+testerNum+" datos para casillas");
         for (int i=0;i<testerNum;i++){
             Casilla testerRec= new Casilla("Casilla de prueba", "Prueba de tiempos", 2, calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
+            stackCasillas.push(testerRec);
         }
         long create=System.nanoTime()-startTime;
         System.out.println("Tiempo de creación de casillas: "+create);
-        Casilla testerModif= new Casilla("Materia","Prueba", 3,calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
+        /*Casilla testerModif= new Casilla("Materia","Prueba", 3,calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
         for (int j=0;j<testerNum;j++){
             testerModif.setDescripcion("Cambio en descripción");
             testerModif.setTitulo("Recordatorio");
@@ -157,36 +189,42 @@ public class LogicaEjemploEstructuras {
             casillas.delete(testerModif);
         }
         long remove=System.nanoTime()-startTime;
-        System.out.println("Tiempo de eliminar casillas: "+modif);   
+        System.out.println("Tiempo de eliminar casillas: "+modif);   */
    } 
-    public static void modifySpot(Casilla spot, LinkedListGeneric<Casilla> casillas){
+    static void modifySpot(Casilla spot, LinkedListGeneric<Casilla> casillas){
         casillas.delete(spot);
         Casilla modified=spot;
         Scanner  scanner = new Scanner(System.in);
-        System.out.println("Para modificar: Nombre, pulse 1");
-        System.out.println("Descripción, pulse 2");
-        int s=scanner.nextInt();
-        switch(s){
-            case(1):
+        scanner.useDelimiter("\n");
+            System.out.println("Para modificar, pulse:" + "\n" + "Nombre: 1" + "  Descripción: 2 " + "   Importancia: 3");
+        int s = scanner.nextInt();
+        switch (s) {
+            case (1):
                 System.out.println("ingrese el nuevo nombre");
                 modified.setTitulo(scanner.next());
                 break;
-            case(2):
+            case (2):
                 System.out.println("ingrese la nueva descripcion");
-                String desc=scanner.next();
-                modified.setDescripcion(desc);
+                modified.setDescripcion(scanner.next());
                 break;
-            default:break;
+            case (3):
+                System.out.println("ingrese el nuevo grado de importancia");
+                int value=scanner.nextInt();
+                while(value>5){
+                    System.out.println("El grado de importancia es mayor a 5, intente de nuevo");
+                    value=scanner.nextInt();
+                }
+                modified.setImportancia(value);
+            default:
+                break;
         }
         casillas.insert(modified);
-        
+
+
     }
-    
-    
     static Calendar calendarGenerator(int año, int mes, int dia, int hora, int minuto){
         Calendar fecha = new GregorianCalendar(año, mes, dia, hora, minuto);
         return fecha;
     }
-    
     
 }
