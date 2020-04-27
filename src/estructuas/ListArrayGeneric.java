@@ -35,12 +35,11 @@ public class ListArrayGeneric<T extends Comparable<T>> {
     }
 
     private boolean full() {
-        return count >= N;
+        return count>= N;
     }
     
     public boolean insert(T item) {
         boolean inserted=false;
-        
         if(!full())
             if (!search(item)){
                 for(int j=count; j>position; j--)
@@ -98,8 +97,8 @@ public class ListArrayGeneric<T extends Comparable<T>> {
         return count;
     }
     
-    public String getItemInPosition(int position){
-        return String.valueOf(this.lArray[position]);
+    public T getItemInPosition(int position){
+        return lArray[position];
     }
     
     public int compareTo(T item) {

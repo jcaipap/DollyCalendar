@@ -14,54 +14,19 @@ import java.util.Objects;
  * @author JAndres
  */
 public class Usuario extends Persona {
-    private String usuario;
-    private String contraseña;
     private LinkedListGeneric<Casilla> casillas;
     private String pregrado;
 
-    public Usuario(String usuario, String contraseña, LinkedListGeneric<Casilla> casillas, String pregrado) {
-        this.usuario = usuario;
-        this.contraseña = contraseña;
-        this.casillas = casillas;
-        this.pregrado = pregrado;
-    }
-
-    public Usuario(String usuario, String contraseña, LinkedListGeneric<Casilla> casillas, String pregrado, int codigo, String nombre, String apellido, String correo) {
-        super(codigo, nombre, apellido, correo);
-        this.usuario = usuario;
-        this.contraseña = contraseña;
-        this.casillas = casillas;
-        this.pregrado = pregrado;
-    }
-
-    public Usuario(int codigo, String nombre, String apellido, String correo) {
-        super(codigo, nombre, apellido, correo);
-    }
-    
     public Usuario() {
     }
-    
-    
 
-
-    public String getUsuario() {
-        return usuario;
+    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo, String pregrado) {
+        super(usuario, contraseña, codigo, nombre, apellido, correo);
+        this.pregrado = pregrado;
     }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas) {
+        super(usuario, contraseña, codigo, nombre, apellido, correo);
     }
-
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
     public LinkedListGeneric<Casilla> getCasillas() {
         return casillas;
     }
@@ -80,12 +45,8 @@ public class Usuario extends Persona {
 
     @Override
     public String toString() {
-        return super.toString()+"Rol: Estudiante"+"\n"+ "Usuario: "+usuario+" Pregrado: "+pregrado+"\n"+"\n"; 
+        return super.toString()+"Rol: Estudiante"+"de Pregrado: "+pregrado+"\n"+"\n"; 
     }
-    public String toStringAdmin(){
-         return super.toString()+"Rol: Estudiante"+"\n"+ "Usuario: "+usuario+" Pregrado: "+pregrado+"\n"+"Seccion Admin: Contraseña de Usuario"+contraseña+"\n"+"\n";
-    }
-
     
     
 }

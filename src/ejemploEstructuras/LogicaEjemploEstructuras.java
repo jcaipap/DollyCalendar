@@ -7,7 +7,6 @@
 package ejemploEstructuras;
 
 import data.Actividad;
-import data.Administrador;
 import data.Casilla;
 import data.Grupo;
 import data.Materia;
@@ -17,6 +16,7 @@ import java.util.Scanner;
 import estructuas.QueueArrayGeneric;
 import estructuas.StackArrayGeneric;
 import estructuas.LinkedListGeneric;
+import estructuas.ListArrayGeneric;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -33,117 +33,111 @@ public class LogicaEjemploEstructuras {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+   public static void main(String[] args) {
        
         //Pruebas de E.Time
         //si tomas un usuario y le pulsas .toStringAdmin(), saldrá impreso el 
         //estudiante y una seccion que dice Admin y tiene la contra
         
+        Scanner scanner = new Scanner(System.in);
+        
+        Persona admin1 = new Persona("a1", "c1", 1, "nombre1", "apellido1", "correo1");
+        Persona admin2 = new Persona("a2", "c2", 2, "nombre1", "apellido1", "correo1");
+        Persona admin3 = new Persona("a3", "c3", 3, "nombre1", "apellido1", "correo1");
+        Usuario est1 = new Usuario("u1", "c1", 1, "nombre", "apellido", "apellido", "as");
+        Usuario est2 = new Usuario("u2", "c2", 2, "nombre", "apellido", "apellido", "as");
+        Usuario est3 = new Usuario("u3", "c3", 3, "nombre", "apellido", "apellido", "as");
+        
+        ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
+        ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(3);
+        admins.insert(admin1);
+        admins.insert(admin2);
+        admins.insert(admin3);
+        estudiantes.insert(est1);
+        estudiantes.insert(est2);
+        estudiantes.insert(est3);
+        
+
+        LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
+        
+        boolean continuar = true;
+        String usuario;
+        String contraseña;
+        
+        //inicio del programa, continue es para salirse o continuar, se cambia con la funcion seguir();
+ 
+        while(continuar){
+            limpiarConsola();
+            System.out.println("Bienvenido a DollyCalendar, por favor seleccione entre las siguientes opciones:\n\n");
+            System.out.println("1. Estudiante\n2. Administrador\n3. Salir");
+            int inicio = scanner.nextInt();
+            switch(inicio){
+                
+                case 1:
+                    System.out.println("Usted ha ingresado como estudiante, por favor ingrese los siguientes datos personales");
+                    System.out.println("Ingrese su usuario:");
+                    usuario = scanner.next();
+                    System.out.println("Ingrese su contraseña:");
+                    contraseña = scanner.next();
+                    
+                    if(!autenticar(usuario, contraseña, estudiantes)){
+                        limpiarConsola();
+                        System.out.println("Usuario o contraseña incorrectos, volviendo a pantalla inicial\n");
+                        continuar=seguir();
+                        break;
+                    }
+                    limpiarConsola();
+                    System.out.println("Estudiante validado correctamente");
+                    
+                    continuar=seguir();
+                    
+                    break;
+                    
+                case 2:
+                    System.out.println("Usted ha ingresado como administrador, por favor ingrese los siguientes datos personales");
+                    System.out.println("Ingrese su usuario:");
+                    usuario = scanner.next();
+                    System.out.println("Ingrese su contraseña:");
+                    contraseña = scanner.next();
+                    
+                    if(!autenticar(usuario, contraseña, admins)){
+                        limpiarConsola();
+                        System.out.println("Usuario o contraseña incorrectos, volviendo a pantalla inicial\n");
+                        continuar=seguir();
+                        break;
+                    }
+                    limpiarConsola();
+                    System.out.println("Administrador validado correctamente\n");
+                    opcionesAdmin(estudiantes, casillas);
+
+                    continuar=seguir();
+                    
+                    break;
+                    
+                case 3:
+                    continuar=false;
+                    limpiarConsola();
+                    System.out.println("Usted ha salido con éxito.");
+                    break;
+                    
+                default:
+                    continuar=false;
+                    limpiarConsola();
+                    System.out.println("Opción invalida");
+                    continuar=seguir();
+                    break;
+                
+            }
+
+        }
     }
     
-    static void pruebasUsuariosStack(int testerNum){
-        
-        long startTime=System.nanoTime();
-        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
-        HashMap <String,Grupo> testerGroups=new HashMap<>();
-        System.out.println("Prueba con "+testerNum+" datos en StackArray");
-        StackArrayGeneric <Usuario> testerStack=new StackArrayGeneric <>(testerNum);
-        for(int i=0;i<testerNum;i++){
-            Usuario testerUser= new Usuario("jcaipap", "f", testerSpot, "Mecatronica", 10100,"Julian", "Caipa", "jcaipap");
-            testerStack.push(testerUser);
-        }
-        long create=System.nanoTime()-startTime;
-        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
-        for (int j=0;j<testerNum;j++){
-            testerStack.pop();
-        }
-        long elim=System.nanoTime()-startTime;
-        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
-        Usuario modificableUser= new Usuario("aholguinr", "h", testerSpot,"Mecatronica",100049,"Andres ", "Holguin", "aholguinr");
-        for(int k=0;k<testerNum;k++){
-            modificableUser.setNombre("Andrew");
-            modificableUser.setApellido("Restrepo");
-            modificableUser.setContraseña("config");
-        }
-        long endTime=System.nanoTime()-startTime;
-        System.out.println("Tiempo de actualización de usuarios: "+endTime);
-    }
-    static void pruebasUsuariosQueue(int testerNum){
-        long startTime=System.nanoTime();
-        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
-        System.out.println("Prueba con "+testerNum+" datos en QueueArray");
-        QueueArrayGeneric <Usuario> testerQueue=new QueueArrayGeneric <> (testerNum);
-        for(int i=0;i<testerNum;i++){
-            Usuario testerUser= new Usuario("jcaipap", "f", testerSpot, "Mecatronica", 10100,"Julian", "Caipa", "jcaipap");
-            testerQueue.enqueue(testerUser);
-        }
-        long create=System.nanoTime()-startTime;
-        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
-        for (int j=0;j<testerNum;j++){
-            testerQueue.dequeue();
-        }
-        long elim=System.nanoTime()-startTime;
-        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
-        Usuario modificableUser= new Usuario("aholguinr", "h", testerSpot,"Mecatronica",100049,"Andres ", "Holguin", "aholguinr");
-        for(int k=0;k<testerNum;k++){
-            modificableUser.setNombre("Andrew");
-            modificableUser.setApellido("Restrepo");
-            modificableUser.setContraseña("config");
-        }
-        long endTime=System.nanoTime()-startTime;
-        System.out.println("Tiempo de actualización de usuarios: "+endTime);
-    }
-    static void pruebasUsuariosLinkedlist(int testerNum){
-        long startTime=System.nanoTime();
-        LinkedListGeneric<Casilla> testerSpot= new LinkedListGeneric<>();
-        System.out.println("Prueba con "+testerNum+" datos en LinkedList");
-        LinkedListGeneric <Persona> testerList=new LinkedListGeneric <> ();
-        Usuario testerUser= new Usuario("jcaipap", "f", testerSpot, "Mecatronica", 10100,"Julian", "Caipa", "jcaipap");
-        for(int i=0;i<testerNum;i++){
-            testerList.insert(testerUser);
-        }
-        long create=System.nanoTime()-startTime;
-        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
-        for (int j=0;j<testerNum;j++){
-            testerList.delete(testerUser);
-        }
-        long elim=System.nanoTime()-startTime;
-        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
-        Usuario modificableUser= new Usuario("aholguinr", "h", testerSpot,"Mecatronica",100049,"Andres ", "Holguin", "aholguinr");
-        for(int k=0;k<testerNum;k++){
-            modificableUser.setNombre("Andrew");
-            modificableUser.setApellido("Restrepo");
-            modificableUser.setContraseña("config");
-        }
-        long endTime=System.nanoTime()-startTime;
-        System.out.println("Tiempo de actualización de usuarios: "+endTime);
-    }
-    static void pruebasCasillasSencillas(int testerNum){
-        long startTime=System.nanoTime();
-        ArrayList<Casilla> testerSpot=new ArrayList<>();
-        System.out.println("Prueba con "+testerNum+" datos para casillas");
-        for (int i=0;i<testerNum;i++){
-            Casilla testerRec= new Casilla("Recordatorio", "Recordatorio de prueba", 2);
-        }
-        long create=System.nanoTime()-startTime;
-        System.out.println("Tiempo de creación de casillas: "+create);
-        Casilla testerModif= new Casilla("Materia","Prueba", 3);
-        for (int j=0;j<testerNum;j++){
-            testerModif.setDescripcion("Cambio en descripción");
-            testerModif.setTitulo("Recordatorio");
-            testerModif.setImportancia(4);
-        }
-        long modif=System.nanoTime()-startTime;
-        System.out.println("Tiempo de actualización de casillas: "+modif);
-        
-    }
+    
+    /*
     static void pruebaLinkedList(){
         LinkedListGeneric<Persona> testerLinkedlist= new LinkedListGeneric<>();
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
         Persona andres= new Usuario("aholguinr","contra",casillas,"meca",2, "Andres","Holguin", "aholguinr");
-        Persona admin=new Administrador("admin", "admi", 5, "admin", "administrador","adiminmail");
-        Persona admin2=new Administrador("admin", "admi", 6, "admin", "administrador","adiminmail");
-        testerLinkedlist.insert(admin);
         testerLinkedlist.insert(new Usuario("aholguinr","contra",casillas,"meca",2, "Andres","Holguin", "aholguinr"));
         testerLinkedlist.insert(andres);
         testerLinkedlist.printRecursive();
@@ -170,27 +164,7 @@ public class LogicaEjemploEstructuras {
         }
         long create=System.nanoTime()-startTime;
         System.out.println("Tiempo de creación de casillas: "+create);
-        /*Casilla testerModif= new Casilla("Materia","Prueba", 3,calendarGenerator(2020,2,12,5,0),calendarGenerator(2020,2,12,7,0));
-        for (int j=0;j<testerNum;j++){
-            testerModif.setDescripcion("Cambio en descripción");
-            testerModif.setTitulo("Recordatorio");
-            testerModif.setImportancia(4);
-            testerModif.setFechaInicio(calendarGenerator(2020,3,14,4,0));
-            testerModif.setFechaFinalizacion(calendarGenerator(2020,3,14,6,0));
-        }
-        long modif=System.nanoTime()-startTime;
-        System.out.println("Tiempo de actualización de casillas: "+modif);
-        for(int k=0;k<testerNum;k++){
-            casillas.insert(testerModif);
-        }
-        long add=System.nanoTime()-startTime;
-        System.out.println("Tiempo de añadir casillas: "+modif);
-        for(int k=0;k<testerNum;k++){
-            casillas.delete(testerModif);
-        }
-        long remove=System.nanoTime()-startTime;
-        System.out.println("Tiempo de eliminar casillas: "+modif);   */
-   } 
+   } */
     static void modifySpot(Casilla spot, LinkedListGeneric<Casilla> casillas){
         casillas.delete(spot);
         Casilla modified=spot;
@@ -226,5 +200,71 @@ public class LogicaEjemploEstructuras {
         Calendar fecha = new GregorianCalendar(año, mes, dia, hora, minuto);
         return fecha;
     }
+    static void limpiarConsola(){
+        for(int i=0;i<75;i++){
+            System.out.println("");
+        }
+    }
     
+    static boolean autenticar(String usuario, String contraseña, ListArrayGeneric usuarios) {
+
+        Persona p = new Persona();
+        for (int i = 0; i < usuarios.size(); i++) {
+            p = (Persona) usuarios.getItemInPosition(i);
+            if (usuario.equals(p.getUsuario()) && contraseña.equals(p.getContraseña())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean seguir() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione la opción que desee realizar:\n1. Salir del programa\n2. Continuar y volver a inicio");
+        if (scanner.nextInt() == 1) {
+            return false;
+        }
+        return true;
+    }
+
+    static void opcionesAdmin(ListArrayGeneric estudiantes, LinkedListGeneric<Casilla> casillas) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione que opciones desea realizar:\n1. Ver estudiantes\n2. Ver cursos\n3. Salir");
+
+        switch (scanner.nextInt()) {
+
+            case 1:
+                limpiarConsola();
+                System.out.println("Usted ha seleccionado ver usuarios, a continuación se muestra la lista de los estudiantes existentes:");
+
+                Usuario us1 = new Usuario();
+                for (int i = 0; i < estudiantes.size(); i++) {
+                    us1 = (Usuario) estudiantes.getItemInPosition(i);
+                    System.out.println(us1.toString() + "\n");
+                }
+
+                break;
+
+            case 2:
+                limpiarConsola();
+                System.out.println("Usted ha seleccionado ver cursos, a continuación se muestra la lista de los cursos existentes:");
+
+                break;
+
+            case 3:
+
+                break;
+
+            default:
+
+                break;
+
+        }
+
+    }
+
+    static void opcionesEst() {
+
+    }
 }

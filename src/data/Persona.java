@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public  class Persona implements Comparable<Persona> {
 
+    private String usuario;
+    private String contraseña;
     int codigo;
     private String nombre;
     private String apellido;
@@ -21,12 +23,15 @@ public  class Persona implements Comparable<Persona> {
     public Persona() {
     }
 
-    public Persona(int codigo, String nombre, String apellido, String correo) {
+    public Persona(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
     }
+
     
 
     public int getCodigo() {
@@ -60,6 +65,22 @@ public  class Persona implements Comparable<Persona> {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
     
     @Override
@@ -96,7 +117,9 @@ public  class Persona implements Comparable<Persona> {
 
     @Override
     public String toString() {
-        return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n";
+        return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+"\n"+"\n";
     }
-    
+    public String toStringAdmin(){
+         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+usuario+"Seccion Admin: Contraseña de Usuario"+contraseña+"\n"+"\n";
+    }
 }
