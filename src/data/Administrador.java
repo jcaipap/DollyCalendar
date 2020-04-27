@@ -9,7 +9,7 @@ package data;
  *
  * @author JAndres
  */
-public class Administrador extends Persona {
+public class Administrador extends Persona{
     private String usuario;
     private String contraseña;
 
@@ -38,6 +38,11 @@ public class Administrador extends Persona {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return super.toString()+"Rol: Administrador "+"\n"+"Usuario: "+usuario+"\n"+"\n"; 
+    }
+
+ 
 }

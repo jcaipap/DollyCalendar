@@ -11,49 +11,44 @@ package estructuas;
  * @param <T>
  */
 public class QueueArrayGeneric<T> {
-	private final int N;
-	private int front, rear, count;
-	private T[] qarray;
-	
-	public QueueArrayGeneric() {
-		front = rear = count = 0;
-		this.N=5;
-		qarray = (T[]) new Object[N];
-	}
+    private final int N;
+    private int front, rear, count;
+    private T[] qarray;
 
+    public QueueArrayGeneric() {
+        front = rear = count = 0;
+        this.N = 5;
+        qarray = (T[]) new Object[N];
+    }
 
-	public QueueArrayGeneric(int n) {
-		front = rear = count = 0;
-		qarray = (T[]) new Object[n];
-		this.N = n;
-	}
+    public QueueArrayGeneric(int n) {
+        front = rear = count = 0;
+        qarray = (T[]) new Object[n];
+        this.N = n;
+    }
 
-	//ejemplo constructor de int: 
-	//QueueArrayGeneric<Integer> queue;
-	//queue = new QueueArrayGeneric <Integer> ();
+    public T dequeue() {
+        T item = null;
+        if (empty()) {
+            System.out.println("Queue is empty: item not dequeued");
+        } else {
+            item = qarray[front];
+            front = (front + 1) % N;
+            count--;
+        }
 
-	public T dequeue() {
-		T item = null;
-		if(empty())
-			System.out.println("Queue is empty: item not dequeued");
-		else {
-			item = qarray[front];
-			front = (front + 1) % N;
-		count--;
-		}
-	
-		return item;
-	}
-	
-	public void enqueue(T item) {
-		if(full())
-			System.out.println("Queue is full: item not enqueued");
-		else {
-			qarray[rear] = item;
-			rear = (rear + 1) % N;
-			count++;
-		}
-	}
+        return item;
+    }
+
+    public void enqueue(T item) {
+        if (full()) {
+            System.out.println("Queue is full: item not enqueued");
+        } else {
+            qarray[rear] = item;
+            rear = (rear + 1) % N;
+            count++;
+        }
+    }
 	
 	public boolean empty() {
 		return count <= 0;

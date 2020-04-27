@@ -11,9 +11,9 @@ import java.util.Objects;
  *
  * @author JAndres
  */
-public abstract class Persona implements Comparable<Persona> {
+public  class Persona implements Comparable<Persona> {
 
-    private int codigo;
+    int codigo;
     private String nombre;
     private String apellido;
     private String correo;
@@ -61,13 +61,16 @@ public abstract class Persona implements Comparable<Persona> {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    
     @Override
     public int compareTo(Persona persona) {
-        int result=0;
+        int result;
         if(codigo<persona.getCodigo()){
             result=-1;
         } else if(codigo>persona.getCodigo()){
             result=1;
+        } else{
+            result=0;
         }
         return result;
     }
@@ -90,4 +93,10 @@ public abstract class Persona implements Comparable<Persona> {
         hash = 61 * hash + Objects.hashCode(this.correo);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n";
+    }
+    
 }

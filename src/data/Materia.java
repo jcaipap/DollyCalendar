@@ -7,6 +7,7 @@ package data;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *
@@ -106,6 +107,33 @@ public class Materia extends Casilla{
     
     public void setGrupos(HashMap <String,Grupo> grupos) {
         this.grupos = grupos;
+    }
+
+    @Override
+    public boolean equals(Object casilla) {
+        return super.equals(casilla); 
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.codigo);
+        hash = 53 * hash + this.creditos;
+        hash = 53 * hash + Objects.hashCode(this.tipologia);
+        hash = 53 * hash + this.numeroGrupo;
+        hash = 53 * hash + Objects.hashCode(this.profesor);
+        hash = 53 * hash + Objects.hashCode(this.grupos);
+        return hash;
+    }
+
+    @Override
+    public int compareTo(Casilla casilla) {
+        return super.compareTo(casilla);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"\n"; 
     }
    
     

@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -34,5 +35,26 @@ public class Actividad extends Casilla {
         this.comentarios = comentarios;
     }
 
-    
+    @Override
+    public String toString() {
+        return super.toString()+" Comentarios Adicionales: "+Arrays.toString(comentarios)+"\n";
+    }
+
+    @Override
+    public boolean equals(Object casilla) {
+        return super.equals(casilla);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 61 * hash + Arrays.deepHashCode(this.comentarios);
+        return hash;
+    }
+
+    @Override
+    public int compareTo(Casilla casilla) {
+        return super.compareTo(casilla); 
+    }
+
 }

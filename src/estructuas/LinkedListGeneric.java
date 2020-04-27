@@ -30,7 +30,6 @@ public class LinkedListGeneric<T extends Comparable<T>> {
     public int size() {
            return N;
        }
-    //putoelquelolea excepto el profe
     public boolean insert(T item) {
         boolean inserted;
         NodeGeneric<T> ptr, prev,tail,preTail;
@@ -43,7 +42,7 @@ public class LinkedListGeneric<T extends Comparable<T>> {
             prev = ptr;
             ptr = ptr.getNext();
         }
-        if (ptr == null) {
+        if (ptr == null||!(ptr.getData().equals(item))) {
             inserted = true;
             NodeGeneric<T> newp = new NodeGeneric();
             newp.setData(item);
@@ -63,19 +62,6 @@ public class LinkedListGeneric<T extends Comparable<T>> {
         }
         return inserted;
     }
-   /* public void insert(T item) {
-           if (item == null) { throw new NullPointerException("The first argument for addLast() is null."); }
-           if (!isEmpty()) {
-               NodeGeneric prev = last;
-               last = new NodeGeneric(item);
-               prev.next = last;
-           }
-           else {
-               last = new NodeGeneric(item);
-               head = last;
-           }
-           N++;
-       }*/
     public boolean delete(T item) {
            if (isEmpty()) { throw new IllegalStateException("Cannot remove() from and empty list."); }
            boolean result = false;
@@ -85,7 +71,6 @@ public class LinkedListGeneric<T extends Comparable<T>> {
                if (curr.data.equals(item)) {
                    if (N == 1) { head = null; last = null; }
                    else if (curr.equals(head)) { head = head.next; }
-                   else if (curr.equals(last)) { last = prev; last.next = null; }
                    else { prev.next = curr.next; }
                    N--;
                    result = true;
@@ -99,7 +84,6 @@ public class LinkedListGeneric<T extends Comparable<T>> {
 
     
     public void printRecursive() {
-        System.out.print("List Recursive: ");
         printR(head);
         System.out.println();
     }

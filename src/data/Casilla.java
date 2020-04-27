@@ -110,7 +110,7 @@ public class Casilla implements Comparable<Casilla> {
 
     @Override
     public String toString() {
-        return "Casilla{" + "titulo=" + titulo + ", descripcion=" + descripcion + ", importancia=" + importancia + ", fecha inicio=" + fechaInicio.getTime() + ", fecha finalizacion=" + fechaFinalizacion.getTime()+'}';
+        return "Recordatorio: "+ titulo +"\n"+ "Descripcion: " + descripcion + "    Grado de importancia: " + importancia +"\n Horario: "+ "Inicio: " + fechaInicio.getTime() + "-- Finalizacion: " + fechaFinalizacion.getTime()+"\n";
     }
     
 
