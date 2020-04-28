@@ -13,31 +13,16 @@ import java.util.Calendar;
  * @author JAndres
  */
 public class Actividad extends Casilla {
-    private String [] comentarios;
 
     public Actividad(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
         super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
     }
 
-    public Actividad( String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion,String[] comentarios) {
-        super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
-        this.comentarios = comentarios;
-    }
 
-    
-    
-    public String[] getComentarios() {
-        return comentarios;
-    }
-
-    
-    public void setComentarios(String[] comentarios) {
-        this.comentarios = comentarios;
-    }
 
     @Override
     public String toString() {
-        return super.toString()+" Comentarios Adicionales: "+Arrays.toString(comentarios)+"\n";
+        return super.toString();
     }
 
     @Override
@@ -48,7 +33,6 @@ public class Actividad extends Casilla {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 61 * hash + Arrays.deepHashCode(this.comentarios);
         return hash;
     }
 
@@ -57,4 +41,15 @@ public class Actividad extends Casilla {
         return super.compareTo(casilla); 
     }
 
+    @Override
+    public boolean equalsName(Object casilla) {
+        return super.equalsName(casilla); 
+    }
+
+    @Override
+    public int compareToName(Casilla casilla) {
+        return super.compareToName(casilla); 
+    }
+    
+    
 }

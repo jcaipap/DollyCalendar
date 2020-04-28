@@ -120,6 +120,6 @@ public  class Persona implements Comparable<Persona> {
         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+"\n"+"\n";
     }
     public String toStringAdmin(){
-         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+usuario+"Seccion Admin: Contraseña de Usuario"+contraseña+"\n"+"\n";
+         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+usuario+" || Seccion Admin: Contraseña de Usuario: "+contraseña+"\n"+"\n";
     }
 }

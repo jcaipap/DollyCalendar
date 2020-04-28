@@ -22,6 +22,11 @@ public class Materia extends Casilla{
     private String profesor;
     private Grupo[] grupos;
 
+    public Materia() {
+    }
+
+   
+    
     public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, Grupo[]  grupos) {
         super(titulo, descripcion, importancia, fechaInicio, fechaFinalizacion);
         this.codigo = codigo;
@@ -159,10 +164,23 @@ public class Materia extends Casilla{
     }
     @Override
     public String toStringMateria() {
-        return super.toStringMateria()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+" Grupos: "+gruposImpresion(grupos); 
+        return super.toStringMateria()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+" Grupos: "+gruposImpresion(grupos); 
+    }
+    
+    
+    public String toStringNoGroups() {
+        return super.toStringMateria()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"; 
     }
    
-    
+    @Override
+    public boolean equalsName(Object casilla) {
+        return super.equalsName(casilla); 
+    }
+
+    @Override
+    public int compareToName(Casilla casilla) {
+        return super.compareToName(casilla); 
+    }
             
     
 }

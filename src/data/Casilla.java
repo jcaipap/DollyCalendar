@@ -115,7 +115,7 @@ public class Casilla implements Comparable<Casilla> {
     }
 
     public String toStringMateria() {
-        return "Materia: "+ titulo +"\n"+ "Descripcion: " + descripcion + "    Grado de importancia: " + importancia +"\n";
+        return "Materia: "+ titulo +"\n"+ "Descripcion: " + descripcion + "\n";
     }
     
 
@@ -125,6 +125,21 @@ public class Casilla implements Comparable<Casilla> {
         hash = 53 * hash + Objects.hashCode(this.fechaInicio);
         return hash;
     }
+    
+    public int compareToName(Casilla casilla) {
+        int result = titulo.compareTo(casilla.getTitulo());
+        return result;
+    }
+
+    public boolean equalsName(Object casilla) {
+        if (!(casilla instanceof Casilla)) {
+            return false;
+        }
+        Casilla otherStudentObject
+                = (Casilla) casilla;
+        return (titulo.equals(otherStudentObject.titulo));
+    }
+    
     
    
 }
