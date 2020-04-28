@@ -12,7 +12,7 @@ import java.util.Calendar;
  *
  * @author JAndres
  */
-public class Grupo {
+public class Grupo implements Comparable<Grupo> {
     private int numeroGrupo;
     private String profesor;
     private Calendar[] horario;
@@ -79,4 +79,16 @@ public class Grupo {
         return "\n" + "Numero: " + numeroGrupo + " || Docente: " + profesor + "\n Horarios: " + f +"\n";
     }
     
+    @Override
+    public int compareTo(Grupo grupo) {
+        int result;
+        if(numeroGrupo<grupo.getNumeroGrupo()){
+            result=-1;
+        } else if(numeroGrupo>grupo.getNumeroGrupo()){
+            result=1;
+        } else{
+            result=0;
+        }
+        return result;
+    }
 }

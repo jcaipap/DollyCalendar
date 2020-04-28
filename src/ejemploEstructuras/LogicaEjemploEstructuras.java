@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import estructuas.StackArraySpot;
+import java.lang.reflect.Array;
 
 
 
@@ -476,8 +477,8 @@ public class LogicaEjemploEstructuras {
                     System.out.println(numeromat+": " +m1.toStringNoGroups() + "\n");
                     numeromat++;
                 }
-                System.out.println("\n\n\n\n");
-                System.out.println("Seleccione cual de las siguientes opciones desea realizar ahora:\n1.Editar materias\n2. Ver grupos\n\n");
+                System.out.println("\n\n\n");
+                System.out.println("Seleccione cual de las siguientes opciones desea realizar ahora:\n1.Editar materias\n2. Ver grupos\n");
                 
                 switch(scanner.nextInt()){
                     
@@ -489,7 +490,7 @@ public class LogicaEjemploEstructuras {
                         
                     case 2:
                         
-                        
+                        materias=cambioGrupo(materias);
                         break;
                         
                     default:
@@ -536,7 +537,7 @@ public class LogicaEjemploEstructuras {
         scannerStr.useDelimiter("\n");
         
         
-        System.out.println("Usted ha seleccionado editar materias, seleccione el número de la materia a editar:");
+        System.out.println("\n\n Usted ha seleccionado editar materias, seleccione el número de la materia a editar:");
         int numeroMateria=scanner.nextInt();
         limpiarConsola();
         if(numeroMateria<=materias.getLenght()&&numeroMateria>0){
@@ -584,5 +585,62 @@ public class LogicaEjemploEstructuras {
 
         return materias;
     }
+    
+    static StackArraySpot cambioGrupo(StackArraySpot materias){
+        Scanner scanner = new Scanner (System.in);
+        Scanner  scannerStr = new Scanner(System.in); 
+        scannerStr.useDelimiter("\n");        
+        System.out.println("\n Usted ha seleccionado ver grupos, seleccione el número de la materia de la cuál desea ver los grupos: \n");
+        int numeroMateria=scanner.nextInt();
+        if(numeroMateria<=materias.getLenght()&&numeroMateria>0){
+            Materia matCambio = (Materia) materias.getItemInPosition(numeroMateria-1);
+            System.out.println("Mostrando la información de la materia: "+".\n"+matCambio.toStringMateria()+"\n\n");
+            System.out.println("Seleccione el numero de grupo que desea editar: \n");
+            int numeroGrupo=scanner.nextInt();
+            Grupo [] grupos=matCambio.getGrupos();
+             if(numeroGrupo<=grupos.length&&numeroGrupo>0){
+                 Grupo grupoEdit=grupos[numeroGrupo-1];
+                 System.out.println("Seleccione el parametro a editar:\n1. Profesor\n2. Numero de grupo\n");
+                 switch (scanner.nextInt()) {
+
+                     case 1:
+                         System.out.println("\nIngrese el nuevo Profesor:");
+                         grupoEdit.setProfesor(scannerStr.next());
+                         Array.set(grupos, numeroGrupo-1, grupoEdit);
+                         System.out.println("\n\nCambio realizado correctamente\n");
+                         break;
+                     case 2:
+                         System.out.println("\nIngrese el nuevo numero de grupo:");
+                         int numeroNuevo=scanner.nextInt();
+                         if(numeroNuevo>0){   
+                             for (Grupo grupoN : grupos) {
+                                 if (numeroNuevo == grupoN.getNumeroGrupo()) {
+                                     System.out.println("El numero ingresado ya ha sido asignado a un grupo");
+                                     System.out.println("\n\nCambio realizado incorrectamente\n");
+                                     break;
+                                 }
+                             }
+                             grupoEdit.setNumeroGrupo(scanner.nextInt());
+                             Array.set(grupos, numeroGrupo - 1, grupoEdit);
+                             Arrays.sort(grupos);
+                             System.out.println("\n\nCambio realizado correctamente\n");
+                         }
+                         break;
+                     default:
+                         break;
+                 }
+             }
+            matCambio.setGrupos(grupos);
+            for(Grupo grupito: grupos){
+                System.out.println(grupito);
+            }
+            materias.pushAt(matCambio, numeroMateria-1);
+            
+        }else{
+            System.out.println("El número seleccionado no se encuentra en la lista, no se realizó la edición.");
+        }
+
+        return materias;
         
+    }
     }
