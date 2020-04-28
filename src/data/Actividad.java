@@ -19,7 +19,7 @@ public class Actividad extends Casilla {
         super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
     }
 
-    public Actividad(String[] comentarios, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
+    public Actividad( String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion,String[] comentarios) {
         super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
         this.comentarios = comentarios;
     }

@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -21,6 +22,12 @@ public class Grupo {
         this.profesor = profesor;
         this.horario = horario;
     }
+
+    public Grupo(int numeroGrupo, String profesor) {
+        this.numeroGrupo = numeroGrupo;
+        this.profesor = profesor;
+    }
+    
 
     public Grupo() {
     }
@@ -53,6 +60,23 @@ public class Grupo {
     
     public void setHorario(Calendar[] horario) {
         this.horario = horario;
+    }
+    public String impresionFecha(Calendar calendar){
+        String[] strDays = new String[]{"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
+        String fecha=strDays[calendar.get(Calendar.DAY_OF_WEEK)-1];
+        int horaInicio=calendar.get(Calendar.HOUR_OF_DAY);
+        int horaFinal=calendar.get(Calendar.HOUR_OF_DAY)+2;
+        return "Dia: "+ fecha+"||Hora inicio: "+String.valueOf(horaInicio)+": ||Hora finalizacion : "+String.valueOf(horaFinal)+":00 \n";
+    }
+
+    @Override
+    public String toString() {
+        Calendar [] fechas=horario;
+        String f=" ";
+        for(Calendar calendar: fechas){
+            f=impresionFecha(calendar);
+        }    
+        return "\n" + "Numero: " + numeroGrupo + " || Docente: " + profesor + "\n Horarios: " + f +"\n";
     }
     
 }

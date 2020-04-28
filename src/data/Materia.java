@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Objects;
@@ -19,11 +20,10 @@ public class Materia extends Casilla{
     private String tipologia;
     private int numeroGrupo;
     private String profesor;
-    private HashMap <String,Grupo> grupos;
+    private Grupo[] grupos;
 
-    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
-        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
-        super.setImportancia(creditos);
+    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, Grupo[]  grupos) {
+        super(titulo, descripcion, importancia, fechaInicio, fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
@@ -32,8 +32,8 @@ public class Materia extends Casilla{
         this.grupos = grupos;
     }
 
-    public Materia(String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, String titulo, String descripcion, int importancia,Calendar fechaInicio, Calendar fechaFinalizacion) {
-        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
+    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
+        super(titulo, descripcion, importancia, fechaInicio, fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
@@ -41,13 +41,27 @@ public class Materia extends Casilla{
         this.profesor = profesor;
     }
 
-    public Materia(String codigo, int creditos, String tipologia, HashMap<String, Grupo> grupos, String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
-        super(titulo, descripcion, importancia, fechaInicio,fechaFinalizacion);
+    
+
+    public Materia( String titulo, String descripcion, int importancia, String codigo, int creditos, String tipologia,Grupo[] grupos) {
+        super(titulo, descripcion, importancia);
         this.codigo = codigo;
         this.creditos = creditos;
         this.tipologia = tipologia;
         this.grupos = grupos;
     }
+
+    public Materia(String titulo, String descripcion, int importancia, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
+        super(titulo, descripcion, importancia);
+        this.codigo = codigo;
+        this.creditos = creditos;
+        this.tipologia = tipologia;
+        this.numeroGrupo = numeroGrupo;
+        this.profesor = profesor;
+    }
+    
+    
+    
     
     public String getCodigo() {
         return codigo;
@@ -100,12 +114,12 @@ public class Materia extends Casilla{
 
 
     
-    public HashMap <String,Grupo> getGrupos() {
+    public Grupo[] getGrupos() {
         return grupos;
     }
 
     
-    public void setGrupos(HashMap <String,Grupo> grupos) {
+    public void setGrupos(Grupo[] grupos) {
         this.grupos = grupos;
     }
 
@@ -133,7 +147,19 @@ public class Materia extends Casilla{
 
     @Override
     public String toString() {
-        return super.toString()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"\n"; 
+        return super.toString()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"Docente: "+profesor+" || Numero de grupo: "+numeroGrupo+"\n"; 
+    }
+
+    public String gruposImpresion(Grupo[] grupos){
+        String f="";
+        for(Grupo grupo: grupos){
+            f=f.concat(grupo.toString());
+        }
+        return f;
+    }
+    @Override
+    public String toStringMateria() {
+        return super.toStringMateria()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+" Grupos: "+gruposImpresion(grupos); 
     }
    
     

@@ -90,7 +90,7 @@ public class LinkedListGeneric<T extends Comparable<T>> {
 
     private void printR(NodeGeneric p) {
         if (p != null) {
-            System.out.print(p.getData() + " ");
+            System.out.print(p.getData() + "\n");
             printR(p.getNext());
         }
     }

@@ -24,9 +24,14 @@ public class Usuario extends Persona {
         super(usuario, contraseña, codigo, nombre, apellido, correo);
         this.pregrado = pregrado;
     }
-    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas) {
+
+    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas, String pregrado) {
         super(usuario, contraseña, codigo, nombre, apellido, correo);
+        this.casillas = casillas;
+        this.pregrado = pregrado;
     }
+    
+    
     public LinkedListGeneric<Casilla> getCasillas() {
         return casillas;
     }

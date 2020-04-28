@@ -43,13 +43,14 @@ public class Casilla implements Comparable<Casilla> {
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
     }
-    
 
-    public Casilla(String recordatorio, String recordatorio_de_prueba, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Casilla(String titulo, String descripcion, int importancia) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.importancia = importancia;
     }
-
     
+
     
     public String getTitulo() {
         return titulo;
@@ -111,6 +112,10 @@ public class Casilla implements Comparable<Casilla> {
     @Override
     public String toString() {
         return "Recordatorio: "+ titulo +"\n"+ "Descripcion: " + descripcion + "    Grado de importancia: " + importancia +"\n Horario: "+ "Inicio: " + fechaInicio.getTime() + "-- Finalizacion: " + fechaFinalizacion.getTime()+"\n";
+    }
+
+    public String toStringMateria() {
+        return "Materia: "+ titulo +"\n"+ "Descripcion: " + descripcion + "    Grado de importancia: " + importancia +"\n";
     }
     
 

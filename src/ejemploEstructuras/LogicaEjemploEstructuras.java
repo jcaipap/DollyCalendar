@@ -18,6 +18,7 @@ import estructuas.StackArrayGeneric;
 import estructuas.LinkedListGeneric;
 import estructuas.ListArrayGeneric;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -38,7 +39,33 @@ public class LogicaEjemploEstructuras {
         //Pruebas de E.Time
         //si tomas un usuario y le pulsas .toStringAdmin(), saldrá impreso el 
         //estudiante y una seccion que dice Admin y tiene la contra
-        
+        Calendar [] fechas=new Calendar[]{calendarGenerator(2020, 7, 1, 15, 0),calendarGenerator(2020,7,1, 17, 0)};
+        Calendar calendar=calendarGenerator(2020, 7, 1, 15, 0);
+        Calendar calendar2=fechas[0];
+        System.out.println(calendar.getTime());
+        System.out.println(calendar2.getTime());
+        int diaAño=calendar.get(Calendar.DAY_OF_YEAR);
+        //Calendar[] calendar2=generadorCalendar(fechas[0]);        
+        for(int i=0;i<16;i++){
+            calendar.set(Calendar.DAY_OF_YEAR,diaAño+7*i);
+            //System.out.println(calendar.getTime());
+            System.out.println(calendar.getTime());
+        }
+        Grupo grupoED1= new Grupo(1, "Cristian Cordoba",fechas);
+        Grupo grupoED2= new Grupo(2, "David Herrera",fechas);
+        System.out.println(grupoED1);
+        Grupo[] gruposED= new Grupo[2];
+        gruposED[0]=grupoED1;
+        gruposED[1]=grupoED2;
+        Materia estructuras=new Materia("Estructuras", "Materia de datos ", 3, "2016699", 3,"Disciplinar", gruposED);
+        System.out.println(estructuras.toStringMateria());
+        LinkedListGeneric<Casilla> casillasAndres= new LinkedListGeneric<>();
+        Actividad activ1=new Actividad("Recordatorio Parcial","Parcial F", 4,calendarGenerator(2020, 5, 4, 14, 0),calendarGenerator(2020, 5, 4, 16, 0));
+        casillasAndres.insert(activ1);
+        Usuario andres=new Usuario("jandresh", "contra", 10100,"Andres", "Holguin","jandresh", casillasAndres,"Mecatronica");
+        seleccionarGrupo(andres, estructuras, 1);
+        casillasAndres.printRecursive();
+        /*
         Scanner scanner = new Scanner(System.in);
         
         Persona admin1 = new Persona("a1", "c1", 1, "nombre1", "apellido1", "correo1");
@@ -47,9 +74,87 @@ public class LogicaEjemploEstructuras {
         Usuario est1 = new Usuario("u1", "c1", 1, "nombre", "apellido", "apellido", "as");
         Usuario est2 = new Usuario("u2", "c2", 2, "nombre", "apellido", "apellido", "as");
         Usuario est3 = new Usuario("u3", "c3", 3, "nombre", "apellido", "apellido", "as");
+        Grupo[] gruposED= new Grupo[10];
+        Grupo grupoED1= new Grupo(1, "Cristian Cordoba");
+        Grupo grupoED2= new Grupo(2, "David Herrera");
+        Grupo grupoED3= new Grupo(3, "Victor Collazos");
+        Grupo grupoED4= new Grupo(4, "Luis Niño");
+        gruposED[0]=grupoED1;
+        gruposED[1]=grupoED2;
+        gruposED[2]=grupoED3;
+        gruposED[3]=grupoED4;        
+        Materia estructuras=new Materia("Estructuras", "Materia de datos ", 3, "2016699", 3,"Disciplinar", gruposED);
         
+        Grupo[] gruposECD= new Grupo[10];
+        Grupo grupoECD1= new Grupo(1, "Ricardo Pastran");
+        Grupo grupoECD2= new Grupo(2, "Nicolas Martinez");
+        Grupo grupoECD3= new Grupo(3, "Hernan Garzon");
+        Grupo grupoECD4= new Grupo(4, "German Fonseca");
+        gruposECD[0]=grupoECD1;
+        gruposECD[1]=grupoECD2;
+        gruposECD[2]=grupoECD3;
+        gruposECD[3]=grupoECD4;
+        Materia ecuaciones=new Materia("E. Diferenciales", "Curso de ecuaciones diferenciales ordinarias", 4, "1000007-B", 4,"Fundamentacion", gruposED);
+        
+        Grupo[] gruposEA= new Grupo[10];
+        Grupo grupoEA1= new Grupo(1, "Carlos Perilla");
+        Grupo grupoEA2= new Grupo(2, "Pablo Rodriguez");
+        Grupo grupoEA3= new Grupo(3, "Jesus Quintero");
+        Grupo grupoEA4= new Grupo(4, "Pablo Rodriguez");
+        gruposEA[0]=grupoEA1;
+        gruposEA[1]=grupoEA2;
+        gruposEA[2]=grupoEA3;
+        gruposEA[3]=grupoEA4;
+        Materia eAnaloga=new Materia("E. Analoga I", "Circuitos analogicos y semiconducción", 4, "2016495", 4,"Disciplinar", gruposEA);
+        
+        Grupo[] gruposfEyM= new Grupo[10];
+        Grupo grupofEyM1= new Grupo(1, "Dario Rodriguez");
+        Grupo grupofEyM2= new Grupo(2, "Walter Pulido");
+        Grupo grupofEyM3= new Grupo(3, "Santiago Cortes");
+        Grupo grupofEyM4= new Grupo(4, "Hector Castro");
+        gruposfEyM[0]=grupofEyM1;
+        gruposfEyM[1]=grupofEyM2;
+        gruposfEyM[2]=grupofEyM3;
+        gruposfEyM[3]=grupofEyM4;
+        Materia fEyM=new Materia("Fundamentos de Electricidad y Magnetismo", "Introduccion a las fuerzas electromagneticas",4, "1000017-B",4,"Fundamentación", gruposfEyM);
+        
+        Grupo[] gruposPQ= new Grupo[10];
+        Grupo grupoPQ1= new Grupo(1, "Dario Rodriguez");
+        Grupo grupoPQ2= new Grupo(2, "Walter Pulido");
+        Grupo grupoPQ3= new Grupo(3, "Santiago Cortes");
+        Grupo grupoPQ4= new Grupo(4, "Hector Castro");
+        gruposPQ[0]= grupoPQ1;
+        gruposPQ[1]= grupoPQ2;
+        gruposPQ[2]= grupoPQ3;
+        gruposPQ[3]= grupoPQ4;
+        Materia PQ=new Materia("Principios de química", "Introducción a la química básica",3, "1000024-B",3,"Fundamentación", gruposPQ);
+        
+        Grupo[] gruposDin= new Grupo[10];
+        Grupo grupoDin1= new Grupo(1, "Carlos Camacho");
+        Grupo grupoDin2= new Grupo(2, "Nelson Arzola");
+        Grupo grupoDin3= new Grupo(3, "Jaime Guerrero");
+        Grupo grupoDin4= new Grupo(4, "Jaime Guerrero");
+        gruposDin[0]=grupoDin1;
+        gruposDin[1]=grupoDin2;
+        gruposDin[2]=grupoDin3;
+        gruposDin[3]=grupoDin4;
+        Materia dina=new Materia("Principios de Dinamica", "Sistemas de partículas y cuerpo rígido", 3, "2017271", 3,"Disciplinar", gruposDin);
+        
+        Grupo[] gruposDIC= new Grupo[10];
+        Grupo grupoDIC1= new Grupo(1, "Antonio Mejia");
+        gruposDIC[0]=grupoDIC1;
+        Materia dic=new Materia("Desarrollo de la ingeniería en Colombia ", "Avances e ingeniería colombiana historicamente", 3, "2025976", 3,"Libre Elección", gruposDIC);
+        
+        QueueArrayGeneric<Casilla> baseMaterias= new QueueArrayGeneric<>();        
         ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
         ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(3);
+        baseMaterias.enqueue(estructuras);
+        baseMaterias.enqueue(ecuaciones);
+        baseMaterias.enqueue(fEyM);
+        baseMaterias.enqueue(eAnaloga);
+        baseMaterias.enqueue(dina);
+        baseMaterias.enqueue(PQ);
+        baseMaterias.enqueue(dic);
         admins.insert(admin1);
         admins.insert(admin2);
         admins.insert(admin3);
@@ -57,8 +162,11 @@ public class LogicaEjemploEstructuras {
         estudiantes.insert(est2);
         estudiantes.insert(est3);
         
-
         LinkedListGeneric<Casilla> casillas= new LinkedListGeneric<>();
+        LinkedListGeneric<Casilla> casillasAndres= new LinkedListGeneric<>();
+        Actividad activ1=new Actividad("Recordatorio Parcial","Parcial F", 4,calendarGenerator(2020, 5, 4, 14, 0),calendarGenerator(2020, 5, 4, 16, 0));
+        casillasAndres.insert(activ1);
+        Usuario andres=new Usuario("jandresh", "contra", 10100,"Andres", "Holguin","jandresh", casillasAndres,"Mecatronica");
         
         boolean continuar = true;
         String usuario;
@@ -129,7 +237,7 @@ public class LogicaEjemploEstructuras {
                 
             }
 
-        }
+        }*/
     }
     
     
@@ -205,7 +313,34 @@ public class LogicaEjemploEstructuras {
             System.out.println("");
         }
     }
-    
+    static Calendar[] generadorCalendar(Calendar calendar){
+        int diaAño=calendar.get(Calendar.DAY_OF_YEAR);
+        Calendar[] fechasSemestrales=new Calendar[16];
+        for(int i=0;i<16;i++){
+            calendar.set(Calendar.DAY_OF_YEAR,diaAño+7*i);
+            fechasSemestrales[i]=calendar;
+        }
+        return fechasSemestrales;
+    }
+    static void seleccionarGrupo(Usuario user, Materia materia,int numeroGrupo){
+        Grupo[] grupos=materia.getGrupos();
+        Grupo grupoSelect=grupos[numeroGrupo-1];
+        Calendar[] horario=grupoSelect.getHorario();
+        LinkedListGeneric<Casilla> mat=user.getCasillas();
+        for(Calendar calendar:horario){
+            Calendar[] semestre=generadorCalendar(calendar);
+            for(int i=0;i<semestre.length;i++){
+                Calendar fechaInicio=semestre[i];
+                Calendar fechaFinalizacion=fechaInicio;
+                fechaFinalizacion.set(Calendar.HOUR_OF_DAY, fechaInicio.get(Calendar.HOUR_OF_DAY)+2);
+                Materia agregar=new Materia(materia.getTitulo(),materia.getDescripcion(),
+                materia.getImportancia(),fechaInicio,fechaFinalizacion, materia.getCodigo(),materia.getCreditos(),
+                materia.getTipologia(), numeroGrupo, grupoSelect.getProfesor());
+                mat.insert(agregar);
+            }
+        }
+        user.setCasillas(mat);
+    }
     static boolean autenticar(String usuario, String contraseña, ListArrayGeneric usuarios) {
 
         Persona p = new Persona();
