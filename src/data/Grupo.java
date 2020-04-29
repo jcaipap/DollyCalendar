@@ -66,7 +66,7 @@ public class Grupo implements Comparable<Grupo> {
         String fecha=strDays[calendar.get(Calendar.DAY_OF_WEEK)-1];
         int horaInicio=calendar.get(Calendar.HOUR_OF_DAY);
         int horaFinal=calendar.get(Calendar.HOUR_OF_DAY)+2;
-        return "Dia: "+ fecha+"||Hora inicio: "+String.valueOf(horaInicio)+": ||Hora finalizacion : "+String.valueOf(horaFinal)+":00 \n";
+        return "Dia: "+ fecha+"||Hora inicio: "+String.valueOf(horaInicio)+":00 ||Hora finalizacion : "+String.valueOf(horaFinal)+":00 \n";
     }
 
     @Override

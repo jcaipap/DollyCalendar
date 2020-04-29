@@ -21,6 +21,7 @@ public class Materia extends Casilla{
     private int numeroGrupo;
     private String profesor;
     private Grupo[] grupos;
+    private static int num =1;
 
     public Materia() {
     }
@@ -152,7 +153,7 @@ public class Materia extends Casilla{
 
     @Override
     public String toString() {
-        return super.toString()+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"Docente: "+profesor+" || Numero de grupo: "+numeroGrupo+"\n"; 
+        return String.valueOf(num++)+". "+super.getTitulo()+" || "+super.getDescripcion()+"\n"+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"Docente: "+profesor+" || Numero de grupo: "+numeroGrupo+"\n"; 
     }
 
     public String gruposImpresion(Grupo[] grupos){
@@ -180,6 +181,14 @@ public class Materia extends Casilla{
     @Override
     public int compareToName(Casilla casilla) {
         return super.compareToName(casilla); 
+    }
+
+    public static int getNum() {
+        return num;
+    }
+
+    public static void setNum(int num) {
+        Materia.num = num;
     }
             
     

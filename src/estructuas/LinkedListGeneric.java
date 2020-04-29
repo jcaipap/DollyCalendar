@@ -139,4 +139,14 @@ public class LinkedListGeneric<T extends Comparable<T>> {
         return head;
 
     }
+    
+    public NodeGeneric<T> getHead() {
+        return head;
+    }
+
+    public void setHead(NodeGeneric<T> head) {
+        this.head = head;
+    }
+    
+    
 }

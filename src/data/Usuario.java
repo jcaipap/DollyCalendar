@@ -52,6 +52,14 @@ public class Usuario extends Persona {
     public String toString() {
         return super.toString()+"Rol: Estudiante"+"de Pregrado: "+pregrado+"\n"+"\n"; 
     }
+
+    @Override
+    public String toStringAdmin() {
+        return super.toStringAdmin()+"Pregrado: "+pregrado+"\n"+"\n"; //To change body of generated methods, choose Tools | Templates.
+    }
     
-    
+    @Override
+    public boolean equalsUser(Object persona) {
+        return super.equalsUser(persona);
+    }
 }

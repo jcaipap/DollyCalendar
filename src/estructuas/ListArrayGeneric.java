@@ -48,8 +48,7 @@ public class ListArrayGeneric<T extends Comparable<T>> {
                 count++;
                 inserted = true;
             }
-            else
-                System.out.println("List is Full");
+            else;
         return inserted;
     }
     
@@ -112,6 +111,11 @@ public class ListArrayGeneric<T extends Comparable<T>> {
                 result = 0;
     return result;
     }
+    
+    public void pushAt(T item,int pos) {
+		lArray[pos]=item;
+	}
+    
 } 
 
 

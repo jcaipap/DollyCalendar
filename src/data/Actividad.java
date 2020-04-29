@@ -14,11 +14,21 @@ import java.util.Calendar;
  */
 public class Actividad extends Casilla {
 
+    public Actividad() {
+    }
+
+    
+    
+        
     public Actividad(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
         super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
     }
 
 
+    
+    
+    
+    
 
     @Override
     public String toString() {
