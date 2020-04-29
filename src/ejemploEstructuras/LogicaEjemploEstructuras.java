@@ -531,7 +531,7 @@ public class LogicaEjemploEstructuras {
         Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         while (continuar) {
-            System.out.println("Seleccione que opcion desea realizar:\n1. Ver todas las actividades programadas\n2. Añadir actividad\n3. Ver horario académico\n4. Editar horario academico\n5. Salir \n\n");
+            System.out.println("\n\nSeleccione que opcion desea realizar:\n1. Ver todas las actividades programadas\n2. Añadir actividad\n3. Ver horario académico\n4. Editar horario academico\n5. Salir \n\n");
 
             switch (scanner.nextInt()) {
 
@@ -556,8 +556,8 @@ public class LogicaEjemploEstructuras {
                     break;
 
                 case 3:
-                    
-                    mostrarMateriasEst(estudiante.getCasillas()).printRecursive();
+                    System.out.println("\n");
+                    mostrarMateriasEst(estudiante.getCasillas());
                     Materia.setNum(1);
                     System.out.println("\n\n\n\n");
                     continuar = seguirEstudiante();
@@ -580,11 +580,12 @@ public class LogicaEjemploEstructuras {
                                 System.out.println(numeromat + ": " + m1.toStringNoGroups() + "\n");
                                 numeromat++;
                             }
-                            System.out.println("\n\n\nSeleccione una materia para elegir sus grupos.\n\n");
+                            System.out.println("\n\nSeleccione una materia para elegir sus grupos.");
                             int numeroGrupo = scanner3.nextInt();
                             m1 = (Materia) materias.getItemInPosition(numeroGrupo - 1);
+                            System.out.println("Grupos de la materia seleccionada: \n");
                             agregarGrupoEst(m1);
-                            System.out.println("\n\n\nSeleccione el numero del grupo para añadir.\n\n");
+                            System.out.println("\n\nSeleccione el numero del grupo para añadir.");
                             int numeroGrupoF = scanner3.nextInt();
                             seleccionarGrupo(estudiante, m1, numeroGrupoF);
                             
@@ -944,7 +945,7 @@ public class LogicaEjemploEstructuras {
         }
     }
 
-    static LinkedListGeneric<Casilla> mostrarMateriasEst(LinkedListGeneric<Casilla> casillas) {
+    static void mostrarMateriasEst(LinkedListGeneric<Casilla> casillas) {
 
         NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
         nodoN = casillas.getHead();
@@ -959,13 +960,22 @@ public class LogicaEjemploEstructuras {
 
             if (casillaIteradora instanceof Materia && casillaIteradora.getFechaInicio().compareTo(fechamin) > 0 && casillaIteradora.getFechaInicio().compareTo(fechamax) < 0) {
                 mostrarMat.insert(casillaIteradora);
-                
             }
 
             nodoIterador = nodoN;
             nodoN = nodoN.getNext();
         }
+        nodoN = mostrarMat.getHead();
+        nodoIterador = null;
+        Materia mat=new Materia();
+        while(nodoN!=null){
+            casillaIteradora=nodoN.getData();
+            mat = (Materia) casillaIteradora;
+            System.out.println(mat.toStringMateriaHora());
+            nodoIterador=nodoN;
+            nodoN=nodoN.getNext();
+        }
         
-        return mostrarMat;
+        //return mostrarMat;
     }
 }

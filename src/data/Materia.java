@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -153,16 +153,10 @@ public class Materia extends Casilla{
 
     @Override
     public String toString() {
-        return String.valueOf(num++)+". "+super.getTitulo()+" || "+super.getDescripcion()+"\n"+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"Docente: "+profesor+" || Numero de grupo: "+numeroGrupo+"\n"; 
+        return super.toString()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"; 
+         
     }
 
-    public String gruposImpresion(Grupo[] grupos){
-        String f="";
-        for(Grupo grupo: grupos){
-            f=f.concat(grupo.toString());
-        }
-        return f;
-    }
     @Override
     public String toStringMateria() {
         return super.toStringMateria()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+" Grupos: "+gruposImpresion(grupos); 
@@ -171,6 +165,16 @@ public class Materia extends Casilla{
     
     public String toStringNoGroups() {
         return super.toStringMateria()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"; 
+    }
+    public String toStringMateriaHora() {
+        return String.valueOf(num++)+". "+super.getTitulo()+" || "+super.getDescripcion()+"\n"+"Parametros Materia: "+"\n"+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"+"Docente: "+profesor+" || Numero de grupo: "+numeroGrupo+"\n";
+    }
+    public String gruposImpresion(Grupo[] grupos){
+        String f="";
+        for(Grupo grupo: grupos){
+            f=f.concat(grupo.toString());
+        }
+        return f;
     }
    
     @Override

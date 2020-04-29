@@ -72,11 +72,9 @@ public class Grupo implements Comparable<Grupo> {
     @Override
     public String toString() {
         Calendar [] fechas=horario;
-        String f=" ";
-        for(Calendar calendar: fechas){
-            f=impresionFecha(calendar);
-        }    
-        return "\n" + "Numero: " + numeroGrupo + " || Docente: " + profesor + "\n Horarios: " + f +"\n";
+        String f=impresionFecha(fechas[0]);
+        String e=impresionFecha(fechas[1]);    
+        return "\n" + "Numero: " + numeroGrupo + " || Docente: " + profesor + "\n Horarios: " +f+e+"\n";
     }
     
     @Override
