@@ -14,6 +14,7 @@ import java.util.Calendar;
  */
 public class Actividad extends Casilla {
 
+    private static int num =1;
     public Actividad() {
     }
 
@@ -22,6 +23,14 @@ public class Actividad extends Casilla {
         
     public Actividad(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion) {
         super(titulo, descripcion, importancia,fechaInicio,fechaFinalizacion);
+    }
+
+    public static int getNum() {
+        return num;
+    }
+
+    public static void setNum(int num) {
+        Actividad.num = num;
     }
 
 

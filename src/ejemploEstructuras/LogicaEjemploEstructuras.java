@@ -12,7 +12,7 @@ import data.Casilla;
 import data.Grupo;
 import data.Materia;
 import data.Persona;
-import data.Usuario;
+import data.Estudiante;
 import java.util.Scanner;
 import estructuas.QueueArrayGeneric;
 import estructuas.StackArrayGeneric;
@@ -60,7 +60,7 @@ public class LogicaEjemploEstructuras {
         gruposED[3] = grupoED4;
         gruposED[4] = grupoED5;
 
-        Materia estructuras = new Materia("Estructuras", "Materia de datos ", 3, "2016699", 3, "Disciplinar", gruposED);
+        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos ", 3, "2016699", 3, "Disciplinar", gruposED);
 
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
@@ -71,7 +71,7 @@ public class LogicaEjemploEstructuras {
         gruposECD[1] = grupoECD2;
         gruposECD[2] = grupoECD3;
         gruposECD[3] = grupoECD4;
-        Materia ecuaciones = new Materia("E. Diferenciales", "Curso de ecuaciones diferenciales ordinarias", 4, "1000007-B", 4, "Fundamentacion", gruposECD);
+        Materia ecuaciones = new Materia("Ecuaciones diferenciales", "Curso de ecuaciones diferenciales ordinarias", 4, "1000007-B", 4, "Fundamentacion", gruposECD);
 
         Grupo[] gruposEA = new Grupo[4];
         Grupo grupoEA1 = new Grupo(1, "Carlos Perilla", fechaLC9);
@@ -82,7 +82,7 @@ public class LogicaEjemploEstructuras {
         gruposEA[1] = grupoEA2;
         gruposEA[2] = grupoEA3;
         gruposEA[3] = grupoEA4;
-        Materia eAnaloga = new Materia("E. Analoga I", "Circuitos analogicos y semiconducción", 4, "2016495", 4, "Disciplinar", gruposEA);
+        Materia eAnaloga = new Materia("Electrónica análoga I", "Teoría de circuitos analogicos y de semiconducción.", 4, "2016495", 4, "Disciplinar", gruposEA);
 
         Grupo[] gruposfEyM = new Grupo[4];
         Grupo grupofEyM1 = new Grupo(1, "Dario Rodriguez", fechaMJ7);
@@ -96,7 +96,7 @@ public class LogicaEjemploEstructuras {
         Materia fEyM = new Materia("Fundamentos de Electricidad y Magnetismo", "Introduccion a las fuerzas electromagneticas", 4, "1000017-B", 4, "Fundamentación", gruposfEyM);
 
         Grupo[] gruposPQ = new Grupo[2];
-        Grupo grupoPQ1 = new Grupo(1, "Josue Clavijo",fechaMJ14);
+        Grupo grupoPQ1 = new Grupo(1, "Josue Clavijo", fechaMJ14);
         Grupo grupoPQ4 = new Grupo(2, "Edgar Delgado", fechaLC14);
         gruposPQ[0] = grupoPQ1;
         gruposPQ[1] = grupoPQ4;
@@ -111,18 +111,18 @@ public class LogicaEjemploEstructuras {
         gruposDin[1] = grupoDin2;
         gruposDin[2] = grupoDin3;
         gruposDin[3] = grupoDin4;
-        Materia dina = new Materia("Principios de Dinamica", "Sistemas de partículas y cuerpo rígido", 3, "2017271", 3, "Disciplinar", gruposDin);
+        Materia dina = new Materia("Principios de Dinamica", "Sistemas dinámicos de partículas y cuerpo rígido", 3, "2017271", 3, "Disciplinar", gruposDin);
 
         Grupo[] gruposDIC = new Grupo[1];
         Grupo grupoDIC1 = new Grupo(1, "Antonio Mejia", fechaMJ11);
         gruposDIC[0] = grupoDIC1;
-        Materia dic = new Materia("Desarrollo de la ingeniería en Colombia ", "Avances e ingeniería colombiana historicamente", 3, "2025976", 3, "Libre Elección", gruposDIC);
-        
+        Materia dic = new Materia("Desarrollo de la ingeniería en Colombia ", "Breve introducción a la historia del desarrollo tecnológico en Colombia.", 3, "2025976", 3, "Libre Elección", gruposDIC);
+
         LinkedListGeneric<Casilla> casillas = new LinkedListGeneric<>();
         StackArraySpot baseMaterias = new StackArraySpot(7);
         ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
         ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(10);
-        
+
         baseMaterias.push(estructuras);
         baseMaterias.push(fEyM);
         baseMaterias.push(ecuaciones);
@@ -130,20 +130,18 @@ public class LogicaEjemploEstructuras {
         baseMaterias.push(dina);
         baseMaterias.push(PQ);
         baseMaterias.push(dic);
-        
+
         Persona admin1 = new Persona("a1", "c1", 1, "nombre1", "apellido1", "correo1");
         Persona admin2 = new Persona("a2", "c2", 2, "nombre1", "apellido1", "correo1");
         Persona admin3 = new Persona("a3", "c3", 3, "nombre1", "apellido1", "correo1");
-        Usuario est1 = new Usuario("usuario1", "clave1", 1, "nombre1", "apellido1", "correo1",casillas, "Ing1");
-        Usuario est2 = new Usuario("uusuario2", "clave2", 2, "nombre2", "apellido2", "correo2",casillas, "Ing2");
-        Usuario est3 = new Usuario("uusuario3", "clave3", 3, "nombre3", "apellido3", "correo3",casillas, "Ing3");
-        
-        
-        LinkedListGeneric<Casilla> casillasAndres = new LinkedListGeneric<>();
-        Actividad activ1 = new Actividad("Recordatorio Parcial", "Parcial F", 4, calendarGenerator(2020, 5, 4, 14, 0), calendarGenerator(2020, 5, 4, 16, 0));
-        casillasAndres.insert(activ1);
-        Usuario andres = new Usuario("aholguinr", "clave", 123456, "Andres", "Holguin", "jandresh", casillasAndres, "Mecatrónica");
+        Estudiante est1 = new Estudiante("usuario1", "clave1", 1, "nombre1", "apellido1", "correo1", casillas, "Ing1");
+        Estudiante est2 = new Estudiante("uusuario2", "clave2", 2, "nombre2", "apellido2", "correo2", casillas, "Ing2");
+        Estudiante est3 = new Estudiante("jcaipap", "password", 1010042710, "Julian", "Caipa", "jcaipap", casillas, "Ingeniería Mecatrónica");
 
+        LinkedListGeneric<Casilla> casillasAndres = new LinkedListGeneric<>();
+        Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, calendarGenerator(2020, 5, 4, 14, 0), calendarGenerator(2020, 5, 4, 16, 0));
+        casillasAndres.insert(activ1);
+        Estudiante andres = new Estudiante("aholguinr", "clave", 123456, "Andres", "Holguin", "jandresh", casillasAndres, "Mecatrónica");
 
         admins.insert(admin1);
         admins.insert(admin2);
@@ -153,14 +151,11 @@ public class LogicaEjemploEstructuras {
         estudiantes.insert(est3);
         estudiantes.insert(andres);
 
-        
-
         boolean continuar = true;
         String usuario;
         String contraseña;
 
         //inicio del programa, continue es para salirse o continuar, se cambia con la funcion seguir();
-        
         Scanner scanner = new Scanner(System.in);
         Scanner scannerStr = new Scanner(System.in);
         scannerStr.useDelimiter("\n");
@@ -177,7 +172,7 @@ public class LogicaEjemploEstructuras {
                     usuario = scanner.next();
                     System.out.println("\nIngrese su contraseña:");
                     contraseña = scanner.next();
-                    Usuario estudiante = new Usuario();
+                    Estudiante estudiante = new Estudiante();
                     if (!autenticar(usuario, contraseña, estudiantes)) {
                         limpiarConsola();
                         System.out.println("Usuario o contraseña incorrectos.\n");
@@ -217,24 +212,24 @@ public class LogicaEjemploEstructuras {
 
                     estudiantes = crearUsuario(estudiantes);
                     continuar = seguir();
-                    
+
                     break;
-                    
+
                 case 4:
-                    
+
                     continuar = false;
                     limpiarConsola();
                     System.out.println("Usted ha salido con éxito.");
                     break;
 
                 default:
-                    
+
                     continuar = false;
                     limpiarConsola();
                     System.out.println("Opción invalida");
                     continuar = seguir();
                     break;
-                    
+
             }
         }
     }
@@ -248,19 +243,19 @@ public class LogicaEjemploEstructuras {
         int s = scanner.nextInt();
         switch (s) {
             case (1):
-                
+
                 System.out.println("ingrese el nuevo nombre");
                 modified.setTitulo(scanner.next());
                 break;
-                
+
             case (2):
-                
+
                 System.out.println("ingrese la nueva descripcion");
                 modified.setDescripcion(scanner.next());
                 break;
-                
+
             case (3):
-                
+
                 System.out.println("ingrese el nuevo grado de importancia");
                 int value = scanner.nextInt();
                 while (value > 5) {
@@ -268,13 +263,13 @@ public class LogicaEjemploEstructuras {
                     value = scanner.nextInt();
                 }
                 modified.setImportancia(value);
-                
+
             default:
-                
+
                 break;
-                
+
         }
-        
+
         casillas.insert(modified);
 
     }
@@ -411,7 +406,7 @@ public class LogicaEjemploEstructuras {
         return fechasSemestrales;
     }
 
-    static void seleccionarGrupo(Usuario user, Materia materia, int numeroGrupo) {
+    static void seleccionarGrupo(Estudiante user, Materia materia, int numeroGrupo) {
         Grupo[] grupos = materia.getGrupos();
         Grupo grupoSelect = grupos[numeroGrupo - 1];
         Calendar[] horario = grupoSelect.getHorario();
@@ -461,7 +456,7 @@ public class LogicaEjemploEstructuras {
     static boolean seguirEstudiante() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n\n\nSeleccione la opción que desee realizar:\n1. Volver a las opciones\n2. Salir");
+        System.out.println("\n\n\nSeleccione la opción que desee realizar:\n1. Volver \n2. Salir");
         if (scanner.nextInt() == 1) {
             return true;
         }
@@ -470,108 +465,201 @@ public class LogicaEjemploEstructuras {
 
     static void opcionesAdmin(ListArrayGeneric estudiantes, StackArraySpot materias) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Seleccione qué opciones desea realizar:\n1. Ver estudiantes\n2. Ver cursos\n3. Salir del modo administrador.");
 
-        switch (scanner.nextInt()) {
-
-            case 1:
-                limpiarConsola();
-                System.out.println("Usted ha seleccionado ver estudiantes, a continuación se muestra la lista de los estudiantes existentes:\n\n");
-                int numeroEst = 1;
-                Usuario us1 = new Usuario();
-                for (int i = 0; i < estudiantes.size(); i++) {
-                    us1 = (Usuario) estudiantes.getItemInPosition(i);
-                    System.out.println(numeroEst + ": " + us1.toStringAdmin() + "\n");
-                    numeroEst++;
-                }
-                
-                System.out.println("\n\n\n\nSeleccione qué desea realizar:\n1. Editar estudiantes\n2. Volver ");
-
-                if (scanner.nextInt() == 1) {
-                    estudiantes = cambioEstudiantes(estudiantes);
-                }
-
-                break;
-
-            case 2:
-                int numeromat = 1;
-                limpiarConsola();
-                System.out.println("Usted ha seleccionado ver cursos, a continuación se muestra la lista de los cursos existentes:\n");
-                Materia m1 = new Materia();
-                for (int i = 0; i < materias.getLenght(); i++) {
-                    m1 = (Materia) materias.getItemInPosition(i);
-                    System.out.println(numeromat + ": " + m1.toStringNoGroups() + "\n");
-                    numeromat++;
-                }
-                System.out.println("\n\n\nSeleccione cuál de las siguientes opciones desea realizar ahora:\n1. Editar materias\n2. Ver grupos\n3. Salir");
-
-                switch (scanner.nextInt()) {
-
-                    case 1:
-
-                        materias = cambiarMateria(materias);
-
-                        break;
-
-                    case 2:
-
-                        materias = cambioGrupo(materias);
-                        break;
-
-                    case 3:
-                        limpiarConsola();
-                        break;
-
-                    default:
-                        limpiarConsola();
-                        System.out.println("Opción invalida");
-
-                        break;
-
-                }
-
-                break;
-
-            case 3:
-
-                break;
-
-            default:
-
-                break;
-
-        }
-
-    }
-
-    static void opcionesEst(Usuario estudiante, StackArraySpot materias) {
-
-        Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         while (continuar) {
-            System.out.println("\n\nSeleccione qué opcion desea realizar:\n1. Ver todas las actividades programadas\n2. Añadir actividad\n3. Ver horario académico\n4. Editar horario academico\n5. Salir del modo estudiante \n\n");
+
+            System.out.println("Seleccione cuál de las siguientes opciones desea realizar:\n1. Ver estudiantes\n2. Ver cursos\n3. Salir del modo administrador.");
 
             switch (scanner.nextInt()) {
 
                 case 1:
+                    limpiarConsola();
+                    System.out.println("Usted ha seleccionado ver estudiantes, a continuación se muestra la lista de los estudiantes existentes:\n\n");
+                    int numeroEst = 1;
+                    Estudiante us1 = new Estudiante();
+                    for (int i = 0; i < estudiantes.size(); i++) {
+                        us1 = (Estudiante) estudiantes.getItemInPosition(i);
+                        System.out.println(numeroEst + ": " + us1.toStringAdmin() + "\n");
+                        numeroEst++;
+                    }
 
+                    System.out.println("\n\n\n\nSeleccione cuál de las siguientes opciones desea realizar:\n1. Editar estudiantes\n2. Volver \n3. Salir del modo administrador");
+                    int select=scanner.nextInt();
+                    if ( select== 1) {
+                        estudiantes = cambioEstudiantes(estudiantes);
+                    }else if(select==2){
+                        limpiarConsola();
+                        continue;
+                        
+                    }else if(select==3){
+                        limpiarConsola();
+                        continuar=false;
+                        continue;
+                        
+                    }else {
+                        limpiarConsola();
+                        System.out.println("Opción invalida.");
+                        continuar=false;
+                        
+                    }
+                    continuar=seguirEstudiante();
+                    limpiarConsola();
+                    break;
+
+                case 2:
+                    int numeromat = 1;
+                    limpiarConsola();
+                    System.out.println("Usted ha seleccionado ver cursos, a continuación se muestra la lista de los cursos existentes:\n");
+                    Materia m1 = new Materia();
+                    for (int i = 0; i < materias.getLenght(); i++) {
+                        m1 = (Materia) materias.getItemInPosition(i);
+                        System.out.println(numeromat + ": " + m1.toStringNoGroups() + "\n");
+                        numeromat++;
+                    }
+                    System.out.println("\n\n\nSeleccione cuál de las siguientes opciones desea realizar ahora:\n1. Editar materias\n2. Ver grupos\n3. Volver\n4. Salir del modo administrador");
+
+                    switch (scanner.nextInt()) {
+
+                        case 1:
+
+                            materias = cambiarMateria(materias);
+
+                            break;
+
+                        case 2:
+
+                            materias = cambioGrupo(materias);
+                            break;
+
+                        case 3:
+                            limpiarConsola();
+                            continue;
+                        
+                        case 4:
+                            limpiarConsola();
+                            continuar=false;
+                            break;
+
+                        default:
+                            limpiarConsola();
+                            System.out.println("Opción invalida");
+
+                            break;
+
+                    }
+                    
+                    System.out.println("\n\n\n\n");
+                    continuar = seguirEstudiante();
+                    limpiarConsola();
+                    break;
+
+                case 3:
+                    limpiarConsola();
+                    continuar=false;
+                        
+                    break;
+
+                default:
+                    System.out.println("Opción invalida\n\n");
+                    continuar = seguirEstudiante();
+                    limpiarConsola();
+                    break;
+
+            }
+        }
+    }
+
+    static void opcionesEst(Estudiante estudiante, StackArraySpot materias) {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean continuar = true;
+        while (continuar) {
+            System.out.println("\n\nSeleccione cuál de las siguientes opciones desea realizar:\n\n1. Ver todas las actividades programadas\n2. Configurar actividades\n3. Ver horario académico\n4. Editar horario academico\n5. Salir del modo estudiante \n\n");
+
+            switch (scanner.nextInt()) {
+
+                case 1:
+                    limpiarConsola();
                     System.out.println("\n\nA continuación se muestran todas las actividades programadas\n\n");
                     estudiante.getCasillas().printRecursive();
                     System.out.println("\n\n\n\n");
                     continuar = seguirEstudiante();
+                    limpiarConsola();
                     break;
 
                 case 2:
-                    boolean continuar2 = true;
-                    while (continuar2) {
-                        estudiante.setCasillas(añadirActividad(estudiante.getCasillas()));
+                    limpiarConsola();
+                    System.out.println("Usted seleccionó editar actividades, seleccione la opción a realizar:\n\n1. Crear actividad\n2. Eliminar actividad\n3. Editar actividad\n4. Volver\n5. Salir del modo estudiante");
 
-                        System.out.println("\nSeleccione la opcion a realizar:\n1. Crear otra actividad\n2. Volver");
-                        if (!(scanner.nextInt() == 1)) {
-                            continuar2 = false;
-                        }
+                    switch (scanner.nextInt()) {
+
+                        case 1:
+
+                            boolean continuar2 = true;
+                            while (continuar2) {
+                                limpiarConsola();
+
+                                estudiante.setCasillas(añadirActividad(estudiante.getCasillas()));
+
+                                System.out.println("\nSeleccione la opcion a realizar:\n1. Crear otra actividad\n2. Volver");
+                                if (!(scanner.nextInt() == 1)) {
+                                    continuar2 = false;
+                                }
+                            }
+
+                            break;
+
+                        case 2:
+                            
+                            boolean continuar4 = true;
+                            while (continuar4) {
+                                limpiarConsola();
+                                String titulo = extraerActividad(estudiante.getCasillas());
+                                estudiante.setCasillas(eliminarActividad(estudiante.getCasillas(), titulo));
+                                System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Eliminar otra actividad\n2. Volver\n3. Salir del modo estudiante");
+                                
+                                int cond = scanner.nextInt();
+                                
+                                if ( cond== 1) {
+                                    continuar4 = true;
+                                }else if (cond==2){
+                                    continuar4 = false;
+                                    
+                                }else if(cond==3){
+                                    continuar = false;
+                                    continuar4 = false;
+                                }
+                            }
+                            
+                            limpiarConsola();
+                            continue;
+
+                        case 3:
+                            limpiarConsola();
+                            break;
+                            
+                            
+                        case 4:
+                            limpiarConsola();
+                            continue;
+
+                            
+                        case 5:
+                            limpiarConsola();
+                            continuar=false;
+                            continue;
+                            
+                        default:
+                            limpiarConsola();
+                            System.out.println("Opción inválida, cancelando operación.");
+
+                            break;
+
                     }
 
+                    continuar = seguirEstudiante();
+                    limpiarConsola();
                     break;
 
                 case 3:
@@ -588,14 +676,14 @@ public class LogicaEjemploEstructuras {
                     Scanner scanner3 = new Scanner(System.in);
                     int numeromat = 1;
                     limpiarConsola();
-                    
+
                     System.out.println("Usted ha seleccionado editar su horario académico\nSeleccione cual de las siguientes opciones desea realizar:\n1. Agregar cursos\n2. Eliminar cursos\n3. Volver");
                     Materia m1 = new Materia();
 
                     switch (scanner3.nextInt()) {
 
                         case 1:
-                
+
                             boolean continuar3 = true;
                             while (continuar3) {
                                 limpiarConsola();
@@ -607,39 +695,75 @@ public class LogicaEjemploEstructuras {
                                 }
                                 System.out.println("\n\nSeleccione una materia para elegir sus grupos.");
                                 int numeroGrupo = scanner3.nextInt();
+
+                                if (numeroGrupo <= 0 || numeroGrupo > materias.getLenght()) {
+                                    limpiarConsola();
+                                    System.out.println("Opción invalida, cancelando la operación.\n\n");
+                                    break;
+                                }
+
                                 m1 = (Materia) materias.getItemInPosition(numeroGrupo - 1);
                                 System.out.println("\nGrupos de la materia seleccionada: \n");
                                 agregarGrupoEst(m1);
                                 System.out.println("\n\nSeleccione el número del grupo para añadir.");
                                 int numeroGrupoF = scanner3.nextInt();
+                                if (numeroGrupoF <= 0 || numeroGrupoF > m1.getGrupos().length) {
+                                    limpiarConsola();
+                                    System.out.println("Opción invalida, cancelando la operación.\n\n");
+                                    break;
+                                }
+
                                 seleccionarGrupo(estudiante, m1, numeroGrupoF);
 
-                                System.out.println("\nSeleccione la opcion a realizar:\n1. Agregar otro curso. \n2. Volver.");
+                                System.out.println("\nSeleccione la opcion a realizar:\n\n1. Agregar otro curso. \n2. Volver.");
                                 if (!(scanner.nextInt() == 1)) {
+                                    limpiarConsola();
                                     continuar3 = false;
                                 }
-                                numeromat=1;
+                                numeromat = 1;
                             }
-                            
-                            break;
+
+                            continue;
 
                         case 2:
-                            break;
+                            boolean continuar4 = true;
+                            while (continuar4) {
+                                limpiarConsola();
+                                String titulo = extraerMateria(estudiante.getCasillas());
+                                estudiante.setCasillas(eliminarMateria(estudiante.getCasillas(), titulo));
+                                System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Eliminar otra materia\n2. Volver");
+                                if (scanner.nextInt() != 1) {
+                                    continuar4 = false;
+                                }
 
+                            }
+                            limpiarConsola();
+                            continue;
+                            
+                        case 3:
+                            limpiarConsola();
+                            continue;
+                        
                         default:
+                            limpiarConsola();
+                            System.out.println("\n\nOpción inválida, cancelando operación.\n\n");
                             break;
 
-                        }
-                    
+                    }
+
                     System.out.println("\n\n\n\n");
                     continuar = seguirEstudiante();
+                    limpiarConsola();
                     break;
 
                 case 5:
+                    limpiarConsola();
                     continuar = false;
                     break;
 
                 default:
+                    limpiarConsola();
+                    System.out.println("\n\nOpción inválida.\n\n");
                     continuar = false;
                     break;
             }
@@ -756,6 +880,8 @@ public class LogicaEjemploEstructuras {
                                 break;
                         }
                         matCambio.setGrupos(grupos);
+                        limpiarConsola();
+                        System.out.println("\n\nA continuación se muestran los nuevos grupos con los cambios realizados:\n\n");
                         for (Grupo grupito : grupos) {
                             System.out.println(grupito);
                         }
@@ -791,7 +917,7 @@ public class LogicaEjemploEstructuras {
         int numeroEst = scanner.nextInt();
         limpiarConsola();
         if (numeroEst <= estudiantes.size() && numeroEst > 0) {
-            Usuario estCambio = (Usuario) estudiantes.getItemInPosition(numeroEst - 1);
+            Estudiante estCambio = (Estudiante) estudiantes.getItemInPosition(numeroEst - 1);
             System.out.println("Mostrando la información del estudiante: " + numeroEst + ".\n" + estCambio.toStringAdmin() + "\n\n\n");
             System.out.println("Seleccione el número del parametro a editar:\n1. Codigo\n2. Nombre\n3. Apellido \n4. Usuario \n5. Contraseña\n\n\n");
 
@@ -845,9 +971,9 @@ public class LogicaEjemploEstructuras {
         } else {
             System.out.println("\n\nEl número seleccionado no se encuentra en la lista.");
         }
-        Usuario usImp = new Usuario();
+        Estudiante usImp = new Estudiante();
         for (int i = 0; i < estudiantes.size(); i++) {
-            usImp = (Usuario) estudiantes.getItemInPosition(i);
+            usImp = (Estudiante) estudiantes.getItemInPosition(i);
             System.out.println(usImp.toStringAdmin());
         }
 
@@ -858,14 +984,14 @@ public class LogicaEjemploEstructuras {
         Scanner scanner = new Scanner(System.in);
         Scanner scannerStr = new Scanner(System.in);
         scannerStr.useDelimiter("\n");
-        Usuario nuevoEst = new Usuario();
+        Estudiante nuevoEst = new Estudiante();
 
         System.out.println("\n\nUsted ha seleccionado crear un nuevo estudiante, ingrese los siguientes parámetros:\n");
         System.out.println("\nIngrese el nuevo código:\n");
         nuevoEst.setCodigo(scanner.nextInt());
         System.out.println("\nIngrese el nuevo nombre:\n");
         nuevoEst.setNombre(scannerStr.next());
-        System.out.println("Ingrese el nuevo apellido:\n");
+        System.out.println("\nIngrese el nuevo apellido:\n");
         nuevoEst.setApellido(scannerStr.next());
         System.out.println("\nIngrese el nuevo usuario:\n");
         nuevoEst.setUsuario(scanner.next());
@@ -891,13 +1017,19 @@ public class LogicaEjemploEstructuras {
     }
 
     static LinkedListGeneric<Casilla> añadirActividad(LinkedListGeneric<Casilla> casillas) {
+
+        boolean continuar = false;
+        Calendar fechaInicioAct = new GregorianCalendar();
+        Calendar fechaFinAct = new GregorianCalendar();
+
+        Calendar dateTime = Calendar.getInstance();
         Scanner scanner = new Scanner(System.in);
         Scanner scannerStr = new Scanner(System.in);
         scannerStr.useDelimiter("\n");
 
         Actividad nuevaActividad = new Actividad();
 
-        System.out.println("Usted ha seleccionado añadir una nueva actividad, por favor ingrese los siguientes parámetros:\n\n");
+        System.out.println("Usted ha seleccionado crear una nueva actividad, por favor ingrese los siguientes parámetros:\n\n");
         System.out.println("Ingrese el título\n");
         nuevaActividad.setTitulo(scannerStr.next());
 
@@ -908,56 +1040,72 @@ public class LogicaEjemploEstructuras {
 
         nuevaActividad.setImportancia(scanner.nextInt());
 
-        System.out.println("\nIngrese la fecha de inicio\nNumero del mes");
-        int mes = scanner.nextInt() - 1;
+        System.out.print("\nRecuerde que solo se pueden crear actividades a partir de hoy:  \n");
+        System.out.printf("%tF\n", dateTime);
 
-        System.out.println("\nDia");
-        int dia = scanner.nextInt();
+        while (!continuar) {
+            System.out.println("\nIngrese la fecha de inicio\nNumero del mes");
+            int mes = scanner.nextInt() - 1;
 
-        System.out.println("\nHora de inicio en formato HH:MM");
-        String horaString = scanner.next();
-        int hora;
-        int minuto;
-        char[] horaCharArray = horaString.toCharArray();
-        if (horaCharArray.length == 4) {
-            hora = Integer.parseInt((String.valueOf(horaString.charAt(0))));
-            minuto = Integer.parseInt(horaString.substring(2));
-        } else {
-            String time = String.valueOf(horaString.charAt(0)).concat(String.valueOf(horaString.charAt(1)));
-            hora = Integer.parseInt(time);
-            minuto = Integer.parseInt(horaString.substring(3));
+            System.out.println("\nDia");
+            int dia = scanner.nextInt();
+
+            System.out.println("\nHora de inicio en formato HH:MM");
+            String horaString = scanner.next();
+            int hora;
+            int minuto;
+            char[] horaCharArray = horaString.toCharArray();
+            if (horaCharArray.length == 4) {
+                hora = Integer.parseInt((String.valueOf(horaString.charAt(0))));
+                minuto = Integer.parseInt(horaString.substring(2));
+            } else {
+                String time = String.valueOf(horaString.charAt(0)).concat(String.valueOf(horaString.charAt(1)));
+                hora = Integer.parseInt(time);
+                minuto = Integer.parseInt(horaString.substring(3));
+            }
+
+            System.out.println("\nHora de finalización en formato HH:MM");
+            String horaStringF = scanner.next();
+            int horaF;
+            int minutoF;
+            char[] horaCharArrayF = horaStringF.toCharArray();
+            if (horaCharArrayF.length == 4) {
+                horaF = Integer.parseInt((String.valueOf(horaStringF.charAt(0))));
+                minutoF = Integer.parseInt(horaStringF.substring(2));
+            } else {
+                String timeF = String.valueOf(horaStringF.charAt(0)).concat(String.valueOf(horaStringF.charAt(1)));
+                horaF = Integer.parseInt(timeF);
+                minutoF = Integer.parseInt(horaStringF.substring(3));
+            }
+
+            fechaInicioAct = new GregorianCalendar(2020, mes, dia, hora, minuto, 0);
+            fechaFinAct = new GregorianCalendar(2020, mes, dia, horaF, minutoF, 0);
+
+            if (dateTime.get(Calendar.DAY_OF_YEAR) > fechaInicioAct.get(Calendar.DAY_OF_YEAR)) {
+                System.out.println("La fecha de creación ya pasó\nPor favor, vuelva a ingresar la fecha de la actividad");
+                continuar = false;
+            } else {
+                continuar = true;
+            }
+
         }
 
-        System.out.println("\nHora de finalización en formato HH:MM");
-        String horaStringF = scanner.next();
-        int horaF;
-        int minutoF;
-        char[] horaCharArrayF = horaStringF.toCharArray();
-        if (horaCharArrayF.length == 4) {
-            horaF = Integer.parseInt((String.valueOf(horaStringF.charAt(0))));
-            minutoF = Integer.parseInt(horaStringF.substring(2));
-        } else {
-            String timeF = String.valueOf(horaStringF.charAt(0)).concat(String.valueOf(horaStringF.charAt(1)));
-            horaF = Integer.parseInt(timeF);
-            minutoF = Integer.parseInt(horaStringF.substring(3));
-        }
-        Calendar fechaInicioAct = new GregorianCalendar(2020, mes, dia, hora, minuto, 0);
-        Calendar fechaFinAct = new GregorianCalendar(2020, mes, dia, horaF, minutoF, 0);
         nuevaActividad.setFechaInicio(fechaInicioAct);
         nuevaActividad.setFechaFinalizacion(fechaFinAct);
         casillas.insert(nuevaActividad);
         System.out.println("\nActividad creada correctamente.\n");
+
         return casillas;
     }
 
-    static Usuario getUsuario(String usuario, ListArrayGeneric estudiantes) {
+    static Estudiante getUsuario(String usuario, ListArrayGeneric estudiantes) {
 
         Persona estVar = new Persona();
 
         for (int i = 0; i < estudiantes.size(); i++) {
             estVar = (Persona) estudiantes.getItemInPosition(i);
             if (usuario.equals((String) estVar.getUsuario())) {
-                return (Usuario) estVar;
+                return (Estudiante) estVar;
             }
 
         }
@@ -981,6 +1129,7 @@ public class LogicaEjemploEstructuras {
         nodoN = casillas.getHead();
         NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
         nodoIterador = null;
+        Materia mat = new Materia();
         Casilla casillaIteradora = new Casilla();
         LinkedListGeneric<Casilla> mostrarMat = new LinkedListGeneric<Casilla>();
         Calendar fechamin = new GregorianCalendar(2020, 2, 2, 0, 0, 0);
@@ -990,22 +1139,206 @@ public class LogicaEjemploEstructuras {
 
             if (casillaIteradora instanceof Materia && casillaIteradora.getFechaInicio().compareTo(fechamin) > 0 && casillaIteradora.getFechaInicio().compareTo(fechamax) < 0) {
                 mostrarMat.insert(casillaIteradora);
+                mat = (Materia) casillaIteradora;
+                System.out.println(mat.toStringMateriaHora());
             }
 
             nodoIterador = nodoN;
             nodoN = nodoN.getNext();
+
         }
-        nodoN = mostrarMat.getHead();
-        nodoIterador = null;
-        Materia mat=new Materia();
-        while(nodoN!=null){
-            casillaIteradora=nodoN.getData();
-            mat = (Materia) casillaIteradora;
-            System.out.println(mat.toStringMateriaHora());
-            nodoIterador=nodoN;
-            nodoN=nodoN.getNext();
-        }
-        
-        //return mostrarMat;
+
     }
+
+    static String extraerMateria(LinkedListGeneric<Casilla> casillas) {
+
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        Scanner scan = new Scanner(System.in);
+        nodoN = casillas.getHead();
+        int numeroTotalMaterias;
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Materia mat = new Materia();
+        Casilla casillaIteradora = new Casilla();
+        LinkedListGeneric<Casilla> mostrarMat = new LinkedListGeneric<Casilla>();
+        Calendar fechamin = new GregorianCalendar(2020, 2, 2, 0, 0, 0);
+        Calendar fechamax = new GregorianCalendar(2020, 2, 4, 0, 0, 0);
+
+        System.out.println("A continuación se muestra las materias que tiene inscritas:\n\n");
+
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Materia && casillaIteradora.getFechaInicio().compareTo(fechamin) > 0 && casillaIteradora.getFechaInicio().compareTo(fechamax) < 0) {
+                mostrarMat.insert(casillaIteradora);
+                mat = (Materia) casillaIteradora;
+                System.out.println(mat.toStringMateriaHora());
+
+            }
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+
+        }
+
+        numeroTotalMaterias = Materia.getNum();
+        Materia.setNum(1);
+
+        if (mostrarMat.isEmpty()) {
+            limpiarConsola();
+            System.out.println("Usted no tiene materias inscritas, cancelando la operación.\n\n");
+            return " ";
+        }
+
+        System.out.println("\nSeleccione el número de la materia que desee retirar.\n\n");
+
+        int numeroMateria = scan.nextInt();
+
+        if (numeroMateria > 0 && numeroMateria <= numeroTotalMaterias) {
+            int i = 1;
+            nodoN = casillas.getHead();
+            nodoIterador = null;
+
+            while (i <= numeroMateria) {
+
+                casillaIteradora = nodoN.getData();
+                nodoIterador = nodoN;
+                nodoN = nodoN.getNext();
+                i++;
+            }
+            return casillaIteradora.getTitulo();
+
+        } else {
+            System.out.println("Opción invalida, cancelando la operación");
+
+            return " ";
+        }
+
+    }
+
+    static LinkedListGeneric<Casilla> eliminarMateria(LinkedListGeneric<Casilla> casillas, String titulo) {
+        if (titulo.equals(" ")) {
+            return casillas;
+        }
+
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        nodoN = casillas.getHead();
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Casilla casillaIteradora = new Casilla();
+        LinkedListGeneric<Casilla> mostrarMat = new LinkedListGeneric<Casilla>();
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Materia && titulo.equals((String) casillaIteradora.getTitulo())) {
+                nodoIterador = nodoN;
+                nodoN = nodoN.getNext();
+                continue;
+            }
+
+            mostrarMat.insert(casillaIteradora);
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+
+        }
+
+        limpiarConsola();
+        System.out.println("Se ha removido con éxito la materia seleccionada\n\n");
+
+        return mostrarMat;
+    }
+
+    static String extraerActividad(LinkedListGeneric<Casilla> casillas) {
+
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        Scanner scan = new Scanner(System.in);
+        nodoN = casillas.getHead();
+        int numeroTotalActividades;
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Actividad act = new Actividad();
+        Casilla casillaIteradora = new Casilla();
+        LinkedListGeneric<Casilla> mostrarAct = new LinkedListGeneric<Casilla>();
+
+        System.out.println("A continuación se muestra las materias que tiene inscritas:\n\n");
+
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Actividad) {
+                mostrarAct.insert(casillaIteradora);
+                act = (Actividad) casillaIteradora;
+                System.out.println(Actividad.getNum() + ". " + act.toString());
+                Actividad.setNum(Actividad.getNum() + 1);
+            }
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+
+        }
+
+        numeroTotalActividades = Actividad.getNum();
+        Actividad.setNum(1);
+
+        if (mostrarAct.isEmpty()) {
+            limpiarConsola();
+            System.out.println("Usted no tiene actividades creadas, cancelando la operación.\n\n");
+            return " ";
+        }
+
+        System.out.println("\nSeleccione el número de la actividad que desee retirar.\n\n");
+
+        int numeroRet = scan.nextInt();
+
+        if (numeroRet > 0 && numeroRet <= numeroTotalActividades) {
+            int i = 1;
+            nodoN = casillas.getHead();
+            nodoIterador = null;
+
+            while (i <= numeroRet) {
+
+                casillaIteradora = nodoN.getData();
+                nodoIterador = nodoN;
+                nodoN = nodoN.getNext();
+                i++;
+            }
+            return casillaIteradora.getTitulo();
+
+        } else {
+            System.out.println("Opción invalida, cancelando la operación");
+
+            return " ";
+        }
+    }
+
+    static LinkedListGeneric<Casilla> eliminarActividad(LinkedListGeneric<Casilla> casillas, String titulo) {
+        if (titulo.equals(" ")) {
+            return casillas;
+        }
+
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        nodoN = casillas.getHead();
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Casilla casillaIteradora = new Casilla();
+        LinkedListGeneric<Casilla> mostrarAct = new LinkedListGeneric<Casilla>();
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Actividad && titulo.equals((String) casillaIteradora.getTitulo())) {
+                nodoIterador = nodoN;
+                nodoN = nodoN.getNext();
+                continue;
+            }
+
+            mostrarAct.insert(casillaIteradora);
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+
+        }
+
+        limpiarConsola();
+        System.out.println("Se ha removido con éxito la materia seleccionada\n\n");
+
+        return mostrarAct;
+    }
+
 }

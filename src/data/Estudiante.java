@@ -13,19 +13,19 @@ import java.util.Objects;
  *
  * @author JAndres
  */
-public class Usuario extends Persona {
+public class Estudiante extends Persona {
     private LinkedListGeneric<Casilla> casillas;
     private String pregrado;
 
-    public Usuario() {
+    public Estudiante() {
     }
 
-    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo, String pregrado) {
+    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo, String pregrado) {
         super(usuario, contraseña, codigo, nombre, apellido, correo);
         this.pregrado = pregrado;
     }
 
-    public Usuario(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas, String pregrado) {
+    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas, String pregrado) {
         super(usuario, contraseña, codigo, nombre, apellido, correo);
         this.casillas = casillas;
         this.pregrado = pregrado;
