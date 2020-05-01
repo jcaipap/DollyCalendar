@@ -65,7 +65,7 @@ public class LogicaEjemploEstructuras {
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
         Grupo grupoECD2 = new Grupo(2, "Nicolas Martinez", fechaLC9);
-        Grupo grupoECD3 = new Grupo(3, "Hernan Garzon", fechaLC11);
+        Grupo grupoECD3 = new Grupo(3, "Hernan Garzon", fechaLC16);
         Grupo grupoECD4 = new Grupo(4, "German Fonseca", fechaLC11);
         gruposECD[0] = grupoECD1;
         gruposECD[1] = grupoECD2;
@@ -233,45 +233,115 @@ public class LogicaEjemploEstructuras {
             }
         }
     }
-
-    static void modifySpot(Casilla spot, LinkedListGeneric<Casilla> casillas) {
-        casillas.delete(spot);
-        Casilla modified = spot;
+    static void limpiarConsola() {
+        for (int i = 0; i < 50; i++) {
+            System.out.println("");
+        }
+    }
+    static LinkedListGeneric<Casilla> modificarActividad(Casilla spot, LinkedListGeneric<Casilla> casillas) {
+        LinkedListGeneric<Casilla> newCasillas=eliminarActividad(casillas, spot.getTitulo());
+        Actividad modified =(Actividad)spot;
+        boolean continuar=false;
+        boolean modificacion=false;
+        Calendar fechaInicioAct = new GregorianCalendar();
+        Calendar fechaFinAct = new GregorianCalendar();
+        Calendar dateTime = Calendar.getInstance();
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
-        System.out.println("Seleccione el número de la opcion a editar\n1. Nombre\n2. Descripción\n3. Importancia");
+        System.out.println("Seleccione el número de la opcion a editar\n1. Nombre\n2. Descripción\n3. Importancia\n4. Fecha de la actividad\n");
         int s = scanner.nextInt();
-        switch (s) {
-            case (1):
+        while (!modificacion){
+            switch (s) {
+                case (1):
 
-                System.out.println("ingrese el nuevo nombre");
-                modified.setTitulo(scanner.next());
-                break;
+                    System.out.println("\n\nIngrese el nuevo nombre");
+                    modified.setTitulo(scanner.next());
+                    modificacion=true;
+                    break;
 
-            case (2):
+                case (2):
 
-                System.out.println("ingrese la nueva descripcion");
-                modified.setDescripcion(scanner.next());
-                break;
+                    System.out.println("\n\nIngrese la nueva descripcion");
+                    modified.setDescripcion(scanner.next());
+                    modificacion=true;
+                    break;
 
-            case (3):
+                case (3):
 
-                System.out.println("ingrese el nuevo grado de importancia");
-                int value = scanner.nextInt();
-                while (value > 5) {
-                    System.out.println("El grado de importancia es mayor a 5, intente de nuevo");
-                    value = scanner.nextInt();
-                }
-                modified.setImportancia(value);
+                    System.out.println("\n\nIngrese el nuevo grado de importancia");
+                    int value = scanner.nextInt();
+                    while (value > 5) {
+                        System.out.println("El grado de importancia es mayor a 5, intente de nuevo");
+                        value = scanner.nextInt();
+                    }
+                    modified.setImportancia(value);
+                    modificacion=true;
+                    break;
+                case (4):
+                    System.out.print("\nRecuerde que solo se pueden crear actividades a partir de hoy:  \n");
+                    System.out.printf("%tF\n", dateTime);
 
-            default:
+                    while (!continuar) {
+                        System.out.println("\nIngrese la fecha de inicio\nNumero del mes");
+                        int mes = scanner.nextInt() - 1;
 
-                break;
+                        System.out.println("\nDia");
+                        int dia = scanner.nextInt();
 
+                        System.out.println("\nHora de inicio en formato HH:MM");
+                        String horaString = scanner.next();
+                        int hora;
+                        int minuto;
+                        char[] horaCharArray = horaString.toCharArray();
+                        if (horaCharArray.length == 4) {
+                            hora = Integer.parseInt((String.valueOf(horaString.charAt(0))));
+                            minuto = Integer.parseInt(horaString.substring(2));
+                        } else {
+                            String time = String.valueOf(horaString.charAt(0)).concat(String.valueOf(horaString.charAt(1)));
+                            hora = Integer.parseInt(time);
+                            minuto = Integer.parseInt(horaString.substring(3));
+                        }
+
+                        System.out.println("\nHora de finalización en formato HH:MM");
+                        String horaStringF = scanner.next();
+                        int horaF;
+                        int minutoF;
+                        char[] horaCharArrayF = horaStringF.toCharArray();
+                        if (horaCharArrayF.length == 4) {
+                            horaF = Integer.parseInt((String.valueOf(horaStringF.charAt(0))));
+                            minutoF = Integer.parseInt(horaStringF.substring(2));
+                        } else {
+                            String timeF = String.valueOf(horaStringF.charAt(0)).concat(String.valueOf(horaStringF.charAt(1)));
+                            horaF = Integer.parseInt(timeF);
+                            minutoF = Integer.parseInt(horaStringF.substring(3));
+                        }
+
+                        fechaInicioAct = new GregorianCalendar(2020, mes, dia, hora, minuto, 0);
+                        fechaFinAct = new GregorianCalendar(2020, mes, dia, horaF, minutoF, 0);
+
+                        if (dateTime.get(Calendar.DAY_OF_YEAR) > fechaInicioAct.get(Calendar.DAY_OF_YEAR)) {
+                            System.out.println("La fecha de creación ya pasó\nPor favor, vuelva a ingresar la fecha de la actividad");
+                            continuar = false;
+                        } else {
+                            continuar = true;
+                        }
+
+                    }
+                    modified.setFechaInicio(fechaInicioAct);
+                    modified.setFechaFinalizacion(fechaFinAct);
+                    modificacion=true;
+                    break;
+                default:
+                    System.out.println("Opción inválida, intente de nuevo");
+                    limpiarConsola();
+                    modificacion=true;
+                    break;
+
+            }
         }
-
-        casillas.insert(modified);
-
+        System.out.println("\n\nActividad Modificada con éxito\n\n");
+        newCasillas.insert(modified);
+        return newCasillas;
     }
 
     static Calendar calendarGenerator(int año, int mes, int dia, int hora, int minuto) {
@@ -279,11 +349,7 @@ public class LogicaEjemploEstructuras {
         return fecha;
     }
 
-    static void limpiarConsola() {
-        for (int i = 0; i < 50; i++) {
-            System.out.println("");
-        }
-    }
+    
 
     static Calendar[] generadorCalendar(Calendar calendar) {
         int diaAño = calendar.get(Calendar.DAY_OF_YEAR) - 7;
@@ -575,7 +641,7 @@ public class LogicaEjemploEstructuras {
         Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         while (continuar) {
-            System.out.println("\n\nSeleccione cuál de las siguientes opciones desea realizar:\n\n1. Ver todas las actividades programadas\n2. Configurar actividades\n3. Ver horario académico\n4. Editar horario academico\n5. Salir del modo estudiante \n\n");
+            System.out.println("\n\nSeleccione cuál de las siguientes opciones desea realizar:\n\n1. Ver todas las actividades programadas\n2. Configurar actividades\n3. Ver horario académico\n4. Editar horario academico\n5. Salir del modo estudiante\n");
 
             switch (scanner.nextInt()) {
 
@@ -590,7 +656,7 @@ public class LogicaEjemploEstructuras {
 
                 case 2:
                     limpiarConsola();
-                    System.out.println("Usted seleccionó editar actividades, seleccione la opción a realizar:\n\n1. Crear actividad\n2. Eliminar actividad\n3. Editar actividad\n4. Volver\n5. Salir del modo estudiante");
+                    System.out.println("Usted seleccionó editar actividades, seleccione la opción a realizar:\n\n1. Crear actividad\n2. Eliminar actividad\n3. Editar actividad\n4. Volver\n5. Salir del modo estudiante\n");
 
                     switch (scanner.nextInt()) {
 
@@ -602,8 +668,17 @@ public class LogicaEjemploEstructuras {
 
                                 estudiante.setCasillas(añadirActividad(estudiante.getCasillas()));
 
-                                System.out.println("\nSeleccione la opcion a realizar:\n1. Crear otra actividad\n2. Volver");
-                                if (!(scanner.nextInt() == 1)) {
+                                System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Crear otra actividad\n2. Volver\n3. Salir del modo estudiante");
+                                
+                                int cond = scanner.nextInt();
+                                
+                                if ( cond== 1) {
+                                    continuar2 = true;
+                                }else if (cond==2){
+                                    continuar2 = false;
+                                    
+                                }else if(cond==3){
+                                    continuar = false;
                                     continuar2 = false;
                                 }
                             }
@@ -617,6 +692,7 @@ public class LogicaEjemploEstructuras {
                                 limpiarConsola();
                                 String titulo = extraerActividad(estudiante.getCasillas());
                                 estudiante.setCasillas(eliminarActividad(estudiante.getCasillas(), titulo));
+                                System.out.println("Se ha removido con éxito la materia seleccionada\n\n");
                                 System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Eliminar otra actividad\n2. Volver\n3. Salir del modo estudiante");
                                 
                                 int cond = scanner.nextInt();
@@ -636,6 +712,7 @@ public class LogicaEjemploEstructuras {
                             continue;
 
                         case 3:
+                            estudiante.setCasillas(modificarActividad(actividadEditar(estudiante.getCasillas(), extraerActividadEditar(estudiante.getCasillas())), estudiante.getCasillas()));                            
                             limpiarConsola();
                             break;
                             
@@ -1214,7 +1291,7 @@ public class LogicaEjemploEstructuras {
         }
 
     }
-
+    
     static LinkedListGeneric<Casilla> eliminarMateria(LinkedListGeneric<Casilla> casillas, String titulo) {
         if (titulo.equals(" ")) {
             return casillas;
@@ -1246,7 +1323,7 @@ public class LogicaEjemploEstructuras {
 
         return mostrarMat;
     }
-
+    
     static String extraerActividad(LinkedListGeneric<Casilla> casillas) {
 
         NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
@@ -1259,7 +1336,7 @@ public class LogicaEjemploEstructuras {
         Casilla casillaIteradora = new Casilla();
         LinkedListGeneric<Casilla> mostrarAct = new LinkedListGeneric<Casilla>();
 
-        System.out.println("A continuación se muestra las materias que tiene inscritas:\n\n");
+        System.out.println("A continuación se muestra las actividades que tiene programadas:\n\n");
 
         while (nodoN != null) {
             casillaIteradora = nodoN.getData();
@@ -1308,7 +1385,69 @@ public class LogicaEjemploEstructuras {
             return " ";
         }
     }
+    
+    static String extraerActividadEditar(LinkedListGeneric<Casilla> casillas) {
 
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        Scanner scan = new Scanner(System.in);
+        nodoN = casillas.getHead();
+        int numeroTotalActividades;
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Actividad act = new Actividad();
+        Casilla casillaIteradora = new Casilla();
+        LinkedListGeneric<Casilla> mostrarAct = new LinkedListGeneric<Casilla>();
+
+        System.out.println("\n\n\nA continuación se muestra las actividades que tiene programadas:\n\n");
+
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Actividad) {
+                mostrarAct.insert(casillaIteradora);
+                act = (Actividad) casillaIteradora;
+                System.out.println(Actividad.getNum() + ". " + act.toString());
+                Actividad.setNum(Actividad.getNum() + 1);
+            }
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+
+        }
+
+        numeroTotalActividades = Actividad.getNum();
+        Actividad.setNum(1);
+
+        if (mostrarAct.isEmpty()) {
+            limpiarConsola();
+            System.out.println("Usted no tiene actividades creadas, cancelando la operación.\n\n");
+            return " ";
+        }
+
+        System.out.println("\nSeleccione el número de la actividad que desee editar.\n");
+
+        int numeroRet = scan.nextInt();
+
+        if (numeroRet > 0 && numeroRet <= numeroTotalActividades) {
+            int i = 1;
+            nodoN = casillas.getHead();
+            nodoIterador = null;
+
+            while (i <= numeroRet) {
+
+                casillaIteradora = nodoN.getData();
+                nodoIterador = nodoN;
+                nodoN = nodoN.getNext();
+                i++;
+            }
+            return casillaIteradora.getTitulo();
+
+        } else {
+            System.out.println("Opción invalida, cancelando la operación");
+
+            return " ";
+        }
+    }
+    
     static LinkedListGeneric<Casilla> eliminarActividad(LinkedListGeneric<Casilla> casillas, String titulo) {
         if (titulo.equals(" ")) {
             return casillas;
@@ -1336,9 +1475,27 @@ public class LogicaEjemploEstructuras {
         }
 
         limpiarConsola();
-        System.out.println("Se ha removido con éxito la materia seleccionada\n\n");
 
         return mostrarAct;
+    }
+    
+    static Casilla actividadEditar(LinkedListGeneric<Casilla> casillas, String titulo) {
+        
+        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
+        nodoN = casillas.getHead();
+        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
+        nodoIterador = null;
+        Casilla casillaIteradora = new Casilla();
+        while (nodoN != null) {
+            casillaIteradora = nodoN.getData();
+
+            if (casillaIteradora instanceof Actividad && titulo.equals((String) casillaIteradora.getTitulo())) {
+                return casillaIteradora;
+            }
+            nodoIterador = nodoN;
+            nodoN = nodoN.getNext();
+        }
+        return null;
     }
 
 }
