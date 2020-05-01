@@ -23,13 +23,13 @@ public  class Persona implements Comparable<Persona> {
     public Persona() {
     }
 
-    public Persona(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo) {
+    public Persona(String usuario, String contraseña, int codigo, String nombre, String apellido) {
         this.usuario = usuario;
         this.contraseña = contraseña;
         this.codigo = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.correo = correo;
+        this.correo = usuario+"@unal.edu.co";
     }
 
     
@@ -120,8 +120,9 @@ public  class Persona implements Comparable<Persona> {
         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+"\n"+"\n";
     }
     public String toStringAdmin(){
-         return "Datos Personales: "+"\n" + "Codigo: " + codigo + " || Nombre: " + nombre + " || Apellido: " + apellido +"\n"+"Usuario: "+usuario+" || Seccion Admin: Contraseña de Usuario: "+contraseña+"\n";
+         return "Usuario: "+usuario+"\n" + "Identifiación: " + codigo + "\nNombre Completo: " + nombre +" "+apellido+"\nCorreo: "+correo+"\n";
     }
+   
     
     public boolean equalsUser(Object persona) {
         if(!(persona instanceof Persona)){

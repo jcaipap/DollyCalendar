@@ -153,7 +153,7 @@ public class Materia extends Casilla{
 
     @Override
     public String toString() {
-        return super.toString()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos "+creditos+"\n"; 
+        return super.toString()+"Codigo: "+codigo+"|| Tipologia: "+tipologia+"|| Creditos: "+creditos+"\n"; 
          
     }
 

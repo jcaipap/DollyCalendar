@@ -20,13 +20,13 @@ public class Estudiante extends Persona {
     public Estudiante() {
     }
 
-    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo, String pregrado) {
-        super(usuario, contraseña, codigo, nombre, apellido, correo);
+    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido, String pregrado) {
+        super(usuario, contraseña, codigo, nombre, apellido);
         this.pregrado = pregrado;
     }
 
-    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido, String correo,LinkedListGeneric<Casilla> casillas, String pregrado) {
-        super(usuario, contraseña, codigo, nombre, apellido, correo);
+    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido,LinkedListGeneric<Casilla> casillas, String pregrado) {
+        super(usuario, contraseña, codigo, nombre, apellido);
         this.casillas = casillas;
         this.pregrado = pregrado;
     }
@@ -55,7 +55,7 @@ public class Estudiante extends Persona {
 
     @Override
     public String toStringAdmin() {
-        return super.toStringAdmin()+"Pregrado: "+pregrado+"\n"+"\n"; //To change body of generated methods, choose Tools | Templates.
+        return super.toStringAdmin()+"Pregrado: "+pregrado+"\nContraseña de usuario: "+super.getContraseña(); 
     }
     
     @Override
