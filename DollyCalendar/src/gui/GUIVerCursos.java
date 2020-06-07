@@ -20,6 +20,7 @@
 package gui;
 
 import data.Estudiante;
+import data.Materia;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -46,14 +47,14 @@ import javax.swing.border.*;
  *
  * @author andre
  */
-public class GUIVerUsuarios extends javax.swing.JFrame {
+public class GUIVerCursos extends javax.swing.JFrame {
 
     /**
      * Creates new form GUIVerUsuarios
      */
 
     
-    public GUIVerUsuarios() {
+    public GUIVerCursos() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -64,17 +65,18 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         ImageIcon icon= new ImageIcon();
         Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
-
+        
         ImageIcon icon2= new ImageIcon();
         Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
+
     }
     
     
-    public void addRowtoJTable(ArrayList<Estudiante> estudiantes){
+    public void addRowtoJTable(ArrayList<Materia> materias){
         String[] columnas = new String[]{
             "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
         };
@@ -91,19 +93,18 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         };
         Object[][] datos = new Object[50][9];
 
-        for (int i = 0; i < estudiantes.size(); i++) {
-            Estudiante es = estudiantes.get(i);
+        for (int i = 0; i < materias.size(); i++) {
+            Materia mat = materias.get(i);
             datos[i][0] = new JRadioButton(" ");
             datos[i][1] = i+1;
-            datos[i][2] = es.getNombre();
-            datos[i][3] = es.getApellido();
-            datos[i][4] = es.getUsuario();
-            datos[i][5] = es.getCodigo();
-            datos[i][6] = es.getPregrado();
-            datos[i][7] = es.getCorreo();
-            datos[i][8] = es.getContraseña();
+            datos[i][2] = mat.getTitulo();
+            datos[i][3] = mat.getCodigo();
+            datos[i][4] = mat.getTipologia();
+            datos[i][5] = mat.getCreditos();
+            datos[i][6] = mat.getDescripcion();
+
         }
-        jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        jTTablaCursos.setModel(new javax.swing.table.DefaultTableModel(
                 datos,
                 columnas) {
             Class[] tipos = tiposColumnas;
@@ -118,7 +119,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 return !(this.getColumnClass(column).equals(JButton.class));
             }
         });
-        jTTablaUsuarios.setDefaultRenderer(JButton.class, new TableCellRenderer() {
+        jTTablaCursos.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
                 return (Component) objeto;
@@ -165,7 +166,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         labelLogo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jSPTablaUsuarios = new javax.swing.JScrollPane();
-        jTTablaUsuarios = new javax.swing.JTable();
+        jTTablaCursos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLUsuariosCreados = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -213,10 +214,10 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                 .addContainerGap())
@@ -225,35 +226,32 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTituloLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelTituloLayout.createSequentialGroup()
-                        .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(17, 17, 17)))
-                .addContainerGap())
+                    .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSPTablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         jSPTablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTTablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
-        jTTablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        jTTablaCursos.setBackground(new java.awt.Color(255, 255, 255));
+        jTTablaCursos.setForeground(new java.awt.Color(255, 255, 255));
+        jTTablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
+                "Seleccionar", "Número", "Nombre", "Código", "Tipologia", "Créditos", "Descripción"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -264,8 +262,17 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTTablaUsuarios.getTableHeader().setReorderingAllowed(false);
-        jSPTablaUsuarios.setViewportView(jTTablaUsuarios);
+        jTTablaCursos.getTableHeader().setReorderingAllowed(false);
+        jSPTablaUsuarios.setViewportView(jTTablaCursos);
+        if (jTTablaCursos.getColumnModel().getColumnCount() > 0) {
+            jTTablaCursos.getColumnModel().getColumn(0).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(1).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(2).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(3).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(4).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(5).setResizable(false);
+            jTTablaCursos.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -289,7 +296,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
 
         jLUsuariosCreados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLUsuariosCreados.setForeground(new java.awt.Color(0, 0, 0));
-        jLUsuariosCreados.setText("Usuarios creados:");
+        jLUsuariosCreados.setText("Cursos creados:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -419,20 +426,21 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIVerUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIVerCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIVerUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIVerCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIVerUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIVerCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIVerUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIVerCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIVerUsuarios().setVisible(true);
+                new GUIVerCursos().setVisible(true);
             }
         });
     }
@@ -446,7 +454,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jSPTablaUsuarios;
-    private javax.swing.JTable jTTablaUsuarios;
+    private javax.swing.JTable jTTablaCursos;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JPanel panelTitulo;
     private javax.swing.JButton salir;

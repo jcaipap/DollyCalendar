@@ -44,7 +44,12 @@ public class LogicaEjemploEstructuras {
 
         //GUIInicioAdmin inicioAdmin = new GUIInicioAdmin();
 //        GUIInicio inicio = new GUIInicio();
-        GUIVerUsuarios inicio = new GUIVerUsuarios();
+        GUIInicio inicio = new GUIInicio();
+        inicio.setVisible(true);
+        
+        
+//        GUIInicioAdmin in = new GUIInicioAdmin();
+//        in.setVisible(true);
         //GUIGeneracionUsuario crear= new GUIGeneracionUsuario();
         
         

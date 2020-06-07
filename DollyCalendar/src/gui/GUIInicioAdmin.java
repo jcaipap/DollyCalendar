@@ -25,13 +25,18 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setVisible(true);
-        setIconImage(new ImageIcon(getClass().getResource("/recursos/iconoPrincipal.png")).getImage());
-        this.setTitle("Inicio de Sesión");
+        this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
+        this.setTitle("DollyCalendar");
         ImageIcon icon= new ImageIcon();
-        Icon iconScale;
-        Image image= new ImageIcon(getClass().getResource("/recursos/logoPrincipal.png")).getImage();
+        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
+        
+        ImageIcon icon2= new ImageIcon();
+        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+        icon2.setImage(image2);
+        Icon iconScale2;
+        iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
+        labelLogo.setIcon(iconScale2);
 
     }
 
@@ -46,69 +51,86 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        salirPrograma = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBSalir = new javax.swing.JButton();
+        jBVolverInicio = new javax.swing.JButton();
+        jBVerUsuarios = new javax.swing.JButton();
+        jBVerCursos = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        labelLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DollyCalendar");
         jLabel1.setToolTipText("");
         jLabel1.setOpaque(true);
 
-        salirPrograma.setBackground(new java.awt.Color(255, 204, 51));
-        salirPrograma.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        salirPrograma.setText("Salir");
-        salirPrograma.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        salirPrograma.addActionListener(new java.awt.event.ActionListener() {
+        jBSalir.setBackground(new java.awt.Color(20, 34, 255));
+        jBSalir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jBSalir.setForeground(new java.awt.Color(255, 255, 255));
+        jBSalir.setText("Salir");
+        jBSalir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirProgramaActionPerformed(evt);
+                jBSalirActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setText("Volver a inicio");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBVolverInicio.setBackground(new java.awt.Color(20, 34, 255));
+        jBVolverInicio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBVolverInicio.setForeground(new java.awt.Color(255, 255, 255));
+        jBVolverInicio.setText("Volver a inicio");
+        jBVolverInicio.setToolTipText("");
+        jBVolverInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBVolverInicioActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton2.setText("Ver usuarios");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBVerUsuarios.setBackground(new java.awt.Color(20, 34, 255));
+        jBVerUsuarios.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBVerUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        jBVerUsuarios.setText("Ver usuarios");
+        jBVerUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBVerUsuariosActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton3.setText("Ver cursos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBVerCursos.setBackground(new java.awt.Color(20, 34, 255));
+        jBVerCursos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBVerCursos.setForeground(new java.awt.Color(255, 255, 255));
+        jBVerCursos.setText("Ver cursos");
+        jBVerCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jBVerCursosActionPerformed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Usted ha ingresado como administrador.");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Aquí puede crear, ver, editar o eliminar");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Seleccione cual de las siguientes opciones desea realizar:");
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("usuarios o  cursos ya creados");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,16 +141,18 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1)
+                        .addComponent(jBVolverInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addGap(25, 25, 25)
+                        .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                         .addGap(120, 120, 120)
-                        .addComponent(salirPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBVerUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(200, 200, 200)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jBVerCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
@@ -136,17 +160,18 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(salirPrograma, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBVolverInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -156,8 +181,8 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBVerUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBVerCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
 
@@ -175,36 +200,49 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVolverInicioActionPerformed
         // TODO add your handling code here:
 
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                this.dispose();
                 GUIInicio inicio = new GUIInicio();
+                inicio.setVisible(true);
+                this.dispose();
+
+                
         }
         
         
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBVolverInicioActionPerformed
 
-    private void salirProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirProgramaActionPerformed
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
 
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea salir?",
             "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){
             System.exit(0);
         }
-    }//GEN-LAST:event_salirProgramaActionPerformed
+    }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBVerCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerCursosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        GUIVerCursos verCursos = new GUIVerCursos();
+        verCursos.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jBVerCursosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerUsuariosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+        GUIVerUsuarios verUsuarios = new GUIVerUsuarios();
+        verUsuarios.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_jBVerUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,15 +281,16 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jBSalir;
+    private javax.swing.JButton jBVerCursos;
+    private javax.swing.JButton jBVerUsuarios;
+    private javax.swing.JButton jBVolverInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton salirPrograma;
+    private javax.swing.JLabel labelLogo;
     // End of variables declaration//GEN-END:variables
 }

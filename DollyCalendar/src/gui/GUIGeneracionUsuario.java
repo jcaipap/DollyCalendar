@@ -20,13 +20,19 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
-        this.setVisible(true);
-        setIconImage(new ImageIcon(getClass().getResource("/recursos/iconoPrincipal.png")).getImage());
-        this.setTitle("Inicio de Sesión");
+        this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
+        this.setTitle("DollyCalendar");
         ImageIcon icon= new ImageIcon();
-        Icon iconScale;
-        Image image= new ImageIcon(getClass().getResource("/recursos/logoPrincipal.png")).getImage();
+        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
+        
+        ImageIcon icon2= new ImageIcon();
+        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+        icon2.setImage(image2);
+        Icon iconScale2;
+        iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
+        labelLogo.setIcon(iconScale2);
+        
 
     }
 
@@ -70,6 +76,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         VolverAInicio = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        labelLogo = new javax.swing.JLabel();
 
         jLabel4.setText("Apellido");
 
@@ -80,7 +87,10 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         usuarioExistente.setText(" ");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         inputNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,22 +137,28 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        nombre.setForeground(new java.awt.Color(0, 0, 0));
         nombre.setText("Nombre");
 
         apellido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        apellido.setForeground(new java.awt.Color(0, 0, 0));
         apellido.setText("Apellido");
 
         contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña");
 
         reingresarContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        reingresarContraseña.setForeground(new java.awt.Color(0, 0, 0));
         reingresarContraseña.setText("Reingresar contraseña");
 
         usuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        usuario.setForeground(new java.awt.Color(0, 0, 0));
         usuario.setText("Usuario");
 
-        crearUsuario.setBackground(new java.awt.Color(255, 204, 51));
+        crearUsuario.setBackground(new java.awt.Color(20, 34, 255));
         crearUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        crearUsuario.setForeground(new java.awt.Color(255, 255, 255));
         crearUsuario.setText("Crear Usuario");
         crearUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         crearUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -163,6 +179,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         id.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        id.setForeground(new java.awt.Color(0, 0, 0));
         id.setText("ID");
 
         inputNuevaContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +189,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        edad.setForeground(new java.awt.Color(0, 0, 0));
         edad.setText("Edad");
 
         inputEdad.addActionListener(new java.awt.event.ActionListener() {
@@ -185,9 +203,11 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
+        terminosCondiciones.setForeground(new java.awt.Color(0, 0, 0));
         terminosCondiciones.setText("Al seleccionar Crear Usuario usted acepta nuestros terminos y condiciones de uso.");
 
         correo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        correo.setForeground(new java.awt.Color(0, 0, 0));
         correo.setText("Correo electrónico");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -229,7 +249,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                         .addGap(95, 95, 95)
                         .addComponent(terminosCondiciones))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
+                        .addGap(216, 216, 216)
                         .addComponent(crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -286,8 +306,12 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         edad.getAccessibleContext().setAccessibleName("");
         correo.getAccessibleContext().setAccessibleName("");
 
-        VolverAInicio.setBackground(new java.awt.Color(255, 204, 51));
+        panelTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        panelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+
+        VolverAInicio.setBackground(new java.awt.Color(20, 34, 255));
         VolverAInicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        VolverAInicio.setForeground(new java.awt.Color(255, 255, 255));
         VolverAInicio.setText("Volver a inicio");
         VolverAInicio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         VolverAInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -296,8 +320,9 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
-        salir.setBackground(new java.awt.Color(255, 204, 51));
+        salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        salir.setForeground(new java.awt.Color(255, 255, 255));
         salir.setText("Salir");
         salir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         salir.addActionListener(new java.awt.event.ActionListener() {
@@ -307,6 +332,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("DollyCalendar");
 
@@ -315,23 +341,26 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         panelTituloLayout.setHorizontalGroup(
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(15, 15, 15)
                 .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(15, 15, 15))
         );
         panelTituloLayout.setVerticalGroup(
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTituloLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -345,8 +374,8 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -358,10 +387,9 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){       
-//        GUIInicio inicio = new GUIInicio(baseDatosUsuarios, catalogo, controladorBaseUsuariosGeneracion, controladorBaseCatalogo,carrito);
-//        inicio.setLocationRelativeTo(null);
-//        inicio.setVisible(true);
-        dispose();
+            GUIInicio inicio = new GUIInicio();
+            inicio.setVisible(true);
+            this.dispose();
         }
         
                    
@@ -473,6 +501,13 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         //            dispose();
         //
         //        }
+        
+        
+        GUIInicio inicio = new GUIInicio();
+        inicio.setVisible(true);
+        this.dispose();
+        
+        
     }//GEN-LAST:event_crearUsuarioActionPerformed
 
     private void inputUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputUsuarioKeyTyped
@@ -592,6 +627,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private java.awt.Label label1;
+    private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelTitulo;
     private javax.swing.JLabel reingresarContraseña;
