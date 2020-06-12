@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package estructuas;
 import java.util.Arrays;
 /**
@@ -22,7 +18,6 @@ private T[] array;
     }
      
     public void additem(T item){
-        // double the capacity if all the allocated space is utilized
         if (size == capacity){
             ensureCapacity(2); 
         }
@@ -31,7 +26,6 @@ private T[] array;
     }
      
     public void additem(int index, T item){
-        // double the capacity if all the allocated space is utilized
         if (size == capacity){
             ensureCapacity(2); 
         }
@@ -58,10 +52,7 @@ private T[] array;
             size--;
         }
     }
-     
-    /* method to increase the capacity, if necessary, to ensure it can hold at least the 
-    *  number of items specified by minimum capacity arguement
-    */
+
     public void ensureCapacity(int minCapacity){
         T[] temp = (T[]) new Comparable [capacity*minCapacity];
         for (int i=0; i < capacity; i++){
@@ -71,9 +62,6 @@ private T[] array;
         capacity = capacity * minCapacity;
     }
      
-    /*
-    *  Trim the capacity of dynamic array to the current size. i.e. remove unused space
-    */
     public void trimToSize(){
         System.out.println("Trimming the array");
 	T[] temp = (T[]) new Comparable [size];
@@ -93,8 +81,7 @@ private T[] array;
     public int capacity(){
         return capacity;
     }
-     
-    // method to print items in array
+
     public void printitems(){
         System.out.println("items in array are :"+Arrays.toString(array));
     }

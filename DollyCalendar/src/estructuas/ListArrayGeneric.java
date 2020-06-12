@@ -16,8 +16,6 @@ public class ListArrayGeneric<T extends Comparable<T>> {
     private T[] lArray;
     T reference;
     
-    //ListArrayGeneric<String> opTable= new ListArrayGeneric<String>();
-    
     public ListArrayGeneric() {
             count=0;    
             N=20;
@@ -119,16 +117,3 @@ public class ListArrayGeneric<T extends Comparable<T>> {
 } 
 
 
-/**
- * *3. Write a method deleteAt that can be added to the ListArray class in
-    Fig. 4.1 which removes the item at the specific position from the list. The
-    method accepts a position as a parameter.
-    * 
-    4. Write a method positionOf that can be added to the ListArray class in
-    Fig. 4.1 which returns the position of the specific item in the list. The method
-    accepts an item as a parameter.
-    * 
-    5. Write a method search that performs a binary search and that can replace the
-    existing search method in Fig. 4.1 ListArray class.
- * 
- */
