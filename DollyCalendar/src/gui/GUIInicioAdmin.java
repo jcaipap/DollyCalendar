@@ -5,6 +5,8 @@
  */
 package gui;
 
+import data.Persona;
+import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -20,7 +22,14 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     /**
      * Creates new form GUIINICIOADMIN
      */
-    public GUIInicioAdmin() {
+    
+    HashGeneric<String,Persona> usuarios;
+    HashGeneric<String,Persona> administradores;
+    
+    
+    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
+        this.usuarios=usuarios;
+        this.administradores=administradores;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -40,6 +49,14 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
 
     }
 
+    public GUIInicioAdmin() {
+    }
+
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,7 +223,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                GUIInicio inicio = new GUIInicio();
+                GUIInicio inicio = new GUIInicio(usuarios,administradores);
                 inicio.setVisible(true);
                 this.dispose();
 
@@ -228,7 +245,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
 
     private void jBVerCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerCursosActionPerformed
         // TODO add your handling code here:
-        GUIVerCursos verCursos = new GUIVerCursos();
+        GUIVerCursos verCursos = new GUIVerCursos(usuarios,administradores);
         verCursos.setVisible(true);
         this.dispose();
         
@@ -237,7 +254,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     private void jBVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerUsuariosActionPerformed
         // TODO add your handling code here:
 
-        GUIVerUsuarios verUsuarios = new GUIVerUsuarios();
+        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,administradores);
         verUsuarios.setVisible(true);
         this.dispose();
         

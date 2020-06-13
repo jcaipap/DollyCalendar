@@ -27,11 +27,17 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import estructuas.StackArraySpot;
+import gui.Calendario;
+import gui.GUIBuscador;
 import gui.GUIGeneracionUsuario;
 import gui.GUIInicio;
 import gui.GUIInicioAdmin;
+import gui.GUIPruebas;
 import gui.GUIVerUsuarios;
+import static java.awt.Color.black;
 import java.lang.reflect.Array;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -46,15 +52,7 @@ public class LogicaEjemploEstructuras {
     public static void main(String[] args) {
 
 
-        //GUIInicioAdmin inicioAdmin = new GUIInicioAdmin();
-//        GUIInicio inicio = new GUIInicio();
-//        GUIInicio inicio = new GUIInicio();
-//        inicio.setVisible(true);
-        
-        
-//        GUIInicioAdmin in = new GUIInicioAdmin();
-//        in.setVisible(true);
-        //GUIGeneracionUsuario crear= new GUIGeneracionUsuario();
+
         
         
         Calendar[] fechaLC7 = new Calendar[]{calendarGenerator(2020, 2, 2, 7, 0), calendarGenerator(2020, 2, 4, 7, 0)};
@@ -68,46 +66,55 @@ public class LogicaEjemploEstructuras {
         Calendar[] fechaMJ14 = new Calendar[]{calendarGenerator(2020, 2, 3, 14, 0), calendarGenerator(2020, 2, 5, 14, 0)};
         Calendar[] fechaMJ16 = new Calendar[]{calendarGenerator(2020, 2, 3, 16, 0), calendarGenerator(2020, 2, 5, 16, 0)};
         Grupo[] gruposED=new Grupo[10];
-        PriorityQueue<Grupo> gruposED2=new PriorityQueue<>(true);
-        HashGeneric<Integer,Grupo> gruposxd=new HashGeneric<>();
-        Grupo grupoED2 = new Grupo(2, "David Herrera", fechaMJ14);
-        Grupo grupoED1 = new Grupo(1, "Cristian Cordoba", fechaLC7);
-        Grupo grupoED3 = new Grupo(3, "Victor Collazos", fechaLC9);
-        Grupo grupoED4 = new Grupo(4, "Luis Niño", fechaMJ11);
-        Grupo grupoED5 = new Grupo(5, "David Herrera", fechaLC14);
-        gruposxd.add(grupoED2.getNumeroGrupo(), grupoED2);
-        gruposxd.add(grupoED1.getNumeroGrupo(), grupoED1);
-        gruposxd.add(grupoED3.getNumeroGrupo(), grupoED3);
-        gruposxd.add(grupoED4.getNumeroGrupo(), grupoED4);
-        gruposxd.add(grupoED5.getNumeroGrupo(), grupoED5);
-        System.out.println(gruposxd);
-        gruposxd.remove(2);
-        System.out.println(gruposxd);
-        HashNode[] f=gruposxd.getHashArray();
-        System.out.println(Arrays.toString(f));
         
-//        gruposED2.add(grupoED2);
-//        gruposED2.add(grupoED1);
-//        gruposED2.add(grupoED3);
-//        gruposED2.add(grupoED4);
-//        gruposED2.add(grupoED5);
-//        System.out.println(gruposED2);
-//        gruposED2.remove(grupoED2);
-//        System.out.println(gruposED2);
-//        Comparable[] f= new Comparable[gruposED2.length()+1];
-//        f=(Comparable[]) gruposED2.getHeap();
-//        System.out.println(Arrays.toString(f));
+        
+//        
+//        
+//        PriorityQueue<Grupo> gruposED2=new PriorityQueue<>(true);
+//        HashGeneric<Integer,Grupo> gruposxd=new HashGeneric<>();
         
         
         
-
-        gruposED[0] = grupoED1;
-        gruposED[1] = grupoED2;
-        gruposED[2] = grupoED3;
-        gruposED[3] = grupoED4;
-        gruposED[4] = grupoED5;
-
-        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
+//        Grupo grupoED2 = new Grupo(2, "David Herrera", fechaMJ14);
+//        Grupo grupoED1 = new Grupo(1, "Cristian Cordoba", fechaLC7);
+//        Grupo grupoED3 = new Grupo(3, "Victor Collazos", fechaLC9);
+//        Grupo grupoED4 = new Grupo(4, "Luis Niño", fechaMJ11);
+//        Grupo grupoED5 = new Grupo(5, "David Herrera", fechaLC14);
+//        gruposxd.add(grupoED2.getNumeroGrupo(), grupoED2);
+//        gruposxd.add(grupoED1.getNumeroGrupo(), grupoED1);
+//        gruposxd.add(grupoED3.getNumeroGrupo(), grupoED3);
+//        gruposxd.add(grupoED4.getNumeroGrupo(), grupoED4);
+//        gruposxd.add(grupoED5.getNumeroGrupo(), grupoED5);
+//        
+//        
+////        System.out.println(gruposxd);
+////        gruposxd.remove(2);
+////        System.out.println(gruposxd);
+////        HashNode[] f=gruposxd.getHashArray();
+////        System.out.println(Arrays.toString(f));
+//        
+////        gruposED2.add(grupoED2);
+////        gruposED2.add(grupoED1);
+////        gruposED2.add(grupoED3);
+////        gruposED2.add(grupoED4);
+////        gruposED2.add(grupoED5);
+////        System.out.println(gruposED2);
+////        gruposED2.remove(grupoED2);
+////        System.out.println(gruposED2);
+////        Comparable[] f= new Comparable[gruposED2.length()+1];
+////        f=(Comparable[]) gruposED2.getHeap();
+////        System.out.println(Arrays.toString(f));
+//        
+//        
+//        
+//
+//        gruposED[0] = grupoED1;
+//        gruposED[1] = grupoED2;
+//        gruposED[2] = grupoED3;
+//        gruposED[3] = grupoED4;
+//        gruposED[4] = grupoED5;
+//
+//        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
 
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
@@ -170,7 +177,7 @@ public class LogicaEjemploEstructuras {
         ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
         ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(10);
 
-        baseMaterias.push(estructuras);
+//        baseMaterias.push(estructuras);
         baseMaterias.push(fEyM);
         baseMaterias.push(ecuaciones);
         baseMaterias.push(eAnaloga);
@@ -189,16 +196,22 @@ public class LogicaEjemploEstructuras {
         Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, calendarGenerator(2020, 5, 4, 14, 0), calendarGenerator(2020, 5, 4, 16, 0));
         casillasAndres.insert(activ1);
         Estudiante andres = new Estudiante("aholguinr", "clave", 1000794275, "Andres", "Holguin", casillasAndres, "Ingeniería Mecatrónica");
-        HashGeneric<Integer,Persona> administradores=new HashGeneric<>();
-        HashGeneric<Integer,Persona> usuarios=new HashGeneric<>();
-        administradores.add(admin1.getCodigo(), admin1);
-        administradores.add(admin2.getCodigo(), admin2);
-        administradores.add(admin3.getCodigo(), admin3);
-        usuarios.add(est1.getCodigo(), est1);
-        usuarios.add(est2.getCodigo(), est2);
-        usuarios.add(julian.getCodigo(), julian);
-        usuarios.add(andres.getCodigo(), andres);
+        HashGeneric<String,Persona> administradores=new HashGeneric<>();
+        HashGeneric<String,Persona> usuarios=new HashGeneric<>();
+//        administradores.add(admin1.getUsuario(), admin1);
+//        administradores.add(admin2.getUsuario(), admin2);
+//        administradores.add(admin3.getUsuario(), admin3);
+//        usuarios.add(est1.getUsuario(), est1);
+//        usuarios.add(est2.getUsuario(), est2);
+//        usuarios.add(julian.getUsuario(), julian);
+//        usuarios.add(andres.getUsuario(), andres);
 
+        
+        GUIBuscador busc = new GUIBuscador(usuarios, administradores);
+        busc.setVisible(true);
+        
+        
+        
 //
 //        boolean continuar = true;
 //        String usuario;

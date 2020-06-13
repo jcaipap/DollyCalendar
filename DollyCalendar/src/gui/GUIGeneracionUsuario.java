@@ -2,6 +2,8 @@
 package gui;
 
 
+import data.Persona;
+import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
@@ -12,9 +14,16 @@ import javax.swing.JOptionPane;
 
 
 public class GUIGeneracionUsuario extends javax.swing.JFrame {
-
+    
+    
+    
+    HashGeneric<String,Persona> usuarios;
+    HashGeneric<String,Persona> administradores;
+        
   
-    public GUIGeneracionUsuario() {
+    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
+        this.usuarios=usuarios;
+        this.administradores=administradores;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -36,7 +45,12 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
     }
 
+    public GUIGeneracionUsuario() {
+    }
 
+
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -387,7 +401,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){       
-            GUIInicio inicio = new GUIInicio();
+            GUIInicio inicio = new GUIInicio(usuarios,administradores);
             inicio.setVisible(true);
             this.dispose();
         }
@@ -436,74 +450,54 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
 
-        //        if(!(GeneracionUsuario.validarDatosIngresados(inputNombre.getText(),
-            //            inputApellido.getText(), inputCorreo.getText(),
-            //            inputUsuario.getText(), inputNuevaContraseña.getText(),
-            //            inputReingresoNuevaContraseña.getText(),inputEdad.getText(),
-            //            inputId.getText(),baseDatosUsuarios))){
-    //                JOptionPane.showMessageDialog(rootPane, "Error creando el usuario",
-        //                        "error", JOptionPane.ERROR_MESSAGE);
-        //                if (!ControlErrores.comprobacionNumerica(inputEdad.getText())){
-            //                edad.setForeground(Color.RED);
-            //                edad.setText("Edad*");
-            //            } if (!ControlErrores.comprobacionNumerica(inputId.getText())){
-            //                id.setForeground(Color.RED);
-            //                id.setText("ID*");
-            //            } if (!(inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText()))){
-            //                contraseña.setForeground(Color.RED);
-            //                reingresarContraseña.setForeground(Color.RED);
-            //                contraseña.setText(contraseña.getText()+"*");
-            //                reingresarContraseña.setText(reingresarContraseña.getText()+"*");
-            //            } if ("".equals(inputNombre.getText())){
-            //                nombre.setForeground(Color.RED);
-            //                nombre.setText("Nombre*");
-            //            } if ("".equals(inputApellido.getText())){
-            //                apellido.setForeground(Color.RED);
-            //                apellido.setText("Apellido*");
-            //            } if ("".equals(inputCorreo.getText())){
-            //                correo.setForeground(Color.RED);
-            //                correo.setText("Correo*");
-            //            } if ("".equals(inputUsuario.getText())){
-            //                usuario.setForeground(Color.RED);
-            //                usuario.setText("Usuario*");
-            //            } if ("".equals(inputNuevaContraseña.getText())){
-            //                contraseña.setForeground(Color.RED);
-            //                contraseña.setText("Contraseña*");
-            //            } if ("".equals(inputReingresoNuevaContraseña.getText())){
-            //                reingresarContraseña.setForeground(Color.RED);
-            //                reingresarContraseña.setText("Reingresar contraseña*");
-            //
-            //            }
-        //        } else {
-        //
-        //                for(Usuario usuariosBaseDatos: baseDatosUsuarios.values()){
-            //                    if(usuariosBaseDatos.getUsuario().equals(inputUsuario.getText())|| usuariosBaseDatos.getId()==Integer.parseInt(inputId.getText())){
-                //                    if (usuariosBaseDatos.getUsuario().equals(inputUsuario.getText())){
-                    //                    usuarioExistente.setText("Usuario existente");
-                    //                    usuarioExistente.setForeground(Color.RED);
-                    //                    usuario.setForeground(Color.RED);
-                    //                    usuario.setText("Usuario*");
-                    //                    } else {
-                    //                    idExistente.setText("Id invalido");
-                    //                    idExistente.setForeground(Color.red);
-                    //                    id.setForeground(Color.red);
-                    //                    id.setText("Id*");
-                    //                        }
-                //                    }
-            //                }
-        //
-        //            GUIBuscador buscador = new GUIBuscador(catalogo,carrito,controladorBaseUsuariosGeneracion,controladorBaseCatalogo,baseDatosUsuarios);
-        //            JOptionPane.showMessageDialog(rootPane, "Uusario creado con exito");
-        //            GeneracionUsuario.crearUsuario(baseDatosUsuarios,Integer.valueOf(inputId.getText()),inputNombre.getText(),
-            //            inputApellido.getText(), Integer.valueOf(inputEdad.getText()), inputCorreo.getText(),
-            //            inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), controladorBaseUsuariosGeneracion);
-        //            buscador.setVisible(rootPaneCheckingEnabled);
-        //            dispose();
-        //
-        //        }
+
+//        
+//        if(!(GeneracionUsuario.validarDatosIngresados(inputNombre.getText(),
+//            inputApellido.getText(), inputCorreo.getText(),
+//            inputUsuario.getText(), inputNuevaContraseña.getText(),
+//            inputReingresoNuevaContraseña.getText(),inputEdad.getText(),
+//            inputId.getText(),baseDatosUsuarios))){  
+//                JOptionPane.showMessageDialog(rootPane, "Error creando el usuario",
+//                        "error", JOptionPane.ERROR_MESSAGE);
+//                if (!ControlErrores.comprobacionNumerica(inputEdad.getText())){
+//                edad.setForeground(Color.RED);
+//                edad.setText("Edad*");
+//            } if (!ControlErrores.comprobacionNumerica(inputId.getText())){
+//                id.setForeground(Color.RED);
+//                id.setText("ID*");
+//            } if (!(inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText()))){
+//                contraseña.setForeground(Color.RED);
+//                reingresarContraseña.setForeground(Color.RED);
+//                contraseña.setText(contraseña.getText()+"*");
+//                reingresarContraseña.setText(reingresarContraseña.getText()+"*");
+//            } if ("".equals(inputNombre.getText())){
+//                nombre.setForeground(Color.RED);
+//                nombre.setText("Nombre*");
+//            } if ("".equals(inputApellido.getText())){
+//                apellido.setForeground(Color.RED);
+//                apellido.setText("Apellido*");
+//            } if ("".equals(inputCorreo.getText())){
+//                correo.setForeground(Color.RED);
+//                correo.setText("Correo*");
+//            } if ("".equals(inputUsuario.getText())){
+//                usuario.setForeground(Color.RED);
+//                usuario.setText("Usuario*");
+//            } if ("".equals(inputNuevaContraseña.getText())){
+//                contraseña.setForeground(Color.RED);
+//                contraseña.setText("Contraseña*");
+//            } if ("".equals(inputReingresoNuevaContraseña.getText())){
+//                reingresarContraseña.setForeground(Color.RED);
+//                reingresarContraseña.setText("Reingresar contraseña*");
+//
+//            }
+//        }
         
         
-        GUIInicio inicio = new GUIInicio();
+        
+        
+        
+        
+        GUIInicio inicio = new GUIInicio(usuarios,administradores);
         inicio.setVisible(true);
         this.dispose();
         

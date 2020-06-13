@@ -5,6 +5,8 @@
  */
 package gui;
 
+import data.Persona;
+import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -35,39 +37,46 @@ public class GUIInicio extends javax.swing.JFrame {
 //    private Component jpanel;
 //    UsuariosDataBaseHandler controladorBaseUsuariosGeneracion;
 //    CatalogoDataBaseHandler controladorBaseCatalogo;
-    
     /**
      * Creates new form GUIInicio
      */
+    HashGeneric<String, Persona> usuarios;
+    HashGeneric<String, Persona> administradores;
+    boolean estudiante = true;
 
-
-    public GUIInicio() {
+    public GUIInicio(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores) {
+        this.usuarios = usuarios;
+        this.administradores = administradores;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.iniciarSesion.setEnabled(false);
         this.incorrecto.setVisible(false);
-        
+
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
-        ImageIcon icon= new ImageIcon();
-        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
+        ImageIcon icon = new ImageIcon();
+        Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
         Icon iconScale;
         iconScale = new ImageIcon(icon.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_SMOOTH));
         jLabel5.setIcon(iconScale);
-        
-        ImageIcon icon2= new ImageIcon();
-        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+
+        ImageIcon icon2 = new ImageIcon();
+        Image image2 = new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        
 
+        
+        iniciarSesion.repaint();
     }
-    
+
+    public GUIInicio() {
+    }
+
     private void seleccionarUsuario(boolean verdad) {
 
         if (verdad) {
@@ -77,7 +86,6 @@ public class GUIInicio extends javax.swing.JFrame {
         }
 
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -101,8 +109,8 @@ public class GUIInicio extends javax.swing.JFrame {
         usuario = new javax.swing.JLabel();
         salirPrograma = new javax.swing.JButton();
         valorIncorrecto = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        jBEstudiante = new javax.swing.JRadioButton();
+        jBAdmin = new javax.swing.JRadioButton();
         incorrecto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
@@ -183,6 +191,11 @@ public class GUIInicio extends javax.swing.JFrame {
                 inputContraseñaActionPerformed(evt);
             }
         });
+        inputContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputContraseñaKeyTyped(evt);
+            }
+        });
 
         contraseña.setBackground(new java.awt.Color(255, 51, 51));
         contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -205,25 +218,25 @@ public class GUIInicio extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton3.setText("Estudiante");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        jBEstudiante.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup.add(jBEstudiante);
+        jBEstudiante.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jBEstudiante.setForeground(new java.awt.Color(0, 0, 0));
+        jBEstudiante.setText("Estudiante");
+        jBEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                jBEstudianteActionPerformed(evt);
             }
         });
 
-        jRadioButton4.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jRadioButton4.setText("Administrador");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        jBAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup.add(jBAdmin);
+        jBAdmin.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jBAdmin.setForeground(new java.awt.Color(0, 0, 0));
+        jBAdmin.setText("Administrador");
+        jBAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                jBAdminActionPerformed(evt);
             }
         });
 
@@ -266,12 +279,12 @@ public class GUIInicio extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(97, 97, 97)
-                                .addComponent(jRadioButton3)
+                                .addComponent(jBEstudiante)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jRadioButton4)
+                                .addComponent(jBAdmin)
                                 .addGap(31, 31, 31)))
                         .addContainerGap(12, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -311,8 +324,8 @@ public class GUIInicio extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jRadioButton4)
-                                    .addComponent(jRadioButton3))
+                                    .addComponent(jBAdmin)
+                                    .addComponent(jBEstudiante))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(83, 83, 83)
@@ -365,21 +378,24 @@ public class GUIInicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void jBAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAdminActionPerformed
         // TODO add your handling code here:
         seleccionarUsuario(true);
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+        estudiante = false;
+    }//GEN-LAST:event_jBAdminActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void jBEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEstudianteActionPerformed
         // TODO add your handling code here:
         seleccionarUsuario(true);
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+        estudiante = true;
+
+    }//GEN-LAST:event_jBEstudianteActionPerformed
 
     private void salirProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirProgramaActionPerformed
 
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_salirProgramaActionPerformed
@@ -391,27 +407,48 @@ public class GUIInicio extends javax.swing.JFrame {
     private void iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionActionPerformed
 
         //        if(Inicio.verificarUsuario(inputUsuario.getText(), inputContraseña.getText(), baseDatosUsuarios )){
-            //            GUIBuscador buscador = new GUIBuscador(catalogo,carrito,controladorBaseUsuariosGeneracion,controladorBaseCatalogo,baseDatosUsuarios);
-            //            buscador.setVisible(rootPaneCheckingEnabled);
-            //            dispose();
-            //        } else if(true){
-            //            valorIncorrecto.setText("Usuario o contraseña incorrectos*");
-            //            valorIncorrecto.setForeground(Color.red);
-            //        }
-        this.incorrecto.setVisible(true);
+        //            GUIBuscador buscador = new GUIBuscador(catalogo,carrito,controladorBaseUsuariosGeneracion,controladorBaseCatalogo,baseDatosUsuarios);
+        //            buscador.setVisible(rootPaneCheckingEnabled);
+        //            dispose();
+        //        } else if(true){
+        //            valorIncorrecto.setText("Usuario o contraseña incorrectos*");
+        //            valorIncorrecto.setForeground(Color.red);
+        //        }
         
-        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin();
-        inicioAdmin.setVisible(true);
+        GUIBuscador inicioB = new GUIBuscador(usuarios, administradores);
+        inicioB.setVisible(true);
         this.dispose();
         
         
+        if (estudiante) {
+
+            if (usuarios.get(inputContraseña.getText()).getUsuario().equals(inputUsuario.getText())) {
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
+                inicioAdmin.setVisible(true);
+                this.dispose();
+            } 
+
+        } else {
+
+            if (administradores.get(inputContraseña.getText()).getUsuario().equals(inputUsuario.getText())) {
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
+                inicioAdmin.setVisible(true);
+                this.dispose();
+
+            } 
+
+        }
+        
+        this.incorrecto.setVisible(true);
+
+
     }//GEN-LAST:event_iniciarSesionActionPerformed
 
     private void inputUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputUsuarioKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isLetter(tecla)&&!Character.isDigit(tecla)){
+        tecla = evt.getKeyChar();
+        if (!Character.isLetter(tecla) && !Character.isDigit(tecla)) {
             evt.consume();
         }
     }//GEN-LAST:event_inputUsuarioKeyTyped
@@ -421,10 +458,19 @@ public class GUIInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_inputUsuarioActionPerformed
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
-        GUIGeneracionUsuario inicioAdmin = new GUIGeneracionUsuario();
+        GUIGeneracionUsuario inicioAdmin = new GUIGeneracionUsuario(usuarios, administradores);
         inicioAdmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_crearUsuarioActionPerformed
+
+    private void inputContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputContraseñaKeyTyped
+        // TODO add your handling code here:
+        char tecla;
+        tecla = evt.getKeyChar();
+        if (!Character.isLetter(tecla) && !Character.isDigit(tecla)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_inputContraseñaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -473,19 +519,17 @@ public class GUIInicio extends javax.swing.JFrame {
     private javax.swing.JButton iniciarSesion;
     private javax.swing.JPasswordField inputContraseña;
     private javax.swing.JTextField inputUsuario;
+    private javax.swing.JRadioButton jBAdmin;
+    private javax.swing.JRadioButton jBEstudiante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JButton salirPrograma;
     private javax.swing.JLabel usuario;
     private javax.swing.JLabel valorIncorrecto;
     // End of variables declaration//GEN-END:variables
-
-
 
 }

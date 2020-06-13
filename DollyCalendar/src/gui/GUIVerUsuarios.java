@@ -20,6 +20,8 @@
 package gui;
 
 import data.Estudiante;
+import data.Persona;
+import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -52,8 +54,13 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
      * Creates new form GUIVerUsuarios
      */
 
+    HashGeneric<String,Persona> usuarios;
+    HashGeneric<String,Persona> administradores;
     
-    public GUIVerUsuarios() {
+    
+    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
+        this.usuarios=usuarios;
+        this.administradores=administradores;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -72,6 +79,12 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
     }
+    
+    public GUIVerUsuarios() {
+        
+    }
+    
+    
     
     
     public void addRowtoJTable(ArrayList<Estudiante> estudiantes){
@@ -375,7 +388,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al modo administrador?",
             "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin();
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores);
                 inicioAdmin.setVisible(true);
                 this.dispose();
         }
@@ -396,7 +409,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al modo administrador?",
             "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin();
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores);
                 inicioAdmin.setVisible(true);
                 this.dispose();
         }
