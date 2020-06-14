@@ -22,6 +22,7 @@ package gui;
 import data.Estudiante;
 import data.Persona;
 import estructuas.HashGeneric;
+import estructuas.HashNode;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -57,7 +58,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     HashGeneric<String,Persona> usuarios;
     HashGeneric<String,Persona> administradores;
     
+
     
+    Estudiante est1 = new Estudiante("USUARIO", "contraseña", 1000, "nombre", "apellido", "pregrado");
+    
+
     public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
         this.usuarios=usuarios;
         this.administradores=administradores;
@@ -78,6 +83,9 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
+        
+        addRowtoJTable(usuarios);
+
     }
     
     public GUIVerUsuarios() {
@@ -85,29 +93,36 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     }
     
     
-    
-    
-    public void addRowtoJTable(ArrayList<Estudiante> estudiantes){
+
+    public void addRowtoJTable(HashGeneric<String,Persona> usuarios){
         String[] columnas = new String[]{
             "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
         };
+        
+        HashNode[] arrayEstudiantes;
+        arrayEstudiantes=usuarios.getHashArray();
+        
+        
         final Class[] tiposColumnas = new Class[]{
+            JButton.class,
             int.class,
             java.lang.String.class,
             java.lang.String.class,
             java.lang.String.class,
             java.lang.Integer.class,
             java.lang.String.class,
-            int.class,
             java.lang.String.class,
-            JButton.class
+            java.lang.String.class
         };
-        Object[][] datos = new Object[50][9];
-
-        for (int i = 0; i < estudiantes.size(); i++) {
-            Estudiante es = estudiantes.get(i);
-            datos[i][0] = new JRadioButton(" ");
-            datos[i][1] = i+1;
+        
+        
+        Estudiante es;
+         es = new Estudiante("usuario", "contraseña", 1, "nombre", "apellido", "pregrado");
+        Object[][] datos = new Object[arrayEstudiantes.length][9];
+        for (int i = 0; i < arrayEstudiantes.length; i++) {
+            //es = (Estudiante) arrayEstudiantes[i].getValue();
+            datos[i][0] = new JButton("Eliminar");
+            datos[i][1] = i;
             datos[i][2] = es.getNombre();
             datos[i][3] = es.getApellido();
             datos[i][4] = es.getUsuario();
@@ -116,6 +131,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             datos[i][7] = es.getCorreo();
             datos[i][8] = es.getContraseña();
         }
+        
         jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
                 datos,
                 columnas) {
@@ -131,33 +147,50 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 return !(this.getColumnClass(column).equals(JButton.class));
             }
         });
+        
+        
+        
         jTTablaUsuarios.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable jtable, Object objeto, boolean estaSeleccionado, boolean tieneElFoco, int fila, int columna) {
-                return (Component) objeto;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+               return (Component) o;
             }
+            
+            
         });
         
-//        jTable1.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                int fila = jTable1.rowAtPoint(e.getPoint());
-//                int columna = jTable1.columnAtPoint(e.getPoint());
-//                if (jTable1.getModel().getColumnClass(columna).equals(JButton.class)) {
+        
+        
+        
+        
+        jTTablaUsuarios.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = jTTablaUsuarios.rowAtPoint(e.getPoint());
+                int columna = jTTablaUsuarios.columnAtPoint(e.getPoint());
+                if (jTTablaUsuarios.getModel().getColumnClass(columna).equals(JButton.class)) {
 //                    ArrayList<Producto> eliminar=productosComprar(carrito);
-//                    String nombreBorrar=String.valueOf(jTable1.getValueAt(jTable1.rowAtPoint(e.getPoint()),3));
-//                    String cBorrar=String.valueOf(jTable1.getValueAt(jTable1.rowAtPoint(e.getPoint()),6));
+//                    String nombreBorrar=String.valueOf(jTTablaUsuarios.getValueAt(jTTablaUsuarios.rowAtPoint(e.getPoint()),3));
+//                    String cBorrar=String.valueOf(jTTablaUsuarios.getValueAt(jTTablaUsuarios.rowAtPoint(e.getPoint()),6));
 //                    int cantidadBorrar=Integer.parseInt(cBorrar);
 //                    carrito=CarritoCompras.eliminarProducto(carrito, nombreBorrar,cantidadBorrar);
 //                    DefaultTableModel model=new DefaultTableModel();
-//                    model=(DefaultTableModel)jTable1.getModel();
-//                    model.removeRow(jTable1.getSelectedRow());
+//                    model=(DefaultTableModel)jTTablaUsuarios.getModel();
+//                    model.removeRow(jTTablaUsuarios.getSelectedRow());
 //                    int valor=valorCuenta(carrito);
 //                    lblValorCuenta.setText(String.valueOf(valor));
-//
-//                }
-//            }
-//        });
+
+                DefaultTableModel model=new DefaultTableModel();
+                    model=(DefaultTableModel)jTTablaUsuarios.getModel();
+                    model.removeRow(jTTablaUsuarios.getSelectedRow());
+
+
+                }
+                
+            }
+        });
+        
+
     }
     
     
@@ -176,13 +209,13 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         labelLogo = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jSPTablaUsuarios = new javax.swing.JScrollPane();
-        jTTablaUsuarios = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLUsuariosCreados = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         JBGuardarYVolver = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTTablaUsuarios = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -225,13 +258,13 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -246,54 +279,6 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                             .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(17, 17, 17)))
-                .addContainerGap())
-        );
-
-        jSPTablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
-        jSPTablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-
-        jTTablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
-        jTTablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTTablaUsuarios.getTableHeader().setReorderingAllowed(false);
-        jSPTablaUsuarios.setViewportView(jTTablaUsuarios);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSPTablaUsuarios)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSPTablaUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -352,6 +337,40 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTTablaUsuarios);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1)
+                .addGap(0, 0, 0))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -359,7 +378,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -372,9 +391,9 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 .addComponent(panelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -455,10 +474,10 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton VolverAInicio;
     private javax.swing.JLabel jLUsuariosCreados;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jSPTablaUsuarios;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTTablaUsuarios;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JPanel panelTitulo;

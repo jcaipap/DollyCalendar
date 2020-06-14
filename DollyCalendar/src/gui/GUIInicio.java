@@ -198,12 +198,12 @@ public class GUIInicio extends javax.swing.JFrame {
         });
 
         contraseña.setBackground(new java.awt.Color(255, 51, 51));
-        contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        contraseña.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña:");
 
         usuario.setBackground(new java.awt.Color(255, 51, 51));
-        usuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        usuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         usuario.setForeground(new java.awt.Color(0, 0, 0));
         usuario.setText("Usuario:");
 
@@ -264,16 +264,16 @@ public class GUIInicio extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(contraseña))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(incorrecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(inputUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                            .addComponent(inputContraseña, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(incorrecto, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(inputUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                            .addComponent(inputContraseña, javax.swing.GroupLayout.Alignment.TRAILING))))
                                 .addGap(50, 50, 50)
                                 .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -286,14 +286,14 @@ public class GUIInicio extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jBAdmin)
                                 .addGap(31, 31, 31)))
-                        .addContainerGap(12, Short.MAX_VALUE))
+                        .addGap(30, 30, 30))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(iniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(200, 200, 200)
                         .addComponent(crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(140, 140, 140)
                 .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -405,42 +405,21 @@ public class GUIInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_inputContraseñaActionPerformed
 
     private void iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionActionPerformed
-
-        //        if(Inicio.verificarUsuario(inputUsuario.getText(), inputContraseña.getText(), baseDatosUsuarios )){
-        //            GUIBuscador buscador = new GUIBuscador(catalogo,carrito,controladorBaseUsuariosGeneracion,controladorBaseCatalogo,baseDatosUsuarios);
-        //            buscador.setVisible(rootPaneCheckingEnabled);
-        //            dispose();
-        //        } else if(true){
-        //            valorIncorrecto.setText("Usuario o contraseña incorrectos*");
-        //            valorIncorrecto.setForeground(Color.red);
-        //        }
-        
-        GUIBuscador inicioB = new GUIBuscador(usuarios, administradores);
-        inicioB.setVisible(true);
-        this.dispose();
-        
-        
-        if (estudiante) {
-
-            if (usuarios.get(inputContraseña.getText()).getUsuario().equals(inputUsuario.getText())) {
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
-                inicioAdmin.setVisible(true);
-                this.dispose();
-            } 
-
-        } else {
-
-            if (administradores.get(inputContraseña.getText()).getUsuario().equals(inputUsuario.getText())) {
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
-                inicioAdmin.setVisible(true);
-                this.dispose();
-
-            } 
-
-        }
         
         this.incorrecto.setVisible(true);
+        if (estudiante&&inputContraseña.getText().equals(usuarios.get(inputUsuario.getText()).getContraseña())) {
 
+                GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores);
+                inicioEst.setVisible(true);
+                this.dispose();
+            } 
+        
+          else if (!estudiante&&inputContraseña.getText().equals(administradores.get(inputUsuario.getText()).getContraseña())){
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
+                inicioAdmin.setVisible(true);
+                this.dispose();
+                
+        }
 
     }//GEN-LAST:event_iniciarSesionActionPerformed
 

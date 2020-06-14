@@ -185,9 +185,11 @@ public class LogicaEjemploEstructuras {
         baseMaterias.push(PQ);
         baseMaterias.push(dic);
 
-        Persona admin1 = new Persona("admin1", "claveAdmin", 1, "nombre1", "apellido1");
+        Persona admin1 = new Persona("admin1", "clave1", 1, "nombre1", "apellido1");
         Persona admin2 = new Persona("admin2", "claveAdmin", 2, "nombre2", "apellido2");
-        Persona admin3 = new Persona("admin3", "claveAdmin", 3, "nombre3", "apellido3");
+        Persona admin3 = new Persona("admin13", "claveAdmin2", 3, "nombre3", "apellido3");
+        Persona admin4 = new Persona("admin4", "claveAdmin2", 3, "nombre3", "apellido3");
+        Persona admin5 = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
         Estudiante est1 = new Estudiante("usuario1", "clave1", 1, "nombre1", "apellido1", casillas, "Ing1");
         Estudiante est2 = new Estudiante("dfcantors", "contraseña", 1072717690, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
         Estudiante julian = new Estudiante("jcaipap", "password", 1010042710, "Julian", "Caipa", casillas, "Ingeniería Mecatrónica");
@@ -198,19 +200,26 @@ public class LogicaEjemploEstructuras {
         Estudiante andres = new Estudiante("aholguinr", "clave", 1000794275, "Andres", "Holguin", casillasAndres, "Ingeniería Mecatrónica");
         HashGeneric<String,Persona> administradores=new HashGeneric<>();
         HashGeneric<String,Persona> usuarios=new HashGeneric<>();
-//        administradores.add(admin1.getUsuario(), admin1);
-//        administradores.add(admin2.getUsuario(), admin2);
-//        administradores.add(admin3.getUsuario(), admin3);
-//        usuarios.add(est1.getUsuario(), est1);
-//        usuarios.add(est2.getUsuario(), est2);
-//        usuarios.add(julian.getUsuario(), julian);
-//        usuarios.add(andres.getUsuario(), andres);
+        administradores.add(admin1.getUsuario(), admin1);
+        administradores.add(admin2.getUsuario(), admin2);
+        administradores.add(admin3.getUsuario(), admin3);
+        administradores.add(admin4.getUsuario(), admin4);
+        administradores.add(admin5.getUsuario(), admin5);
+        usuarios.add(est1.getUsuario(), est1);
+        usuarios.add(est2.getUsuario(), est2);
+        usuarios.add(julian.getUsuario(), julian);
+        usuarios.add(andres.getUsuario(), andres);
 
         
-        GUIBuscador busc = new GUIBuscador(usuarios, administradores);
-        busc.setVisible(true);
         
+//        GUIInicio inic = new GUIInicio(usuarios, administradores);
+//        inic.setVisible(true);
         
+        GUIVerUsuarios ver = new GUIVerUsuarios(usuarios, administradores);
+        ver.setVisible(true);
+        
+//        GUIPruebas p = new GUIPruebas();
+//        p.setVisible(true);
         
 //
 //        boolean continuar = true;

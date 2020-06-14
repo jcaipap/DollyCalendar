@@ -38,7 +38,7 @@ public class HashGeneric<K, V> {
 
     private int getBucketIndex(K key) {
         int hashCode = key.hashCode();
-        int index = hashCode % capacity;
+        int index=Math.abs(hashCode%capacity);
         return index;
     }
 
