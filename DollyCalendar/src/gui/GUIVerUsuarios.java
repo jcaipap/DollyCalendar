@@ -21,6 +21,7 @@ package gui;
 
 import data.Estudiante;
 import data.Persona;
+import estructuas.DynamicArray;
 import estructuas.HashGeneric;
 import estructuas.HashNode;
 import java.awt.Color;
@@ -99,7 +100,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
         };
         
-        HashNode[] arrayEstudiantes;
+        DynamicArray arrayEstudiantes=new DynamicArray();
         arrayEstudiantes=usuarios.getHashArray();
         
         
@@ -118,8 +119,8 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         
         Estudiante es;
          es = new Estudiante("usuario", "contraseña", 1, "nombre", "apellido", "pregrado");
-        Object[][] datos = new Object[arrayEstudiantes.length][9];
-        for (int i = 0; i < arrayEstudiantes.length; i++) {
+        Object[][] datos = new Object[arrayEstudiantes.size()][9];
+        for (int i = 0; i < arrayEstudiantes.size(); i++) {
             //es = (Estudiante) arrayEstudiantes[i].getValue();
             datos[i][0] = new JButton("Eliminar");
             datos[i][1] = i;

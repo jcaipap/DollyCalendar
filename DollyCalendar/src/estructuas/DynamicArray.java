@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @param <T>
  */
 public class DynamicArray <T extends Comparable<T>>{
-private T[] array;
+    private T[] array;
     private int size;
     private int capacity;
      
@@ -38,6 +38,9 @@ private T[] array;
  
     public T getitem(int index){
         return array[index];
+    }
+    public void setitem(int index, T item){
+        array[index]=item;
     }
      
 

@@ -75,11 +75,11 @@ public class LogicaEjemploEstructuras {
         
         
         
-//        Grupo grupoED2 = new Grupo(2, "David Herrera", fechaMJ14);
-//        Grupo grupoED1 = new Grupo(1, "Cristian Cordoba", fechaLC7);
-//        Grupo grupoED3 = new Grupo(3, "Victor Collazos", fechaLC9);
-//        Grupo grupoED4 = new Grupo(4, "Luis Niño", fechaMJ11);
-//        Grupo grupoED5 = new Grupo(5, "David Herrera", fechaLC14);
+        Grupo grupoED2 = new Grupo(2, "David Herrera", fechaMJ14);
+        Grupo grupoED1 = new Grupo(1, "Cristian Cordoba", fechaLC7);
+        Grupo grupoED3 = new Grupo(3, "Victor Collazos", fechaLC9);
+        Grupo grupoED4 = new Grupo(4, "Luis Niño", fechaMJ11);
+        Grupo grupoED5 = new Grupo(5, "David Herrera", fechaLC14);
 //        gruposxd.add(grupoED2.getNumeroGrupo(), grupoED2);
 //        gruposxd.add(grupoED1.getNumeroGrupo(), grupoED1);
 //        gruposxd.add(grupoED3.getNumeroGrupo(), grupoED3);
@@ -93,17 +93,17 @@ public class LogicaEjemploEstructuras {
 ////        HashNode[] f=gruposxd.getHashArray();
 ////        System.out.println(Arrays.toString(f));
 //        
-////        gruposED2.add(grupoED2);
-////        gruposED2.add(grupoED1);
-////        gruposED2.add(grupoED3);
-////        gruposED2.add(grupoED4);
-////        gruposED2.add(grupoED5);
-////        System.out.println(gruposED2);
-////        gruposED2.remove(grupoED2);
-////        System.out.println(gruposED2);
-////        Comparable[] f= new Comparable[gruposED2.length()+1];
-////        f=(Comparable[]) gruposED2.getHeap();
-////        System.out.println(Arrays.toString(f));
+//        gruposED2.add(grupoED2);
+//        gruposED2.add(grupoED1);
+//        gruposED2.add(grupoED3);
+//        gruposED2.add(grupoED4);
+//        gruposED2.add(grupoED5);
+//        System.out.println(gruposED2);
+//        gruposED2.remove(grupoED2);
+//        System.out.println(gruposED2);
+//        Comparable[] f= new Comparable[gruposED2.length()+1];
+//        f=(Comparable[]) gruposED2.getHeap();
+//        System.out.println(Arrays.toString(f));
 //        
 //        
 //        
@@ -113,8 +113,8 @@ public class LogicaEjemploEstructuras {
 //        gruposED[2] = grupoED3;
 //        gruposED[3] = grupoED4;
 //        gruposED[4] = grupoED5;
-//
-//        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
+
+        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
 
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
@@ -177,7 +177,7 @@ public class LogicaEjemploEstructuras {
         ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
         ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(10);
 
-//        baseMaterias.push(estructuras);
+        baseMaterias.push(estructuras);
         baseMaterias.push(fEyM);
         baseMaterias.push(ecuaciones);
         baseMaterias.push(eAnaloga);
@@ -209,14 +209,37 @@ public class LogicaEjemploEstructuras {
         usuarios.add(est2.getUsuario(), est2);
         usuarios.add(julian.getUsuario(), julian);
         usuarios.add(andres.getUsuario(), andres);
-
-        
+//        DynamicArray f=usuarios.getHash();
+//        f.printitems();
+//        int testerNum=10000000;
+//        long startTime=System.nanoTime();
+//        PriorityQueue <Persona> tester=new PriorityQueue<>(true);
+//        System.out.println("Prueba con "+testerNum+" datos en StackArray");
+//        for(int i=0;i<testerNum;i++){
+//            Persona admin = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
+//            tester.add(admin);
+//        }
+//        long create=System.nanoTime()-startTime;
+//        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
+//        for (int j=0;j<testerNum;j++){
+//            tester.remove();
+//        }
+//        long elim=System.nanoTime()-startTime;
+//        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
+//        Persona adminMod = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
+//        for(int k=0;k<testerNum;k++){
+//            adminMod.setNombre("Andrew");
+//            adminMod.setApellido("Restrepo");
+//            adminMod.setContraseña("config");
+//        }
+//        long endTime=System.nanoTime()-startTime;
+//        System.out.println("Tiempo de actualización de usuarios: "+endTime);
         
 //        GUIInicio inic = new GUIInicio(usuarios, administradores);
 //        inic.setVisible(true);
         
-        GUIVerUsuarios ver = new GUIVerUsuarios(usuarios, administradores);
-        ver.setVisible(true);
+//        GUIVerUsuarios ver = new GUIVerUsuarios(usuarios, administradores);
+//        ver.setVisible(true);
         
 //        GUIPruebas p = new GUIPruebas();
 //        p.setVisible(true);

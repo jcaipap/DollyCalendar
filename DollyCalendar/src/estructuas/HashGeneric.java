@@ -16,6 +16,7 @@ import java.util.Arrays;
 public class HashGeneric<K, V> {
 
     private HashNode<K, V>[] bucketArray;
+    private DynamicArray values;
     private int capacity;
     private int size=0;
     private final double load=0.75;
@@ -26,6 +27,7 @@ public class HashGeneric<K, V> {
         for (int i = 0; i <capacity; i++) {
             bucketArray[i] = null;
         }
+        values=new DynamicArray();
     }
 
     public int size() {
@@ -111,6 +113,7 @@ public class HashGeneric<K, V> {
                 }
             }
         }
+        values.additem((Comparable) value);
     }
     @Override
     public String toString() {
@@ -126,15 +129,23 @@ public class HashGeneric<K, V> {
         }
         return sb.toString();
     }
-    
-    public HashNode[] getHashArray() {
-        HashNode[] nodes=new HashNode[size];
-        for(int i=0;i<size;i++){
-            if(!(bucketArray[i]==null)){
-                nodes[i]=bucketArray[i];
+    public DynamicArray getHashArray() {
+        DynamicArray d= new DynamicArray();
+        for(int i=0;i<values.size();i++){
+            for(int j=0;j<(values.size()-1);j++){
+                if(i!=j){
+                    if(values.getitem(i).equals(values.getitem(j))){
+                        values.setitem(j, "");
+                    }
+                }
             }
         }
-        return nodes;
+        for(int k=0;k<values.size();k++){
+            if(!values.getitem(k).equals("")){
+                d.additem(values.getitem(k));
+            }
+        }
+        return d;
     }
     
 }
