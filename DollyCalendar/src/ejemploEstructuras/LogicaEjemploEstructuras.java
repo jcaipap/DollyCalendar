@@ -33,6 +33,7 @@ import gui.GUIGeneracionUsuario;
 import gui.GUIInicio;
 import gui.GUIInicioAdmin;
 import gui.GUIPruebas;
+import gui.GUIVerMaterias;
 import gui.GUIVerUsuarios;
 import static java.awt.Color.black;
 import java.lang.reflect.Array;
@@ -65,7 +66,8 @@ public class LogicaEjemploEstructuras {
         Calendar[] fechaMJ11 = new Calendar[]{calendarGenerator(2020, 2, 3, 11, 0), calendarGenerator(2020, 2, 5, 11, 0)};
         Calendar[] fechaMJ14 = new Calendar[]{calendarGenerator(2020, 2, 3, 14, 0), calendarGenerator(2020, 2, 5, 14, 0)};
         Calendar[] fechaMJ16 = new Calendar[]{calendarGenerator(2020, 2, 3, 16, 0), calendarGenerator(2020, 2, 5, 16, 0)};
-        Grupo[] gruposED=new Grupo[10];
+        Calendar[] fechaLCV = new Calendar[]{calendarGenerator(2020, 2, 2, 16, 0), calendarGenerator(2020, 2, 4, 9, 0), calendarGenerator(2020, 2, 6, 9, 0)};
+        Grupo[] gruposED=new Grupo[5];
         
         
 //        
@@ -108,11 +110,11 @@ public class LogicaEjemploEstructuras {
 //        
 //        
 //
-//        gruposED[0] = grupoED1;
-//        gruposED[1] = grupoED2;
-//        gruposED[2] = grupoED3;
-//        gruposED[3] = grupoED4;
-//        gruposED[4] = grupoED5;
+        gruposED[0] = grupoED1;
+        gruposED[1] = grupoED2;
+        gruposED[2] = grupoED3;
+        gruposED[3] = grupoED4;
+        gruposED[4] = grupoED5;
 
         Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
 
@@ -136,13 +138,13 @@ public class LogicaEjemploEstructuras {
         gruposEA[1] = grupoEA2;
         gruposEA[2] = grupoEA3;
         gruposEA[3] = grupoEA4;
-        Materia eAnaloga = new Materia("Electrónica análoga I", "Teoría de circuitos analogicos y de semiconducción.", 4, "2016495", 4, "Disciplinar", gruposEA);
+        Materia analoga = new Materia("Electrónica análoga I", "Teoría de circuitos analogicos y de semiconducción.", 4, "2016495", 4, "Disciplinar", gruposEA);
 
         Grupo[] gruposfEyM = new Grupo[4];
         Grupo grupofEyM1 = new Grupo(1, "Dario Rodriguez", fechaMJ7);
         Grupo grupofEyM2 = new Grupo(2, "Walter Pulido", fechaMJ9);
         Grupo grupofEyM3 = new Grupo(3, "Santiago Cortes", fechaMJ11);
-        Grupo grupofEyM4 = new Grupo(4, "Hector Castro", fechaMJ14);
+        Grupo grupofEyM4 = new Grupo(4, "Hector Castro", fechaLCV);
         gruposfEyM[0] = grupofEyM1;
         gruposfEyM[1] = grupofEyM2;
         gruposfEyM[2] = grupofEyM3;
@@ -173,18 +175,17 @@ public class LogicaEjemploEstructuras {
         Materia dic = new Materia("Desarrollo de la ingeniería en Colombia ", "Breve introducción a la historia del desarrollo tecnológico en Colombia.", 3, "2025976", 3, "Libre Elección", gruposDIC);
 
         LinkedListGeneric<Casilla> casillas = new LinkedListGeneric<>();
-        StackArraySpot baseMaterias = new StackArraySpot(7);
-        ListArrayGeneric<Persona> admins = new ListArrayGeneric<>(3);
-        ListArrayGeneric<Persona> estudiantes = new ListArrayGeneric<>(10);
 
-        baseMaterias.push(estructuras);
-        baseMaterias.push(fEyM);
-        baseMaterias.push(ecuaciones);
-        baseMaterias.push(eAnaloga);
-        baseMaterias.push(dina);
-        baseMaterias.push(PQ);
-        baseMaterias.push(dic);
-
+        
+        HashGeneric<String,Materia> materias=new HashGeneric<>();
+        materias.add(estructuras.getCodigo(), estructuras);
+        materias.add(ecuaciones.getCodigo(), ecuaciones);
+        materias.add(analoga.getCodigo(), analoga);
+        materias.add(fEyM.getCodigo(), fEyM);
+//        materias.add(PQ.getCodigo(), PQ);
+//        materias.add(dina.getCodigo(), dina);
+//        materias.add(dic.getCodigo(), dic);
+         
         Persona admin1 = new Persona("admin1", "clave1", 1, "nombre1", "apellido1");
         Persona admin2 = new Persona("admin2", "claveAdmin", 2, "nombre2", "apellido2");
         Persona admin3 = new Persona("admin13", "claveAdmin2", 3, "nombre3", "apellido3");
@@ -192,7 +193,14 @@ public class LogicaEjemploEstructuras {
         Persona admin5 = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
         Estudiante est1 = new Estudiante("usuario1", "clave1", 1, "nombre1", "apellido1", casillas, "Ing1");
         Estudiante est2 = new Estudiante("dfcantors", "contraseña", 1072717690, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
-        Estudiante julian = new Estudiante("jcaipap", "password", 1010042710, "Julian", "Caipa", casillas, "Ingeniería Mecatrónica");
+        Estudiante est3 = new Estudiante("usuarioextra", "contraseña", 1072717699, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
+        Estudiante julian = new Estudiante("jcaipap", "password", 1010042777, "Julian", "Caipa", casillas, "Ingeniería Mecatrónica");
+        Estudiante juliana = new Estudiante("jcaipapi", "password", 101123710, "David", "Herrera", casillas, "Ingeniería Mecatrónica");
+        Estudiante juliani= new Estudiante("jcaipapa", "password", 1010036710, "Julian", "Cadena", casillas, "Ingeniería Mecatrónica");
+        Estudiante j= new Estudiante("fsgalindope", "password", 1010692710, "Juliana", "Sandoval", casillas, "Ingeniería Mecatrónica");
+        Estudiante ju= new Estudiante("jcaipapa", "password", 1013052710, "Juli", "Caipa", casillas, "Ingeniería Mecatrónica");
+        Estudiante jul= new Estudiante("jcaipapa", "password", 1010042710, "Julio", "Alvarez", casillas, "Ingeniería Mecatrónica");
+        Estudiante juli= new Estudiante("jcaipapa", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería Mecatrónica");
 
         LinkedListGeneric<Casilla> casillasAndres = new LinkedListGeneric<>();
         Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, calendarGenerator(2020, 5, 4, 14, 0), calendarGenerator(2020, 5, 4, 16, 0));
@@ -207,8 +215,15 @@ public class LogicaEjemploEstructuras {
         administradores.add(admin5.getUsuario(), admin5);
         usuarios.add(est1.getUsuario(), est1);
         usuarios.add(est2.getUsuario(), est2);
+        usuarios.add(est3.getUsuario(), est3);
         usuarios.add(julian.getUsuario(), julian);
+        usuarios.add(juliana.getUsuario(), juliana);
+        usuarios.add(juliani.getUsuario(), juliani);
         usuarios.add(andres.getUsuario(), andres);
+        usuarios.add(j.getUsuario(), j);
+        usuarios.add(ju.getUsuario(), ju);
+        usuarios.add(jul.getUsuario(), jul);
+        usuarios.add(juli.getUsuario(), juli);
 //        DynamicArray f=usuarios.getHash();
 //        f.printitems();
 //        int testerNum=10000000;
@@ -238,9 +253,16 @@ public class LogicaEjemploEstructuras {
 //        GUIInicio inic = new GUIInicio(usuarios, administradores);
 //        inic.setVisible(true);
         
-//        GUIVerUsuarios ver = new GUIVerUsuarios(usuarios, administradores);
-//        ver.setVisible(true);
+//        GUIInicio inicio = new GUIInicio(usuarios, administradores);
+//        inicio.setVisible(true);
+        GUIVerUsuarios usu = new GUIVerUsuarios(usuarios, usuarios,administradores,materias);
+        usu.setVisible(true);
+//        
+//        GUIVerMaterias mat = new GUIVerMaterias(usuarios, administradores, materias);
+//        mat.setVisible(true);
         
+//        GUIBuscador busc = new GUIBuscador(usuarios, administradores);
+//        busc.setVisible(true);
 //        GUIPruebas p = new GUIPruebas();
 //        p.setVisible(true);
         

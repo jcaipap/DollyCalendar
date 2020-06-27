@@ -5,9 +5,11 @@
  */
 package gui;
 
+import data.Materia;
 import data.Persona;
 import estructuas.HashGeneric;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -23,13 +25,15 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
      * Creates new form GUIINICIOADMIN
      */
     
-    HashGeneric<String,Persona> usuarios;
-    HashGeneric<String,Persona> administradores;
+    public HashGeneric<String,Persona> usuarios;
+    public HashGeneric<String,Materia> materias;
+    public HashGeneric<String,Persona> administradores;
     
     
-    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
+    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
         this.usuarios=usuarios;
         this.administradores=administradores;
+        this.materias=materias;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -47,6 +51,11 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
 
+        Graphics graphic=jBVolverInicio.getGraphics();
+        graphic.setColor(new Color(20,34,255));
+        jBVolverInicio.paint(graphic);
+        
+        
     }
 
     public GUIInicioAdmin() {
@@ -223,7 +232,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                GUIInicio inicio = new GUIInicio(usuarios,administradores);
+                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
                 inicio.setVisible(true);
                 this.dispose();
 
@@ -245,7 +254,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
 
     private void jBVerCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerCursosActionPerformed
         // TODO add your handling code here:
-        GUIVerCursos verCursos = new GUIVerCursos(usuarios,administradores);
+        GUIVerMaterias verCursos = new GUIVerMaterias(usuarios,administradores,materias);
         verCursos.setVisible(true);
         this.dispose();
         
@@ -254,7 +263,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     private void jBVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerUsuariosActionPerformed
         // TODO add your handling code here:
 
-        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,administradores);
+        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,usuarios,administradores,materias);
         verUsuarios.setVisible(true);
         this.dispose();
         

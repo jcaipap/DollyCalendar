@@ -5,6 +5,7 @@
  */
 package gui;
 
+import data.Materia;
 import data.Persona;
 import estructuas.HashGeneric;
 import java.awt.Color;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import gui.GUIGeneracionUsuario;
+import java.awt.Graphics;
 
 /**
  *
@@ -42,9 +44,10 @@ public class GUIInicio extends javax.swing.JFrame {
      */
     HashGeneric<String, Persona> usuarios;
     HashGeneric<String, Persona> administradores;
+    HashGeneric<String, Materia> materias;
     boolean estudiante = true;
 
-    public GUIInicio(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores) {
+    public GUIInicio(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<String, Materia> materias) {
         this.usuarios = usuarios;
         this.administradores = administradores;
         initComponents();
@@ -71,7 +74,16 @@ public class GUIInicio extends javax.swing.JFrame {
         labelLogo.setIcon(iconScale2);
 
         
-        iniciarSesion.repaint();
+//        Graphics graphic=iniciarSesion.getGraphics();
+//        graphic.setColor(Color.BLACK);
+////        graphic.fillRect(0,0,iniciarSesion.getWidth(),iniciarSesion.getHeight());
+////        iniciarSesion.paintComponent(graphic);
+////        iniciarSesion.paintComponents(graphic);
+////        iniciarSesion.paint(graphic);
+//        iniciarSesion.paintAll(graphic);
+
+        
+        
     }
 
     public GUIInicio() {
@@ -409,13 +421,13 @@ public class GUIInicio extends javax.swing.JFrame {
         this.incorrecto.setVisible(true);
         if (estudiante&&inputContraseña.getText().equals(usuarios.get(inputUsuario.getText()).getContraseña())) {
 
-                GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores);
+                GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores,materias);
                 inicioEst.setVisible(true);
                 this.dispose();
             } 
         
           else if (!estudiante&&inputContraseña.getText().equals(administradores.get(inputUsuario.getText()).getContraseña())){
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias);
                 inicioAdmin.setVisible(true);
                 this.dispose();
                 
@@ -437,7 +449,7 @@ public class GUIInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_inputUsuarioActionPerformed
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
-        GUIGeneracionUsuario inicioAdmin = new GUIGeneracionUsuario(usuarios, administradores);
+        GUIGeneracionUsuario inicioAdmin = new GUIGeneracionUsuario(usuarios, administradores,materias);
         inicioAdmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_crearUsuarioActionPerformed

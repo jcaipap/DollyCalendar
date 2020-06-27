@@ -20,6 +20,7 @@
 package gui;
 
 import data.Estudiante;
+import data.Materia;
 import data.Persona;
 import estructuas.DynamicArray;
 import estructuas.HashGeneric;
@@ -42,6 +43,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.table.DefaultTableCellRenderer;
 
 
 
@@ -55,17 +57,22 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     /**
      * Creates new form GUIVerUsuarios
      */
-
-    HashGeneric<String,Persona> usuarios;
-    HashGeneric<String,Persona> administradores;
+    public boolean editar = false;
+    public HashGeneric<String,Persona> usuarios;
+    public HashGeneric<String,Persona> usuariosIniciales;
+    public HashGeneric<String,Persona> administradores;
+    public HashGeneric<String,Materia> materias;
     
 
     
     Estudiante est1 = new Estudiante("USUARIO", "contraseña", 1000, "nombre", "apellido", "pregrado");
     
 
-    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
-        this.usuarios=usuarios;
+    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> usuarios2,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
+        this.usuariosIniciales=usuarios;
+        this.materias=materias;
+
+        this.usuarios=usuarios2;
         this.administradores=administradores;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
@@ -85,7 +92,15 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
         
-        addRowtoJTable(usuarios);
+        Graphics graphic=VolverAInicio.getGraphics();
+        graphic.setColor(new Color(20,34,255));
+        VolverAInicio.paint(graphic);
+        
+        
+        addRowtoJTable();
+
+        
+        jLUsuariosCreados.setText("Usuarios creados: "+String.valueOf(usuarios.size()));
 
     }
     
@@ -95,13 +110,16 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     
     
 
-    public void addRowtoJTable(HashGeneric<String,Persona> usuarios){
+    public void addRowtoJTable(){
         String[] columnas = new String[]{
-            "Seleccionar", "Número", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Contraseña"
+            "Eliminar", "N#", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Clave"
         };
         
+        jTTablaUsuarios.setBackground(Color.WHITE);
+        jTTablaUsuarios.getParent().setBackground(Color.WHITE);
+        
         DynamicArray arrayEstudiantes=new DynamicArray();
-        arrayEstudiantes=usuarios.getHashArray();
+        arrayEstudiantes=this.usuarios.getHashArray();
         
         
         final Class[] tiposColumnas = new Class[]{
@@ -116,14 +134,14 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             java.lang.String.class
         };
         
-        
         Estudiante es;
-         es = new Estudiante("usuario", "contraseña", 1, "nombre", "apellido", "pregrado");
+            JButton boton = new JButton("Eliminar");
+            boton.setSize(jTTablaUsuarios.getWidth()*1/16, jTTablaUsuarios.getParent().getHeight()/10);
         Object[][] datos = new Object[arrayEstudiantes.size()][9];
         for (int i = 0; i < arrayEstudiantes.size(); i++) {
-            //es = (Estudiante) arrayEstudiantes[i].getValue();
-            datos[i][0] = new JButton("Eliminar");
-            datos[i][1] = i;
+            es = (Estudiante) arrayEstudiantes.getitem(i);
+            datos[i][0] = boton;
+            datos[i][1] = i+1;
             datos[i][2] = es.getNombre();
             datos[i][3] = es.getApellido();
             datos[i][4] = es.getUsuario();
@@ -147,50 +165,73 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             public boolean isCellEditable(int row, int column) {
                 return !(this.getColumnClass(column).equals(JButton.class));
             }
+            
+
         });
         
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        jTTablaUsuarios.setDefaultRenderer(String.class, centerRenderer);
         
+        
+        for(int x=0;x<jTTablaUsuarios.getColumnCount();x++){
+            if(x!=0){
+            jTTablaUsuarios.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
+            }
+        }
         
         jTTablaUsuarios.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+               jtable.setAlignmentY(TOP_ALIGNMENT);
                return (Component) o;
+               
             }
             
-            
+           
         });
-        
-        
-        
-        
+
         
         jTTablaUsuarios.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                editar=true;
+                
                 int fila = jTTablaUsuarios.rowAtPoint(e.getPoint());
                 int columna = jTTablaUsuarios.columnAtPoint(e.getPoint());
                 if (jTTablaUsuarios.getModel().getColumnClass(columna).equals(JButton.class)) {
-//                    ArrayList<Producto> eliminar=productosComprar(carrito);
-//                    String nombreBorrar=String.valueOf(jTTablaUsuarios.getValueAt(jTTablaUsuarios.rowAtPoint(e.getPoint()),3));
-//                    String cBorrar=String.valueOf(jTTablaUsuarios.getValueAt(jTTablaUsuarios.rowAtPoint(e.getPoint()),6));
-//                    int cantidadBorrar=Integer.parseInt(cBorrar);
-//                    carrito=CarritoCompras.eliminarProducto(carrito, nombreBorrar,cantidadBorrar);
-//                    DefaultTableModel model=new DefaultTableModel();
-//                    model=(DefaultTableModel)jTTablaUsuarios.getModel();
-//                    model.removeRow(jTTablaUsuarios.getSelectedRow());
-//                    int valor=valorCuenta(carrito);
-//                    lblValorCuenta.setText(String.valueOf(valor));
+                    
+
+                    usuarios.remove(String.valueOf(jTTablaUsuarios.getValueAt(fila,4)));
+
 
                 DefaultTableModel model=new DefaultTableModel();
                     model=(DefaultTableModel)jTTablaUsuarios.getModel();
                     model.removeRow(jTTablaUsuarios.getSelectedRow());
 
-
                 }
-                
+                jLUsuariosCreados.setText("Usuarios creados: "+String.valueOf(usuarios.size()));
             }
         });
         
+        
+        jTTablaUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jTTablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
+            jTTablaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(jTTablaUsuarios.getWidth()*5/100);
+            jTTablaUsuarios.getColumnModel().getColumn(2).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
+            jTTablaUsuarios.getColumnModel().getColumn(3).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
+            jTTablaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
+            jTTablaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
+            jTTablaUsuarios.getColumnModel().getColumn(6).setPreferredWidth(jTTablaUsuarios.getWidth()*15/100);
+            jTTablaUsuarios.getColumnModel().getColumn(7).setPreferredWidth(jTTablaUsuarios.getWidth()*21/100);
+            jTTablaUsuarios.getColumnModel().getColumn(8).setPreferredWidth(jTTablaUsuarios.getWidth()*11/100);
+//            jTTablaUsuarios.getColumnModel().getColumn(9).setPreferredWidth(jTTablaUsuarios.getWidth()/9);
+          
+            jTTablaUsuarios.setAlignmentY(CENTER_ALIGNMENT);
+            jTTablaUsuarios.setAlignmentX(CENTER_ALIGNMENT);
+            
+            jTTablaUsuarios.setRowHeight(jTTablaUsuarios.getParent().getHeight()/10);
 
     }
     
@@ -249,7 +290,6 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("DollyCalendar");
 
@@ -259,13 +299,13 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -287,7 +327,6 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLUsuariosCreados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLUsuariosCreados.setForeground(new java.awt.Color(0, 0, 0));
         jLUsuariosCreados.setText("Usuarios creados:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -342,18 +381,22 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTTablaUsuarios.setBackground(new java.awt.Color(255, 255, 255));
         jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jScrollPane1.setViewportView(jTTablaUsuarios);
+        if (jTTablaUsuarios.getColumnModel().getColumnCount() > 0) {
+            jTTablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            jTTablaUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            jTTablaUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            jTTablaUsuarios.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -405,13 +448,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
 
-        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al modo administrador?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){  
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores);
+
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosIniciales,administradores,materias);
                 inicioAdmin.setVisible(true);
                 this.dispose();
-        }
+
 
     }//GEN-LAST:event_VolverAInicioActionPerformed
 
@@ -426,15 +467,63 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
         // TODO add your handling code here:
-        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al modo administrador?",
+        
+        HashGeneric<String,Persona> us;
+        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Desea guardar cambios y volver?",
             "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){  
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores);
+        if(respuesta==0){ 
+            
+            
+            if(editar){
+                
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosEditados(),administradores,materias);
                 inicioAdmin.setVisible(true);
                 this.dispose();
+                
+            }else{
+                
+                
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias);
+                inicioAdmin.setVisible(true);
+                this.dispose();
+                
+            }
+            
+
+                
         }
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
+       public HashGeneric<String,Persona> usuariosEditados(){
+            HashGeneric<String,Persona> estudiantes=new HashGeneric<>();
+            Estudiante estudiante;
+            Estudiante estudianteViejo;
+            
+            
+//                        datos[i][2] = es.getNombre();
+//            datos[i][3] = es.getApellido();
+//            datos[i][4] = es.getUsuario();
+//            datos[i][5] = es.getCodigo();
+//            datos[i][6] = es.getPregrado();
+//            datos[i][7] = es.getCorreo();
+//            datos[i][8] = es.getContraseña();
+            
+           for(int i=0;i<jTTablaUsuarios.getRowCount();i++){
+               estudianteViejo=(Estudiante) usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(i,4)));
+               estudiante = new Estudiante(String.valueOf(jTTablaUsuarios.getValueAt(i,4)),
+                       String.valueOf(jTTablaUsuarios.getValueAt(i,8)), 
+                       Integer.parseInt(String.valueOf(jTTablaUsuarios.getValueAt(i,5))),
+                       String.valueOf(jTTablaUsuarios.getValueAt(i,2)), 
+                       String.valueOf(jTTablaUsuarios.getValueAt(i,3)), 
+                       estudianteViejo.getCasillas(), String.valueOf(jTTablaUsuarios.getValueAt(i,6)));
+               estudiantes.add(String.valueOf(jTTablaUsuarios.getValueAt(i,4)), estudiante);
+               
+           }
+           return estudiantes;
+        }
+    
+    
+    
     /**
      * @param args the command line arguments
      */

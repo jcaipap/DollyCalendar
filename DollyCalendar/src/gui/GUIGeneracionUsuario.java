@@ -2,9 +2,11 @@
 package gui;
 
 
+import data.Materia;
 import data.Persona;
 import estructuas.HashGeneric;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -19,11 +21,13 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     
     HashGeneric<String,Persona> usuarios;
     HashGeneric<String,Persona> administradores;
+    HashGeneric<String,Materia> materias;
         
   
-    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores) {
+    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
         this.usuarios=usuarios;
         this.administradores=administradores;
+        this.materias=materias;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -42,6 +46,9 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
         
+        Graphics graphic=crearUsuario.getGraphics();
+        graphic.setColor(new Color(20,34,255));
+        crearUsuario.paint(graphic);
 
     }
 
@@ -401,7 +408,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){       
-            GUIInicio inicio = new GUIInicio(usuarios,administradores);
+            GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
             inicio.setVisible(true);
             this.dispose();
         }
@@ -497,7 +504,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         
         
         
-        GUIInicio inicio = new GUIInicio(usuarios,administradores);
+        GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
         inicio.setVisible(true);
         this.dispose();
         

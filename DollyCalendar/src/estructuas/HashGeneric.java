@@ -79,6 +79,18 @@ public class HashGeneric<K, V> {
         return null;
     }
     
+    public V getValue(K key) {
+        int bucketIndex = getBucketIndex(key);
+        HashNode<K, V> head = bucketArray[bucketIndex-1];
+        while (head != null) {
+            if (head.key.equals(key)) {
+                return head.value;
+            }
+        }
+        return null;
+    }
+    
+    
     public void add(K key, V value) {
         int bucketIndex = getBucketIndex(key);
         HashNode<K, V> head = bucketArray[bucketIndex-1];
@@ -129,23 +141,15 @@ public class HashGeneric<K, V> {
         }
         return sb.toString();
     }
-    public DynamicArray getHashArray() {
-        DynamicArray d= new DynamicArray();
-        for(int i=0;i<values.size();i++){
-            for(int j=0;j<(values.size()-1);j++){
-                if(i!=j){
-                    if(values.getitem(i).equals(values.getitem(j))){
-                        values.setitem(j, "");
-                    }
-                }
+     public DynamicArray getHashArray() {
+        DynamicArray sb = new DynamicArray();
+        for (HashNode entry : bucketArray) {
+            while (entry != null) {
+                sb.additem((Comparable) entry.getValue());
+                entry = entry.next;
             }
         }
-        for(int k=0;k<values.size();k++){
-            if(!values.getitem(k).equals("")){
-                d.additem(values.getitem(k));
-            }
-        }
-        return d;
+        return sb;
     }
     
 }

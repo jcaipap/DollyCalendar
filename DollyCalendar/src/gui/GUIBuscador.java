@@ -5,12 +5,14 @@
  */
 package gui;
 
+import data.Materia;
 import data.Persona;
 import estructuas.HashGeneric;
 import static gui.Calendario.frmMain;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,6 +50,7 @@ public class GUIBuscador extends javax.swing.JFrame {
      */
     HashGeneric<String, Persona> usuarios;
     HashGeneric<String, Persona> administradores;
+    HashGeneric<String, Materia> materias;
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
@@ -59,9 +62,10 @@ public class GUIBuscador extends javax.swing.JFrame {
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     static GregorianCalendar fecha2 = new GregorianCalendar();
 
-    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores) {
+    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<String, Materia> materias) {
         this.usuarios = usuarios;
         this.administradores = administradores;
+        this.materias = materias;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -79,6 +83,12 @@ public class GUIBuscador extends javax.swing.JFrame {
         labelLogo.setIcon(iconScale2);
         JPCalendar.add(crearCalendario(JPCalendar));
         jLFecha.setText(String.valueOf(fecha2.getTime()));
+        
+        Graphics graphic=VolverAInicio.getGraphics();
+        graphic.setColor(new Color(20,34,255));
+        VolverAInicio.paint(graphic);
+        
+        
     }
 
     public GUIBuscador() {
@@ -539,8 +549,8 @@ public class GUIBuscador extends javax.swing.JFrame {
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             JPCalendar.invalidate();
-            GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores);
-            inicioAdmin.setVisible(true);
+            GUIInicio inicio = new GUIInicio(usuarios, administradores,materias);
+            inicio.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_VolverAInicioActionPerformed

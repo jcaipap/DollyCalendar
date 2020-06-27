@@ -12,6 +12,7 @@ import estructuas.HashNode;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.MouseAdapter;
@@ -37,6 +38,15 @@ public class GUIPruebas extends javax.swing.JFrame {
     public GUIPruebas() {
         initComponents();
         addRowtoJTable();
+        
+        
+        Graphics graphic=iniciarSesion.getGraphics();
+        graphic.setColor(new Color(20,34,255));
+//        graphic.fillRect(0,0,iniciarSesion.getWidth(),iniciarSesion.getHeight());
+//        iniciarSesion.paintComponent(graphic);
+//        iniciarSesion.paintComponents(graphic);
+        
+        iniciarSesion.paint(graphic);
 
     }
 
@@ -158,6 +168,7 @@ public class GUIPruebas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
+        iniciarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,6 +191,11 @@ public class GUIPruebas extends javax.swing.JFrame {
 
         jCheckBox2.setText("jCheckBox2");
 
+        iniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        iniciarSesion.setText("jButton1");
+        this.setBackground(Color.BLACK)
+;
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -192,14 +208,16 @@ public class GUIPruebas extends javax.swing.JFrame {
                 .addGap(220, 220, 220)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
-                        .addComponent(jCheckBox1)
-                        .addGap(45, 45, 45))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jCheckBox2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(iniciarSesion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                        .addComponent(jCheckBox1)
+                        .addGap(45, 45, 45))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,9 +229,14 @@ public class GUIPruebas extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jCheckBox1)
-                        .addGap(111, 111, 111)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(jCheckBox1))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(iniciarSesion)))
+                        .addGap(82, 82, 82)
                         .addComponent(jCheckBox2)))
                 .addContainerGap(152, Short.MAX_VALUE))
         );
@@ -268,6 +291,7 @@ public class GUIPruebas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton iniciarSesion;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
