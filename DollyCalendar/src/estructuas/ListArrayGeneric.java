@@ -5,12 +5,14 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andre
  * @param <T>
  */
-public class ListArrayGeneric<T extends Comparable<T>> {
+public class ListArrayGeneric<T extends Comparable<T>> implements Serializable{
     private final int N;
     private int position, count;
     private T[] lArray;

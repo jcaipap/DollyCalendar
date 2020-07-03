@@ -5,12 +5,14 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andre
  * @param <T>
  */
-public class StackArrayGeneric<T> implements StackGeneric<T>{
+public class StackArrayGeneric<T> implements StackGeneric<T>, Serializable{
 	private static final int N = 3;
 	private int top;
 	private T[] sarray;

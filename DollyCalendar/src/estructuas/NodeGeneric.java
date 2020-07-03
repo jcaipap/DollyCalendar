@@ -5,12 +5,14 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andre
  * @param <T>
  */
-public class NodeGeneric<T> {
+public class NodeGeneric<T> implements Serializable{
     T data;
     NodeGeneric<T> next;
     

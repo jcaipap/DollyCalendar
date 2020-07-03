@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -12,7 +13,7 @@ import java.util.Calendar;
  *
  * @author JAndres
  */
-public class Actividad extends Casilla {
+public class Actividad extends Casilla implements Serializable {
 
     private static int num =1;
     public Actividad() {

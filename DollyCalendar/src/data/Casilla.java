@@ -7,6 +7,7 @@ package data;
 
 import estructuas.LinkedListGeneric;
 import estructuas.NodeGeneric;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import java.util.Scanner;
  *
  * @author JAndres
  */
-public class Casilla implements Comparable<Casilla> {
+public class Casilla implements Comparable<Casilla>, Serializable  {
     private String titulo;
     private String descripcion;
     private int importancia;

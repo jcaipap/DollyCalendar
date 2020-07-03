@@ -5,13 +5,14 @@
  */
 package data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author JAndres
  */
-public  class Persona implements Comparable<Persona> {
+public  class Persona implements Comparable<Persona>, Serializable {
 
     private String usuario;
     private String contraseña;

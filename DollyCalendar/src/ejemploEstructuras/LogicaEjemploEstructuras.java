@@ -8,11 +8,14 @@ package ejemploEstructuras;
 
 import com.sun.org.apache.xalan.internal.lib.NodeInfo;
 import data.Actividad;
+import data.AdminDataBaseHandler;
 import data.Casilla;
 import data.Grupo;
 import data.Materia;
 import data.Persona;
 import data.Estudiante;
+import data.MateriasDataBaseHandler;
+import data.UsuariosDataBaseHandler;
 import estructuas.DynamicArray;
 import java.util.Scanner;
 import estructuas.QueueArrayGeneric;
@@ -36,6 +39,7 @@ import gui.GUIPruebas;
 import gui.GUIVerMaterias;
 import gui.GUIVerUsuarios;
 import static java.awt.Color.black;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -50,7 +54,7 @@ public class LogicaEjemploEstructuras {
      * @param args the command line arguments
      */
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
 
@@ -116,7 +120,7 @@ public class LogicaEjemploEstructuras {
         gruposED[3] = grupoED4;
         gruposED[4] = grupoED5;
 
-        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, "2016699", 3, "Disciplinar", gruposED);
+        Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, 2016699, 3, "Disciplinar", gruposED);
 
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
@@ -127,7 +131,7 @@ public class LogicaEjemploEstructuras {
         gruposECD[1] = grupoECD2;
         gruposECD[2] = grupoECD3;
         gruposECD[3] = grupoECD4;
-        Materia ecuaciones = new Materia("Ecuaciones diferenciales", "Curso de ecuaciones diferenciales ordinarias.", 4, "1000007-B", 4, "Fundamentacion", gruposECD);
+        Materia ecuaciones = new Materia("Ecuaciones diferenciales", "Curso de ecuaciones diferenciales ordinarias.", 4, 1000007, 4, "Fundamentacion", gruposECD);
 
         Grupo[] gruposEA = new Grupo[4];
         Grupo grupoEA1 = new Grupo(1, "Carlos Perilla", fechaLC9);
@@ -138,7 +142,7 @@ public class LogicaEjemploEstructuras {
         gruposEA[1] = grupoEA2;
         gruposEA[2] = grupoEA3;
         gruposEA[3] = grupoEA4;
-        Materia analoga = new Materia("Electrónica análoga I", "Teoría de circuitos analogicos y de semiconducción.", 4, "2016495", 4, "Disciplinar", gruposEA);
+        Materia analoga = new Materia("Electrónica análoga I", "Teoría de circuitos analogicos y de semiconducción.", 4, 2016495, 4, "Disciplinar", gruposEA);
 
         Grupo[] gruposfEyM = new Grupo[4];
         Grupo grupofEyM1 = new Grupo(1, "Dario Rodriguez", fechaMJ7);
@@ -149,14 +153,14 @@ public class LogicaEjemploEstructuras {
         gruposfEyM[1] = grupofEyM2;
         gruposfEyM[2] = grupofEyM3;
         gruposfEyM[3] = grupofEyM4;
-        Materia fEyM = new Materia("Fundamentos de Electricidad y Magnetismo", "Introduccion a las fuerzas electromagneticas.", 4, "1000017-B", 4, "Fundamentación", gruposfEyM);
+        Materia fEyM = new Materia("Fundamentos de Electricidad y Magnetismo", "Introduccion a las fuerzas electromagneticas.", 4, 1000017, 4, "Fundamentación", gruposfEyM);
 
         Grupo[] gruposPQ = new Grupo[2];
         Grupo grupoPQ1 = new Grupo(1, "Josue Clavijo", fechaMJ14);
         Grupo grupoPQ4 = new Grupo(2, "Edgar Delgado", fechaLC14);
         gruposPQ[0] = grupoPQ1;
         gruposPQ[1] = grupoPQ4;
-        Materia PQ = new Materia("Principios de química", "Introducción a la química básica.", 3, "1000024-B", 3, "Fundamentación", gruposPQ);
+        Materia PQ = new Materia("Principios de química", "Introducción a la química básica.", 3, 1000024, 3, "Fundamentación", gruposPQ);
 
         Grupo[] gruposDin = new Grupo[4];
         Grupo grupoDin1 = new Grupo(1, "Carlos Camacho", fechaMJ11);
@@ -167,30 +171,32 @@ public class LogicaEjemploEstructuras {
         gruposDin[1] = grupoDin2;
         gruposDin[2] = grupoDin3;
         gruposDin[3] = grupoDin4;
-        Materia dina = new Materia("Principios de Dinamica", "Sistemas dinámicos de partículas y cuerpo rígido.", 3, "2017271", 3, "Disciplinar", gruposDin);
+        Materia dina = new Materia("Principios de Dinamica", "Sistemas dinámicos de partículas y cuerpo rígido.", 3, 2017271, 3, "Disciplinar", gruposDin);
 
         Grupo[] gruposDIC = new Grupo[1];
         Grupo grupoDIC1 = new Grupo(1, "Antonio Mejia", fechaMJ11);
         gruposDIC[0] = grupoDIC1;
-        Materia dic = new Materia("Desarrollo de la ingeniería en Colombia ", "Breve introducción a la historia del desarrollo tecnológico en Colombia.", 3, "2025976", 3, "Libre Elección", gruposDIC);
+        Materia dic = new Materia("Desarrollo de la ingeniería en Colombia ", "Breve introducción a la historia del desarrollo tecnológico en Colombia.", 3, 20259767, 3, "Libre Elección", gruposDIC);
 
-        LinkedListGeneric<Casilla> casillas = new LinkedListGeneric<>();
+        PriorityQueue<Casilla> casillas = new PriorityQueue<>(true);
 
         
-        HashGeneric<String,Materia> materias=new HashGeneric<>();
+        HashGeneric<Integer,Materia> materias=new HashGeneric<>();
         materias.add(estructuras.getCodigo(), estructuras);
         materias.add(ecuaciones.getCodigo(), ecuaciones);
         materias.add(analoga.getCodigo(), analoga);
         materias.add(fEyM.getCodigo(), fEyM);
-//        materias.add(PQ.getCodigo(), PQ);
-//        materias.add(dina.getCodigo(), dina);
-//        materias.add(dic.getCodigo(), dic);
+        materias.add(PQ.getCodigo(), PQ);
+        materias.add(dina.getCodigo(), dina);
+        materias.add(dic.getCodigo(), dic);
+        
+        
          
         Persona admin1 = new Persona("admin1", "clave1", 1, "nombre1", "apellido1");
         Persona admin2 = new Persona("admin2", "claveAdmin", 2, "nombre2", "apellido2");
         Persona admin3 = new Persona("admin13", "claveAdmin2", 3, "nombre3", "apellido3");
-        Persona admin4 = new Persona("admin4", "claveAdmin2", 3, "nombre3", "apellido3");
-        Persona admin5 = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
+        Persona admin4 = new Persona("admin4", "claveAdmin2", 4, "nombre3", "apellido3");
+        Persona admin5 = new Persona("admin5", "claveAdmin2", 5, "nombre3", "apellido3");
         Estudiante est1 = new Estudiante("usuario1", "clave1", 1, "nombre1", "apellido1", casillas, "Ing1");
         Estudiante est2 = new Estudiante("dfcantors", "contraseña", 1072717690, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
         Estudiante est3 = new Estudiante("usuarioextra", "contraseña", 1072717699, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
@@ -198,21 +204,21 @@ public class LogicaEjemploEstructuras {
         Estudiante juliana = new Estudiante("jcaipapi", "password", 101123710, "David", "Herrera", casillas, "Ingeniería Mecatrónica");
         Estudiante juliani= new Estudiante("jcaipapa", "password", 1010036710, "Julian", "Cadena", casillas, "Ingeniería Mecatrónica");
         Estudiante j= new Estudiante("fsgalindope", "password", 1010692710, "Juliana", "Sandoval", casillas, "Ingeniería Mecatrónica");
-        Estudiante ju= new Estudiante("jcaipapa", "password", 1013052710, "Juli", "Caipa", casillas, "Ingeniería Mecatrónica");
-        Estudiante jul= new Estudiante("jcaipapa", "password", 1010042710, "Julio", "Alvarez", casillas, "Ingeniería Mecatrónica");
-        Estudiante juli= new Estudiante("jcaipapa", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería Mecatrónica");
+        Estudiante ju= new Estudiante("jcaipapa1", "password", 1013052710, "Juli", "Caipa", casillas, "Ingeniería Mecatrónica");
+        Estudiante jul= new Estudiante("jcaipapa2", "password", 1010042710, "Julio", "Alvarez", casillas, "Ingeniería Mecatrónica");
+        Estudiante juli= new Estudiante("jcaipapa3", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería Mecatrónica");
 
-        LinkedListGeneric<Casilla> casillasAndres = new LinkedListGeneric<>();
+        PriorityQueue<Casilla> casillasAndres = new PriorityQueue<>(true);
         Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, calendarGenerator(2020, 5, 4, 14, 0), calendarGenerator(2020, 5, 4, 16, 0));
-        casillasAndres.insert(activ1);
+        casillasAndres.add(activ1);
         Estudiante andres = new Estudiante("aholguinr", "clave", 1000794275, "Andres", "Holguin", casillasAndres, "Ingeniería Mecatrónica");
         HashGeneric<String,Persona> administradores=new HashGeneric<>();
         HashGeneric<String,Persona> usuarios=new HashGeneric<>();
-        administradores.add(admin1.getUsuario(), admin1);
-        administradores.add(admin2.getUsuario(), admin2);
-        administradores.add(admin3.getUsuario(), admin3);
-        administradores.add(admin4.getUsuario(), admin4);
-        administradores.add(admin5.getUsuario(), admin5);
+//        administradores.add(admin1.getUsuario(), admin1);
+//        administradores.add(admin2.getUsuario(), admin2);
+//        administradores.add(admin3.getUsuario(), admin3);
+//        administradores.add(admin4.getUsuario(), admin4);
+//        administradores.add(admin5.getUsuario(), admin5);
         usuarios.add(est1.getUsuario(), est1);
         usuarios.add(est2.getUsuario(), est2);
         usuarios.add(est3.getUsuario(), est3);
@@ -224,41 +230,51 @@ public class LogicaEjemploEstructuras {
         usuarios.add(ju.getUsuario(), ju);
         usuarios.add(jul.getUsuario(), jul);
         usuarios.add(juli.getUsuario(), juli);
-//        DynamicArray f=usuarios.getHash();
-//        f.printitems();
-//        int testerNum=10000000;
-//        long startTime=System.nanoTime();
-//        PriorityQueue <Persona> tester=new PriorityQueue<>(true);
-//        System.out.println("Prueba con "+testerNum+" datos en StackArray");
-//        for(int i=0;i<testerNum;i++){
-//            Persona admin = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
-//            tester.add(admin);
-//        }
-//        long create=System.nanoTime()-startTime;
-//        System.out.println("Tiempo de creación de usuarios y almacenamiento: "+create);
-//        for (int j=0;j<testerNum;j++){
-//            tester.remove();
-//        }
-//        long elim=System.nanoTime()-startTime;
-//        System.out.println("Tiempo de eliminación de usuarios: "+ elim);
-//        Persona adminMod = new Persona("admin5", "claveAdmin2", 3, "nombre3", "apellido3");
-//        for(int k=0;k<testerNum;k++){
-//            adminMod.setNombre("Andrew");
-//            adminMod.setApellido("Restrepo");
-//            adminMod.setContraseña("config");
-//        }
-//        long endTime=System.nanoTime()-startTime;
-//        System.out.println("Tiempo de actualización de usuarios: "+endTime);
-        
+
+        UsuariosDataBaseHandler userdatabase=new UsuariosDataBaseHandler();
+        AdminDataBaseHandler admindatabase=new AdminDataBaseHandler();
+        MateriasDataBaseHandler materiasbase=new MateriasDataBaseHandler();
+        HashGeneric<Integer,Materia> materias1=materiasbase.LeerDBC();
+        HashGeneric<String,Persona> usuarios1=userdatabase.LeerDBC();
+        HashGeneric<String,Persona> administradores1=admindatabase.LeerDBC();
+        System.out.println(usuarios.size());
+        //System.out.println(usuarios);
+//        userdatabase.InsertarDBC(est1);
+//        userdatabase.InsertarDBC(est2);
+//        userdatabase.InsertarDBC(est3);
+//        userdatabase.InsertarDBC(julian);
+//        userdatabase.InsertarDBC(juliana);
+//        userdatabase.InsertarDBC(juliani);
+//        userdatabase.InsertarDBC(andres);
+//        userdatabase.InsertarDBC(j);
+//        userdatabase.InsertarDBC(ju);
+//        userdatabase.InsertarDBC(jul);
+//        userdatabase.InsertarDBC(juli);
+//        materiasbase.InsertarDBC(estructuras);
+//        materiasbase.InsertarDBC(ecuaciones);
+//        materiasbase.InsertarDBC(analoga);
+//        materiasbase.InsertarDBC(fEyM);
+//        materiasbase.InsertarDBC(PQ);
+//        materiasbase.InsertarDBC(dina);
+//        materiasbase.InsertarDBC(dic);
+        Materia m=materias.get(fEyM.getCodigo());
+//        materias1=materiasbase.LeerDBC();
+//        m=materias1.get(dic.getCodigo());
+//        m.toStringMateria();
+//        DynamicArray personas=userdatabase.LeerDBC();
+//        DynamicArray admins=admindatabase.LeerDBC(); 
+//        personas.printitems();
+//        admins.printitems();
+   
 //        GUIInicio inic = new GUIInicio(usuarios, administradores);
 //        inic.setVisible(true);
         
-//        GUIInicio inicio = new GUIInicio(usuarios, administradores);
+//        GUIInicio inicio = new GUIInicio(usuarios1, administradores1,materias1,admindatabase,materiasbase,userdatabase);
 //        inicio.setVisible(true);
-        GUIVerUsuarios usu = new GUIVerUsuarios(usuarios, usuarios,administradores,materias);
-        usu.setVisible(true);
+//        GUIVerUsuarios usu = new GUIVerUsuarios(usuarios, usuarios,administradores,materias);
+//        usu.setVisible(true);
 //        
-//        GUIVerMaterias mat = new GUIVerMaterias(usuarios, administradores, materias);
+//        GUIVerMaterias mat = new GUIVerMaterias(usuarios, administradores, materias1,admindatabase,materiasbase,userdatabase);
 //        mat.setVisible(true);
         
 //        GUIBuscador busc = new GUIBuscador(usuarios, administradores);
@@ -562,7 +578,7 @@ public class LogicaEjemploEstructuras {
         Grupo[] grupos = materia.getGrupos();
         Grupo grupoSelect = grupos[numeroGrupo - 1];
         Calendar[] horario = grupoSelect.getHorario();
-        LinkedListGeneric<Casilla> mat = user.getCasillas();
+        PriorityQueue<Casilla> mat = user.getCasillas();
         for (Calendar calendar : horario) {
             Calendar[] semestre = generadorCalendar(calendar);
             for (int i = 0; i < semestre.length; i++) {
@@ -576,7 +592,7 @@ public class LogicaEjemploEstructuras {
                 Materia agregar = new Materia(materia.getTitulo(), materia.getDescripcion(),
                         materia.getImportancia(), fechaInicio, fechaFinalizacion, materia.getCodigo(), materia.getCreditos(),
                         materia.getTipologia(), numeroGrupo, grupoSelect.getProfesor());
-                mat.insert(agregar);
+                mat.add(agregar);
             }
         }
         user.setCasillas(mat);
@@ -610,7 +626,7 @@ public class LogicaEjemploEstructuras {
                     break;
                 case 3:
                     System.out.println("\n\nIngrese el nuevo código:\n");
-                    matCambio.setCodigo(scannerStr.next());
+                    matCambio.setCodigo(scannerStr.nextInt());
                     System.out.println("\n\nCambio realizado correctamente\n");
                     break;
                 case 4:
@@ -1426,7 +1442,7 @@ public class LogicaEjemploEstructuras {
                 case 1:
                     limpiarConsola();
                     System.out.println("\n\nA continuación se muestran todas las actividades programadas\n\n");
-                    estudiante.getCasillas().printRecursive();
+                    //estudiante.getCasillas().printRecursive();
                     System.out.println("\n\n\n\n");
                     continuar = seguirEstudiante();
                     limpiarConsola();
@@ -1444,7 +1460,7 @@ public class LogicaEjemploEstructuras {
                             while (continuar2) {
                                 limpiarConsola();
 
-                                estudiante.setCasillas(añadirActividad(estudiante.getCasillas()));
+                                //estudiante.setCasillas(añadirActividad(estudiante.getCasillas()));
 
                                 System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Crear otra actividad\n2. Volver\n3. Salir del modo estudiante");
                                 
@@ -1468,8 +1484,8 @@ public class LogicaEjemploEstructuras {
                             boolean continuar4 = true;
                             while (continuar4) {
                                 limpiarConsola();
-                                String titulo = extraerActividad(estudiante.getCasillas());
-                                estudiante.setCasillas(eliminarActividad(estudiante.getCasillas(), titulo));
+                                //String titulo = extraerActividad(estudiante.getCasillas());
+                                //estudiante.setCasillas(eliminarActividad(estudiante.getCasillas(), titulo));
                                 
                                 System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Eliminar otra actividad\n2. Volver\n3. Salir del modo estudiante");
                                 
@@ -1490,7 +1506,7 @@ public class LogicaEjemploEstructuras {
                             continue;
 
                         case 3:
-                            estudiante.setCasillas(modificarActividad(actividadEditar(estudiante.getCasillas(), extraerActividadEditar(estudiante.getCasillas())), estudiante.getCasillas()));                            
+                            //estudiante.setCasillas(modificarActividad(actividadEditar(estudiante.getCasillas(), extraerActividadEditar(estudiante.getCasillas())), estudiante.getCasillas()));                            
                             limpiarConsola();
                             break;
                             
@@ -1520,7 +1536,7 @@ public class LogicaEjemploEstructuras {
                 case 3:
                     limpiarConsola();
                     System.out.println("\nA continuación se muestra su horario académico actual:\n\n");
-                    mostrarMateriasEst(estudiante.getCasillas());
+                    //mostrarMateriasEst(estudiante.getCasillas());
                     Materia.setNum(1);
                     System.out.println("\n\n\n\n");
                     continuar = seguirEstudiante();
@@ -1584,8 +1600,8 @@ public class LogicaEjemploEstructuras {
                             boolean continuar4 = true;
                             while (continuar4) {
                                 limpiarConsola();
-                                String titulo = extraerMateria(estudiante.getCasillas());
-                                estudiante.setCasillas(eliminarMateria(estudiante.getCasillas(), titulo));
+                                //String titulo = extraerMateria(estudiante.getCasillas());
+                                //estudiante.setCasillas(eliminarMateria(estudiante.getCasillas(), titulo));
                                 System.out.println("\nSeleccione qué opcion desea realizar:\n\n1. Eliminar otra materia\n2. Volver");
                                 if (scanner.nextInt() != 1) {
                                     continuar4 = false;

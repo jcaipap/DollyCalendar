@@ -5,8 +5,11 @@
  */
 package gui;
 
+import data.AdminDataBaseHandler;
 import data.Materia;
+import data.MateriasDataBaseHandler;
 import data.Persona;
+import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,14 +29,19 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
      */
     
     public HashGeneric<String,Persona> usuarios;
-    public HashGeneric<String,Materia> materias;
+    public HashGeneric<Integer,Materia> materias;
     public HashGeneric<String,Persona> administradores;
+    AdminDataBaseHandler adminbase;
+    MateriasDataBaseHandler materiasbase;
+    UsuariosDataBaseHandler userbase;
     
-    
-    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
+    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
         this.usuarios=usuarios;
         this.administradores=administradores;
         this.materias=materias;
+        this.adminbase=adminbase;
+        this.materiasbase=materiasbase;
+        this.userbase=userbase;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -232,7 +240,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){  
-                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
+                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
                 inicio.setVisible(true);
                 this.dispose();
 
@@ -254,7 +262,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
 
     private void jBVerCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerCursosActionPerformed
         // TODO add your handling code here:
-        GUIVerMaterias verCursos = new GUIVerMaterias(usuarios,administradores,materias);
+        GUIVerMaterias verCursos = new GUIVerMaterias(usuarios,administradores,materias,adminbase, materiasbase, userbase);
         verCursos.setVisible(true);
         this.dispose();
         
@@ -263,7 +271,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     private void jBVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerUsuariosActionPerformed
         // TODO add your handling code here:
 
-        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,usuarios,administradores,materias);
+        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,usuarios,administradores,materias,adminbase, materiasbase, userbase);
         verUsuarios.setVisible(true);
         this.dispose();
         

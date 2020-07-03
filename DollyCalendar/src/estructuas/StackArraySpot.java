@@ -6,13 +6,14 @@
 package estructuas;
 
 import data.Casilla;
+import java.io.Serializable;
 
 /**
  *
  * @author andre
 
  */
-public class StackArraySpot  {
+public class StackArraySpot  implements Serializable{
    
     private static final int N = 3;
 	private int top;

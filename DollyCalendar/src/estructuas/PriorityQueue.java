@@ -5,6 +5,7 @@
  */
 package estructuas;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * @author JAndres
  * @param <T>
  */
-public class PriorityQueue<T extends Comparable<T>> {
+public class PriorityQueue<T extends Comparable<T>> implements Serializable {
 
     private static final int DEFAULT_CAPACITY = 10;
     private T[] heap;

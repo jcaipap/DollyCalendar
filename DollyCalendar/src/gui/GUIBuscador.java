@@ -5,8 +5,11 @@
  */
 package gui;
 
+import data.AdminDataBaseHandler;
 import data.Materia;
+import data.MateriasDataBaseHandler;
 import data.Persona;
+import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
 import static gui.Calendario.frmMain;
 import java.awt.Color;
@@ -50,7 +53,10 @@ public class GUIBuscador extends javax.swing.JFrame {
      */
     HashGeneric<String, Persona> usuarios;
     HashGeneric<String, Persona> administradores;
-    HashGeneric<String, Materia> materias;
+    HashGeneric<Integer, Materia> materias;
+    AdminDataBaseHandler adminbase;
+    MateriasDataBaseHandler materiasbase;
+    UsuariosDataBaseHandler userbase;
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
     static JTable tblCalendar;
@@ -62,10 +68,13 @@ public class GUIBuscador extends javax.swing.JFrame {
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     static GregorianCalendar fecha2 = new GregorianCalendar();
 
-    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<String, Materia> materias) {
+    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
         this.usuarios = usuarios;
         this.administradores = administradores;
         this.materias = materias;
+        this.adminbase=adminbase;
+        this.materiasbase=materiasbase;
+        this.userbase=userbase;
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -549,7 +558,7 @@ public class GUIBuscador extends javax.swing.JFrame {
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             JPCalendar.invalidate();
-            GUIInicio inicio = new GUIInicio(usuarios, administradores,materias);
+            GUIInicio inicio = new GUIInicio(usuarios, administradores,materias,adminbase, materiasbase, userbase);
             inicio.setVisible(true);
             this.dispose();
         }

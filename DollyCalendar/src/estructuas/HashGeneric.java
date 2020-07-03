@@ -5,6 +5,7 @@
  */
 package estructuas;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Arrays;
  * @param <K>
  * @param <V>
  */
-public class HashGeneric<K, V> {
+public class HashGeneric<K, V> implements Serializable {
 
     private HashNode<K, V>[] bucketArray;
     private DynamicArray values;
@@ -28,6 +29,14 @@ public class HashGeneric<K, V> {
             bucketArray[i] = null;
         }
         values=new DynamicArray();
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public int size() {
@@ -46,7 +55,7 @@ public class HashGeneric<K, V> {
 
     public V remove(K key) {
         int bucketIndex = getBucketIndex(key);
-        HashNode<K, V> head = bucketArray[bucketIndex-1];
+        HashNode<K, V> head = bucketArray[bucketIndex];
         HashNode<K, V> prev = null;
         while (head != null) {
             if (head.key.equals(key)) {
@@ -62,14 +71,14 @@ public class HashGeneric<K, V> {
         if (prev != null) {
             prev.next = head.next;
         } else {
-            bucketArray[bucketIndex-1] = head.next;
+            bucketArray[bucketIndex] = head.next;
         }
         return head.value;
     }
     
     public V get(K key) {
         int bucketIndex = getBucketIndex(key);
-        HashNode<K, V> head = bucketArray[bucketIndex-1];
+        HashNode<K, V> head = bucketArray[bucketIndex];
         while (head != null) {
             if (head.key.equals(key)) {
                 return head.value;
@@ -81,7 +90,7 @@ public class HashGeneric<K, V> {
     
     public V getValue(K key) {
         int bucketIndex = getBucketIndex(key);
-        HashNode<K, V> head = bucketArray[bucketIndex-1];
+        HashNode<K, V> head = bucketArray[bucketIndex];
         while (head != null) {
             if (head.key.equals(key)) {
                 return head.value;
@@ -93,8 +102,8 @@ public class HashGeneric<K, V> {
     
     public void add(K key, V value) {
         int bucketIndex = getBucketIndex(key);
-        HashNode<K, V> head = bucketArray[bucketIndex-1];
-
+//        System.out.println(bucketIndex);
+        HashNode<K, V> head = bucketArray[bucketIndex];
         while (head != null) {
             if (head.key.equals(key)) {
                 head.value = value;
@@ -104,11 +113,6 @@ public class HashGeneric<K, V> {
         }
         
         size++;
-        head = bucketArray[bucketIndex-1];
-        HashNode<K, V> newNode = new HashNode<>(key, value);
-        newNode.next = head;
-        bucketArray[bucketIndex-1] = newNode;
-
         if (size==load*capacity) {
             HashNode<K, V>[] temp = bucketArray;
             capacity *= 2;
@@ -125,6 +129,11 @@ public class HashGeneric<K, V> {
                 }
             }
         }
+        head = bucketArray[bucketIndex];
+        HashNode<K, V> newNode = new HashNode<>(key, value);
+        newNode.next = head;
+        bucketArray[bucketIndex] = newNode;
+
         values.additem((Comparable) value);
     }
     @Override

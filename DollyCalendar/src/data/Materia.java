@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -14,8 +15,8 @@ import java.util.Objects;
  *
  * @author JAndres
  */
-public class Materia extends Casilla{
-    private String codigo;
+public class Materia extends Casilla implements Serializable{
+    private int codigo;
     private int creditos;
     private String tipologia;
     private int numeroGrupo;
@@ -28,7 +29,7 @@ public class Materia extends Casilla{
 
    
     
-    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor, Grupo[]  grupos) {
+    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion,int codigo, int creditos, String tipologia, int numeroGrupo, String profesor, Grupo[]  grupos) {
         super(titulo, descripcion, importancia, fechaInicio, fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
@@ -38,7 +39,7 @@ public class Materia extends Casilla{
         this.grupos = grupos;
     }
 
-    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
+    public Materia(String titulo, String descripcion, int importancia, Calendar fechaInicio, Calendar fechaFinalizacion, int codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
         super(titulo, descripcion, importancia, fechaInicio, fechaFinalizacion);
         this.codigo = codigo;
         this.creditos = creditos;
@@ -49,7 +50,7 @@ public class Materia extends Casilla{
 
     
 
-    public Materia( String titulo, String descripcion, int importancia, String codigo, int creditos, String tipologia,Grupo[] grupos) {
+    public Materia( String titulo, String descripcion, int importancia, int codigo, int creditos, String tipologia,Grupo[] grupos) {
         super(titulo, descripcion, importancia);
         this.codigo = codigo;
         this.creditos = creditos;
@@ -57,7 +58,7 @@ public class Materia extends Casilla{
         this.grupos = grupos;
     }
 
-    public Materia(String titulo, String descripcion, int importancia, String codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
+    public Materia(String titulo, String descripcion, int importancia, int codigo, int creditos, String tipologia, int numeroGrupo, String profesor) {
         super(titulo, descripcion, importancia);
         this.codigo = codigo;
         this.creditos = creditos;
@@ -69,12 +70,12 @@ public class Materia extends Casilla{
     
     
     
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
     
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

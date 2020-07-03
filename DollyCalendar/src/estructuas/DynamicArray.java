@@ -1,12 +1,13 @@
 
 package estructuas;
+import java.io.Serializable;
 import java.util.Arrays;
 /**
  *
  * @author andre
  * @param <T>
  */
-public class DynamicArray <T extends Comparable<T>>{
+public class DynamicArray <T extends Comparable<T>> implements Serializable{
     private T[] array;
     private int size;
     private int capacity;

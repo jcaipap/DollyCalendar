@@ -5,9 +5,12 @@
  */
 package gui;
 
+import data.AdminDataBaseHandler;
 import data.Grupo;
 import data.Materia;
+import data.MateriasDataBaseHandler;
 import data.Persona;
+import data.UsuariosDataBaseHandler;
 import estructuas.DynamicArray;
 import estructuas.HashGeneric;
 import java.awt.Color;
@@ -40,21 +43,25 @@ public class GUIVerGrupos extends javax.swing.JFrame {
      */
     public boolean editar = false;
     public HashGeneric<String,Persona> usuarios;
-    public HashGeneric<String,Materia> materias;
+    public HashGeneric<Integer,Materia> materias;
     public HashGeneric<String,Persona> administradores;
     public Materia materia;
-    
+    AdminDataBaseHandler adminbase;
+    MateriasDataBaseHandler materiasbase;
+    UsuariosDataBaseHandler userbase;
     
     public String[] nombreDia=new String[7];
     
     
-    public GUIVerGrupos(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias,Materia materia) {
+    public GUIVerGrupos(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,Materia materia,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
         
         this.materias=materias;
         this.materia=materia;
         this.usuarios=usuarios;
         this.administradores=administradores; 
-        
+        this.adminbase=adminbase;
+        this.materiasbase=materiasbase;
+        this.userbase=userbase;
         this.nombreDia[0]="Lunes";
         this.nombreDia[1]="Martes";
         this.nombreDia[2]="Miercoles";
@@ -437,7 +444,7 @@ public class GUIVerGrupos extends javax.swing.JFrame {
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
 
-        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias);
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
         inicioAdmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_VolverAInicioActionPerformed
@@ -455,30 +462,30 @@ public class GUIVerGrupos extends javax.swing.JFrame {
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Desea guardar cambios y volver?",
             "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+        if(respuesta==JOptionPane.YES_OPTION){
             
             
             if(editar){
                 
 
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materiasEditadas());
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materiasEditadas(),adminbase, materiasbase, userbase);
                 inicioAdmin.setVisible(true);
                 this.dispose();
                 
             }else{
                 
                 
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias);
-            inicioAdmin.setVisible(true);
-            this.dispose();
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+                inicioAdmin.setVisible(true);
+                this.dispose();
                 
             }
             
         }
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
-    public HashGeneric<String,Materia> materiasEditadas(){
-            HashGeneric<String,Materia> materiasNuevas=new HashGeneric<>();
+    public HashGeneric<Integer,Materia> materiasEditadas(){
+            HashGeneric<Integer,Materia> materiasNuevas=new HashGeneric<>();
             Materia materiaEditada=materia;
             
             

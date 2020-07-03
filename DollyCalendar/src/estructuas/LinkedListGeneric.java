@@ -6,6 +6,7 @@
 package estructuas;
 
 import data.Casilla;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  * @author andre
  * @param <T>
  */
-public class LinkedListGeneric<T extends Comparable<T>> {
+public class LinkedListGeneric<T extends Comparable<T>> implements Serializable{
     private NodeGeneric<T> head;
     private NodeGeneric<T> last;
     private int N;

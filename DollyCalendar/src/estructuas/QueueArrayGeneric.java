@@ -5,12 +5,14 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author andre
  * @param <T>
  */
-public class QueueArrayGeneric<T> {
+public class QueueArrayGeneric<T> implements Serializable {
     private final int N;
     private int front, rear, count;
     private T[] qarray;

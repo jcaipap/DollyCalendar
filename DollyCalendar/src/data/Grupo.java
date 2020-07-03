@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -12,7 +13,7 @@ import java.util.Calendar;
  *
  * @author JAndres
  */
-public class Grupo implements Comparable<Grupo> {
+public class Grupo implements Comparable<Grupo>, Serializable {
     private int numeroGrupo;
     private String profesor;
     private Calendar[] horario;

@@ -19,9 +19,12 @@
  */
 package gui;
 
+import data.AdminDataBaseHandler;
 import data.Estudiante;
 import data.Materia;
+import data.MateriasDataBaseHandler;
 import data.Persona;
+import data.UsuariosDataBaseHandler;
 import estructuas.DynamicArray;
 import estructuas.HashGeneric;
 import estructuas.HashNode;
@@ -61,17 +64,21 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     public HashGeneric<String,Persona> usuarios;
     public HashGeneric<String,Persona> usuariosIniciales;
     public HashGeneric<String,Persona> administradores;
-    public HashGeneric<String,Materia> materias;
-    
+    public HashGeneric<Integer,Materia> materias;
+    AdminDataBaseHandler adminbase;
+    MateriasDataBaseHandler materiasbase;
+    UsuariosDataBaseHandler userbase;
 
     
     Estudiante est1 = new Estudiante("USUARIO", "contraseña", 1000, "nombre", "apellido", "pregrado");
     
 
-    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> usuarios2,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
+    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> usuarios2,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
         this.usuariosIniciales=usuarios;
         this.materias=materias;
-
+        this.adminbase=adminbase;
+        this.materiasbase=materiasbase;
+        this.userbase=userbase;
         this.usuarios=usuarios2;
         this.administradores=administradores;
         initComponents();
@@ -449,7 +456,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
 
 
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosIniciales,administradores,materias);
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosIniciales,administradores,materias,adminbase, materiasbase, userbase);
                 inicioAdmin.setVisible(true);
                 this.dispose();
 
@@ -476,14 +483,14 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             
             if(editar){
                 
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosEditados(),administradores,materias);
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosEditados(),administradores,materias,adminbase, materiasbase, userbase);
                 inicioAdmin.setVisible(true);
                 this.dispose();
                 
             }else{
                 
                 
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias);
+                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
                 inicioAdmin.setVisible(true);
                 this.dispose();
                 

@@ -2,8 +2,11 @@
 package gui;
 
 
+import data.AdminDataBaseHandler;
 import data.Materia;
+import data.MateriasDataBaseHandler;
 import data.Persona;
+import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,13 +24,18 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     
     HashGeneric<String,Persona> usuarios;
     HashGeneric<String,Persona> administradores;
-    HashGeneric<String,Materia> materias;
-        
+    HashGeneric<Integer,Materia> materias;
+    AdminDataBaseHandler adminbase;
+    MateriasDataBaseHandler materiasbase;
+    UsuariosDataBaseHandler userbase;
   
-    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<String,Materia> materias) {
+    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
         this.usuarios=usuarios;
         this.administradores=administradores;
         this.materias=materias;
+        this.adminbase=adminbase;
+        this.materiasbase=materiasbase;
+        this.userbase=userbase;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -408,7 +416,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al inicio?",
         "confirmacion", JOptionPane.YES_NO_OPTION);
         if(respuesta==0){       
-            GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
+            GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
             inicio.setVisible(true);
             this.dispose();
         }
@@ -504,7 +512,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         
         
         
-        GUIInicio inicio = new GUIInicio(usuarios,administradores,materias);
+        GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
         inicio.setVisible(true);
         this.dispose();
         

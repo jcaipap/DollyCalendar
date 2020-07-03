@@ -5,13 +5,15 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JAndres
  * @param <K>
  * @param <V>
  */
-public class HashNode <K,V>{
+public class HashNode <K,V> implements Serializable, Comparable<HashNode<K,V>>{
     final K key;
     V value;
     HashNode<K, V> next;
@@ -38,7 +40,14 @@ public class HashNode <K,V>{
     public HashNode<K, V> getNext() {
         return next;
     }
-
+    @Override
+    public int compareTo(HashNode hashnode){
+        int result;
+        Object obj=(Object) key;
+        String comp=hashnode.getKey().toString();
+        result=obj.toString().compareTo(comp);
+        return result;
+    }
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

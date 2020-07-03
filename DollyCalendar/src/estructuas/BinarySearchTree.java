@@ -5,11 +5,13 @@
  */
 package estructuas;
 
+import java.io.Serializable;
+
 /**
  *
  * @author JAndres
  */
-class BinarySearchTree <T extends Comparable<T>>{
+public class BinarySearchTree <T extends Comparable<T>> implements Serializable{
     class NodeBST <T>{
         T key;
         NodeBST<T> left, right;

@@ -6,6 +6,8 @@
 package data;
 
 import estructuas.LinkedListGeneric;
+import estructuas.PriorityQueue;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,8 +15,8 @@ import java.util.Objects;
  *
  * @author JAndres
  */
-public class Estudiante extends Persona {
-    private LinkedListGeneric<Casilla> casillas;
+public class Estudiante extends Persona implements Serializable {
+    private PriorityQueue<Casilla> casillas;
     private String pregrado;
 
     public Estudiante() {
@@ -25,18 +27,17 @@ public class Estudiante extends Persona {
         this.pregrado = pregrado;
     }
 
-    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido,LinkedListGeneric<Casilla> casillas, String pregrado) {
+    public Estudiante(String usuario, String contraseña, int codigo, String nombre, String apellido,PriorityQueue<Casilla> casillas, String pregrado) {
         super(usuario, contraseña, codigo, nombre, apellido);
         this.casillas = casillas;
         this.pregrado = pregrado;
     }
-    
-    
-    public LinkedListGeneric<Casilla> getCasillas() {
+
+    public PriorityQueue<Casilla> getCasillas() {
         return casillas;
     }
 
-    public void setCasillas(LinkedListGeneric<Casilla> casillas) {
+    public void setCasillas(PriorityQueue<Casilla> casillas) {
         this.casillas = casillas;
     }
 
