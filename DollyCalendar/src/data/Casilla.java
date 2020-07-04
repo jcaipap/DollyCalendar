@@ -54,7 +54,17 @@ public class Casilla implements Comparable<Casilla>, Serializable  {
     }
     
 
-    
+public static Casilla[] getArray(Comparable[] array){
+        Casilla[] casillas=new Casilla[array.length];
+        for(int i=0;i<array.length;i++){
+            if(array[i]!=null){
+                casillas[i]=(Casilla) array[i];
+            }
+        }
+        return casillas;
+    }
+
+
     public String getTitulo() {
         return titulo;
     }

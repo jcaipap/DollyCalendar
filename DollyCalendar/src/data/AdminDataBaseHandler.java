@@ -131,7 +131,7 @@ public class AdminDataBaseHandler {
             ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(byteArray);
             oos.writeObject(persona);
-            pstU=cnU.prepareStatement("UPDATE admin SET admin='"+byteArray.toByteArray()+"' WHERE codigo="+codigo );
+            pstU=cnU.prepareStatement("DELETE FROM admin WHERE codigo="+codigo);
             pstU.executeUpdate();
             pstU.close();
         }catch (SQLException e){
@@ -144,7 +144,6 @@ public class AdminDataBaseHandler {
             }catch(SQLException exc){
                 
             }
-        }
-        
+        } 
     }
 }

@@ -42,6 +42,16 @@ public class PriorityQueue<T extends Comparable<T>> implements Serializable {
 
     }
 
+    public T[] toArray() {
+        T[] array = (T[]) new Comparable[length+1];
+        for(int i=0;i<length+1;i++){
+            if(heap[i]!=null){
+                array[i]=heap[i];
+            }
+        }
+        return array;
+    }
+    
     public T[] getHeap() {
         return Arrays.copyOfRange(heap, 1, length + 1);
     }

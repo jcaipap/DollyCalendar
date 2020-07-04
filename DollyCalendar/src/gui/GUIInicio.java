@@ -6,6 +6,7 @@
 package gui;
 
 import data.AdminDataBaseHandler;
+import data.Estudiante;
 import data.Materia;
 import data.MateriasDataBaseHandler;
 import data.Persona;
@@ -431,7 +432,7 @@ public class GUIInicio extends javax.swing.JFrame {
         this.incorrecto.setVisible(true);
         if (estudiante&&inputContraseña.getText().equals(usuarios.get(inputUsuario.getText()).getContraseña())) {
 
-                GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores,materias,adminbase, materiasbase, userbase);
+                GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores,materias,adminbase, materiasbase, userbase, (Estudiante) usuarios.get(inputUsuario.getText()));
                 inicioEst.setVisible(true);
                 this.dispose();
             } 

@@ -5,7 +5,10 @@
  */
 package gui;
 
+import data.Actividad;
 import data.AdminDataBaseHandler;
+import data.Casilla;
+import data.Estudiante;
 import data.Materia;
 import data.MateriasDataBaseHandler;
 import data.Persona;
@@ -15,6 +18,9 @@ import static gui.Calendario.frmMain;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import static java.awt.Font.BOLD;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -24,6 +30,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,6 +48,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import logica.Metodos;
 
 /**
  *
@@ -67,14 +75,20 @@ public class GUIBuscador extends javax.swing.JFrame {
     static JLabel fechaSelec;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     static GregorianCalendar fecha2 = new GregorianCalendar();
-
-    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
+    Casilla casillas[];
+    Estudiante estudiante;
+    
+    
+    public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         this.usuarios = usuarios;
         this.administradores = administradores;
         this.materias = materias;
         this.adminbase=adminbase;
         this.materiasbase=materiasbase;
         this.userbase=userbase;
+        this.estudiante=estudiante;
+//        this.casillas=estudiante.getCasillas().toArray();
+        this.casillas=Casilla.getArray(estudiante.getCasillas().toArray());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -98,11 +112,93 @@ public class GUIBuscador extends javax.swing.JFrame {
         VolverAInicio.paint(graphic);
         
         
+        
+        crearCatalogo(casillas);
+        
     }
-
+    
     public GUIBuscador() {
     }
+    
+        private void crearCatalogo(Casilla[] casillas) {
 
+        panelAct.removeAll();
+        panelAct.setLayout(new BoxLayout(panelAct, BoxLayout.Y_AXIS));
+        
+        for(int i =1;i<casillas.length;i++){
+            
+            panelAct.add(crearProducto(casillas[i], panelAct));
+        }
+     
+        panelAct.validate();
+        panelAct.repaint();
+    }
+    
+    
+    public final JPanel crearProducto(Casilla casilla, JPanel panel) {
+        
+
+        JPanel panelProducto = new JPanel();
+        Dimension dimensioProducto = new Dimension(panel.getWidth(), panel.getWidth()/5);
+        Dimension dimensioAncho = new Dimension(panel.getWidth(), 1);
+        panelProducto.setLayout(new BoxLayout(panelProducto, BoxLayout.Y_AXIS));
+        panelProducto.setSize(dimensioProducto);
+        panelProducto.setMinimumSize(dimensioProducto);
+        panelProducto.setMaximumSize(new Dimension(panel.getWidth()+20, panel.getWidth()/5));
+        panelProducto.setForeground(Color.black);
+        JLabel cabecera = new JLabel(" ");
+        JPanel ancho = new JPanel();
+        ancho.setSize(dimensioAncho);
+        ancho.setMaximumSize(new Dimension(panel.getWidth(), 10));
+        
+        JLabel nombre = new JLabel(casilla.getTitulo());
+        JLabel fechaI = new JLabel("Fecha inicio: "+Metodos.impresionFecha(casilla.getFechaInicio()));
+        JLabel fechaF = new JLabel("Fecha final: "+Metodos.impresionFecha(casilla.getFechaFinalizacion()));
+        JLabel imp = new JLabel("Importancia: "+casilla.getImportancia());
+        JLabel desc = new JLabel("Descripción: "+casilla.getDescripcion());
+
+        nombre.setFont(new Font(nombre.getFont().getName(), BOLD, 20));
+        fechaI.setFont(new Font(nombre.getFont().getName(), BOLD, 15));
+        fechaF.setFont(new Font(nombre.getFont().getName(), BOLD, 15));
+        imp.setFont(new Font(nombre.getFont().getName(), BOLD, 12));
+        desc.setFont(new Font(nombre.getFont().getName(), BOLD, 12));
+        ancho.setBackground(Color.white);
+
+        panelProducto.add(ancho);
+        cabecera.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        nombre.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        fechaI.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        fechaF.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        imp.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        desc.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+//        panelProducto.add(cabecera);
+        panelProducto.add(nombre);
+        panelProducto.add(fechaI);
+        panelProducto.add(fechaF);
+        panelProducto.add(imp);
+        panelProducto.add(desc);
+        
+
+        panelProducto.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                GUIVerActividad mostrarProducto = new GUIVerActividad(casilla, usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+                mostrarProducto.setVisible(rootPaneCheckingEnabled);
+                dispose();
+            }
+        });
+//
+//        panelProducto.setBackground(Color.WHITE);
+        panelProducto.setBorder(BorderFactory.createLineBorder(Color.black));
+        panelProducto.setBackground(Color.white);
+
+        return panelProducto;
+
+    }
+    
+    
+    
+    
     public static void cambiarFechaActual() {
         fechaSelec.setText(String.valueOf(fecha2.getTime()));
     }
@@ -338,11 +434,12 @@ public class GUIBuscador extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLFecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         JPCalendar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel5 = new javax.swing.JPanel();
+        panelAct = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -376,7 +473,6 @@ public class GUIBuscador extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("DollyCalendar");
 
@@ -404,7 +500,7 @@ public class GUIBuscador extends javax.swing.JFrame {
                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -420,29 +516,6 @@ public class GUIBuscador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Fecha:");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
-                .addGap(355, 355, 355))
-        );
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
         jButton1.setBackground(new java.awt.Color(20, 34, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -453,21 +526,60 @@ public class GUIBuscador extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(300, 300, 300))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton2.setBackground(new java.awt.Color(20, 34, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Nueva actividad");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(541, Short.MAX_VALUE))
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 16, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
 
         JPCalendar.setBackground(new java.awt.Color(255, 255, 255));
@@ -483,20 +595,22 @@ public class GUIBuscador extends javax.swing.JFrame {
             .addGap(0, 330, Short.MAX_VALUE)
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        panelAct.setBackground(new java.awt.Color(255, 255, 255));
+        panelAct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelAct.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE)
+        javax.swing.GroupLayout panelActLayout = new javax.swing.GroupLayout(panelAct);
+        panelAct.setLayout(panelActLayout);
+        panelActLayout.setHorizontalGroup(
+            panelActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 787, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
+        panelActLayout.setVerticalGroup(
+            panelActLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 676, Short.MAX_VALUE)
         );
 
-        jScrollPane2.setViewportView(jPanel5);
+        jScrollPane2.setViewportView(panelAct);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -505,19 +619,16 @@ public class GUIBuscador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(JPCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                            .addComponent(jScrollPane2)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,15 +636,15 @@ public class GUIBuscador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(JPCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -583,6 +694,15 @@ public class GUIBuscador extends javax.swing.JFrame {
         jLFecha.setText(String.valueOf(fecha2.getTime()));
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        GUICrearActividad nuevaAct = new GUICrearActividad(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        nuevaAct.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -622,15 +742,16 @@ public class GUIBuscador extends javax.swing.JFrame {
     private javax.swing.JPanel JPCalendar;
     private javax.swing.JButton VolverAInicio;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelLogo;
+    private javax.swing.JPanel panelAct;
     private javax.swing.JPanel panelTitulo;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables

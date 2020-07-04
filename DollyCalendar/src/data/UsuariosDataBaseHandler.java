@@ -38,7 +38,6 @@ public class UsuariosDataBaseHandler {
     }
 
 
-    
     public HashGeneric<String,Persona> LeerDBC() throws IOException{
         HashGeneric<String,Persona> listaUsuarios=new  HashGeneric<>();
         try{
@@ -130,7 +129,7 @@ public class UsuariosDataBaseHandler {
             ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(byteArray);
             oos.writeObject(persona);
-            pstU=cnU.prepareStatement("UPDATE users SET idusers='"+byteArray.toByteArray()+"' WHERE codigo="+codigo );
+            pstU=cnU.prepareStatement("DELETE FROM users WHERE codigo="+codigo);
             pstU.executeUpdate();
             pstU.close();
         }catch (SQLException e){
@@ -144,6 +143,5 @@ public class UsuariosDataBaseHandler {
                 
             }
         }
-        
     }
 }
