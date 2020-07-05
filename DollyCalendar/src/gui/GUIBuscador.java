@@ -14,6 +14,7 @@ import data.MateriasDataBaseHandler;
 import data.Persona;
 import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
+import estructuas.PriorityQueue;
 import static gui.Calendario.frmMain;
 import java.awt.Color;
 import java.awt.Component;
@@ -78,6 +79,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     static GregorianCalendar fecha2; 
     Casilla casillas[];
     Estudiante estudiante;
+    PriorityQueue<Casilla> f;
     
     
     public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase, Estudiante estudiante) {
@@ -88,10 +90,10 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.materiasbase=materiasbase;
         this.userbase=userbase;
         this.estudiante=estudiante;
+        this.f=estudiante.getCasillas();
         fecha2 = new GregorianCalendar();
-        
-//        this.casillas=estudiante.getCasillas().toArray();
-        this.casillas=Casilla.getArray(estudiante.getCasillas().toArray());
+        this.casillas=Metodos.imprimirOrden(estudiante.getCasillas());
+        //this.casillas=Casilla.getArray(estudiante.getCasillas().toArray());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -693,6 +695,7 @@ public class GUIBuscador extends javax.swing.JFrame {
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             JPCalendar.invalidate();
+            this.f=this.estudiante.getCasillas();
             GUIInicio inicio = new GUIInicio(usuarios, administradores,materias,adminbase, materiasbase, userbase);
             inicio.setVisible(true);
             this.dispose();

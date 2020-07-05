@@ -11,6 +11,8 @@ import data.Estudiante;
 import data.Grupo;
 import data.Materia;
 import data.Persona;
+import estructuas.DynamicArray;
+import estructuas.HashGeneric;
 import estructuas.LinkedListGeneric;
 import estructuas.ListArrayGeneric;
 import estructuas.NodeGeneric;
@@ -603,53 +605,74 @@ public class Metodos {
         }
 
     }
-
+    
+    
+    public static Materia[] trimArrayMaterias(Materia[] materias){
+        Materia[] materiasNueva=Arrays.stream(materias).filter(s -> (s != null)).toArray(Materia[]::new);
+        return materiasNueva;
+    }
     public static  Materia[] extraerMateria(PriorityQueue<Casilla> casillas) {
         Casilla[] f=Casilla.getArray(casillas.getHeap());
         Calendar fechamin = new GregorianCalendar(2020, 2, 2, 0, 0, 0);
         Calendar fechamax = new GregorianCalendar(2020, 2, 4, 0, 0, 0);
         Materia[] materias=new Materia[f.length];
+        int k=0;
         for(int i=0;i<f.length;i++){
 
             if (f[i] instanceof Materia && f[i].getFechaInicio().compareTo(fechamin) > 0 && f[i].getFechaInicio().compareTo(fechamax) < 0) {
-                materias[i]=(Materia) f[i];           
+                materias[i]=(Materia) f[i];     
+                k++;
             }
         }
-        return materias;
+        return trimArrayMaterias(materias);
+    }
+    public static Casilla[] imprimirOrden(PriorityQueue<Casilla> casillas){
+        Casilla[] cas=Casilla.getArray(casillas.toArray());
+        PriorityQueue<Casilla> nueva= new PriorityQueue<>(true);
+        for(Casilla casilla: cas){
+            if(casilla!=null){
+                nueva.add(casilla);
+                System.out.println(casilla);
+            }
+        }
+        Casilla[] f=new Casilla[casillas.length()];
+        for(int i=0;i<f.length;i++){
+            f[i]=nueva.poll();
+        }
+        return f;
+    }
+    public static Materia[] materiasDifUsuario(HashGeneric<Integer,Materia> materias, Materia[] materiasUsuario){
+        Materia[] nuevas=new Materia[materias.size()-materiasUsuario.length];
+        DynamicArray base=materias.getHashArray();
+        int counterExt=0;
+        for(int i=0;i<materias.size();i++){
+            for(int j=0;j<materiasUsuario.length;j++){
+                Materia mat=(Materia) base.getitem(i);
+                if(mat.getCodigo()!=(materiasUsuario[j].getCodigo())){
+                    nuevas[counterExt]=mat;
+                }
+            }
+        }
+        return nuevas;
     }
     
-    
-    
-    static LinkedListGeneric<Casilla> eliminarMateria(LinkedListGeneric<Casilla> casillas, String titulo) {
+    public static PriorityQueue<Casilla> eliminarMateria(PriorityQueue<Casilla> casillas, String titulo) {
         if (titulo.equals(" ")) {
             return casillas;
         }
-
-        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
-        nodoN = casillas.getHead();
-        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
-        nodoIterador = null;
-        Casilla casillaIteradora = new Casilla();
-        LinkedListGeneric<Casilla> mostrarMat = new LinkedListGeneric<Casilla>();
-        while (nodoN != null) {
-            casillaIteradora = nodoN.getData();
-
-            if (casillaIteradora instanceof Materia && titulo.equals((String) casillaIteradora.getTitulo())) {
-                nodoIterador = nodoN;
-                nodoN = nodoN.getNext();
-                continue;
+        Casilla[] f = Casilla.getArray(casillas.toArray());
+        PriorityQueue<Casilla> nuevas = new PriorityQueue<>(true);
+        for (int i = 0; i < f.length; i++) {
+            if(f[i]!=null){
+                System.out.println(titulo.equals((String) f[i].getTitulo()));
+                if (!(f[i] instanceof Materia&&titulo.equals((String) f[i].getTitulo()))) {
+                    System.out.println(f[i]);
+                    nuevas.add(f[i]);
+                }
             }
-
-            mostrarMat.insert(casillaIteradora);
-            nodoIterador = nodoN;
-            nodoN = nodoN.getNext();
-
         }
 
-        limpiarConsola();
-        System.out.println("Se ha removido con éxito la materia seleccionada\n\n");
-
-        return mostrarMat;
+        return nuevas;
     }
     
     static String extraerActividad(LinkedListGeneric<Casilla> casillas) {

@@ -158,7 +158,6 @@ public class MateriasDataBaseHandler {
             ObjectOutputStream oos = new ObjectOutputStream(byteArray);
             oos.writeObject(materia);
             pstU=cnU.prepareStatement("DELETE FROM materias WHERE codigo="+codigo);
-            //"UPDATE users SET idusers='"+byteArray.toByteArray()+"' WHERE codigo="+codigo 
             pstU.executeUpdate();
             pstU.close();
         }catch (SQLException e){

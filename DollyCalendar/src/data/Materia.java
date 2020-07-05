@@ -23,7 +23,6 @@ public class Materia extends Casilla implements Serializable{
     private String profesor;
     private Grupo[] grupos;
     private static int num =1;
-
     public Materia() {
     }
 

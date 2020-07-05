@@ -82,36 +82,7 @@ public class Inicio {
         Grupo grupoED3 = new Grupo(3, "Victor Collazos", fechaLC9);
         Grupo grupoED4 = new Grupo(4, "Luis Niño", fechaMJ11);
         Grupo grupoED5 = new Grupo(5, "David Herrera", fechaLC14);
-        
-        
-//        gruposxd.add(grupoED2.getNumeroGrupo(), grupoED2);
-//        gruposxd.add(grupoED1.getNumeroGrupo(), grupoED1);
-//        gruposxd.add(grupoED3.getNumeroGrupo(), grupoED3);
-//        gruposxd.add(grupoED4.getNumeroGrupo(), grupoED4);
-//        gruposxd.add(grupoED5.getNumeroGrupo(), grupoED5);
-//        
-//        
-////        System.out.println(gruposxd);
-////        gruposxd.remove(2);
-////        System.out.println(gruposxd);
-////        HashNode[] f=gruposxd.getHashArray();
-////        System.out.println(Arrays.toString(f));
-//        
-//        gruposED2.add(grupoED2);
-//        gruposED2.add(grupoED1);
-//        gruposED2.add(grupoED3);
-//        gruposED2.add(grupoED4);
-//        gruposED2.add(grupoED5);
-//        System.out.println(gruposED2);
-//        gruposED2.remove(grupoED2);
-//        System.out.println(gruposED2);
-//        Comparable[] f= new Comparable[gruposED2.length()+1];
-//        f=(Comparable[]) gruposED2.getHeap();
-//        System.out.println(Arrays.toString(f));
-//        
-//        
-//        
-//
+       
         gruposED[0] = grupoED1;
         gruposED[1] = grupoED2;
         gruposED[2] = grupoED3;
@@ -120,6 +91,58 @@ public class Inicio {
 
         Materia estructuras = new Materia("Estructuras de datos", "Curso de programación de estructuras de datos.", 3, 2016699, 3, "Disciplinar", gruposED);
 
+        Grupo[] gruposAlgebra = new Grupo[5];
+        Grupo grupoAlgebra1 = new Grupo(1, "Zulima Ortiz", fechaLC14);
+        Grupo grupoAlgebra2 = new Grupo(2, "Jaime Robayo", fechaLC9);
+        Grupo grupoAlgebra3 = new Grupo(3, "Gustavo Nieto", fechaMJ16);
+        Grupo grupoAlgebra4 = new Grupo(4, "Leonor Campos", fechaMJ11);
+        Grupo grupoAlgebra5 = new Grupo(5, "Miguel Rippe", fechaLC11);
+        gruposAlgebra[0] = grupoAlgebra1;
+        gruposAlgebra[1] = grupoAlgebra2;
+        gruposAlgebra[2] = grupoAlgebra3;
+        gruposAlgebra[3] = grupoAlgebra4;
+        gruposAlgebra[4] = grupoAlgebra5;
+        Materia algebra = new Materia("Algebra lineal", "Curso de Algebra lineal, sistemas matriciales y valores y vectores propios.", 4, 1000003, 4, "Fundamentacion", gruposAlgebra);
+        Grupo[] gruposCalculoD = new Grupo[5];
+        Grupo grupoCalculoD1 = new Grupo(1, "Oscar Parra", fechaMJ16);
+        Grupo grupoCalculoD2 = new Grupo(2, "Carlos Giraldo", fechaLC9);
+        Grupo grupoCalculoD3 = new Grupo(3, "Efrain Pardo", fechaMJ16);
+        Grupo grupoCalculoD4 = new Grupo(4, "Gabriel Padilla", fechaLC16);
+        Grupo grupoCalculoD5 = new Grupo(5, "Luis Quicazan", fechaMJ7);
+        gruposCalculoD[0] = grupoCalculoD1;
+        gruposCalculoD[1] = grupoCalculoD2;
+        gruposCalculoD[2] = grupoCalculoD3;
+        gruposCalculoD[3] = grupoCalculoD4;
+        gruposCalculoD[4] = grupoCalculoD5;
+        Materia calculoD = new Materia("Calculo diferencial", "Curso de calculo diferencial y aplicaciones basicas de optimizacion.", 4, 1000004, 4, "Fundamentacion", gruposCalculoD);
+        Grupo[] gruposCalculoV= new Grupo[4];
+        Grupo grupoCalculoV1 = new Grupo(1, "Mauricio Lopez", fechaLC7);
+        Grupo grupoCalculoV2 = new Grupo(2, "Jason Hernandez", fechaLC9);
+        Grupo grupoCalculoV3 = new Grupo(3, "Edixon Rojas", fechaLC16);
+        Grupo grupoCalculoV4 = new Grupo(4, "Felix Soriano", fechaLC11);
+        gruposCalculoV[0] = grupoCalculoV1;
+        gruposCalculoV[1] = grupoCalculoV2;
+        gruposCalculoV[2] = grupoCalculoV3;
+        gruposCalculoV[3] = grupoCalculoV4;
+        Materia calculoV = new Materia("Calculo en varias variables", "Curso de calculo en multiples variables.", 4, 1000006, 4, "Fundamentacion", gruposCalculoV);
+        Grupo[] gruposCalculoI = new Grupo[4];
+        Grupo grupoCalculoI1 = new Grupo(1, "Jeanneth Galeano", fechaMJ9);
+        Grupo grupoCalculoI2 = new Grupo(2, "Alexandre Sinitsyne", fechaLC9);
+        Grupo grupoCalculoI3 = new Grupo(3, "Arcenio Pecha", fechaMJ16);
+        Grupo grupoCalculoI4 = new Grupo(4, "Victor Tapia", fechaLC11);
+        gruposCalculoI[0] = grupoCalculoI1;
+        gruposCalculoI[1] = grupoCalculoI2;
+        gruposCalculoI[2] = grupoCalculoI3;
+        gruposCalculoI[3] = grupoCalculoI4;
+        Materia calculoI = new Materia("Calculo Integral", "Calculo integral, aplicaciones, y series.", 4, 1000005, 4, "Fundamentacion", gruposCalculoI);
+        Grupo[] gruposVariableC = new Grupo[3];
+        Grupo grupoVariableC1 = new Grupo(1, "Agustin Moreno", fechaLC9);
+        Grupo grupoVariableC2 = new Grupo(2, "German Fonseca", fechaMJ9);
+        Grupo grupoVariableC3 = new Grupo(3, "Ivan Castro", fechaMJ11);
+        gruposVariableC[0] = grupoVariableC1;
+        gruposVariableC[1] = grupoVariableC2;
+        gruposVariableC[2] = grupoVariableC3;
+        Materia variableC = new Materia("Variable Compleja", "Estudio de sistemas en variable compleja y planos reales e imaginarios.", 4, 2015159, 4, "Fundamentacion", gruposVariableC);
         Grupo[] gruposECD = new Grupo[4];
         Grupo grupoECD1 = new Grupo(1, "Ricardo Pastran", fechaLC7);
         Grupo grupoECD2 = new Grupo(2, "Nicolas Martinez", fechaLC9);
@@ -180,14 +203,13 @@ public class Inicio {
 
         
         HashGeneric<Integer,Materia> materias=new HashGeneric<>();
-        materias.add(estructuras.getCodigo(), estructuras);
-        materias.add(ecuaciones.getCodigo(), ecuaciones);
-        materias.add(analoga.getCodigo(), analoga);
-        materias.add(fEyM.getCodigo(), fEyM);
-        materias.add(PQ.getCodigo(), PQ);
-        materias.add(dina.getCodigo(), dina);
-        materias.add(dic.getCodigo(), dic);
-        
+//        materias.add(estructuras.getCodigo(), estructuras);
+//        materias.add(ecuaciones.getCodigo(), ecuaciones);
+//        materias.add(analoga.getCodigo(), analoga);
+//        materias.add(fEyM.getCodigo(), fEyM);
+//        materias.add(PQ.getCodigo(), PQ);
+//        materias.add(dina.getCodigo(), dina);
+//        materias.add(dic.getCodigo(), dic);
         
          
         Persona admin1 = new Persona("admin1", "clave1", 1, "nombre1", "apellido1");
@@ -207,27 +229,40 @@ public class Inicio {
         Estudiante juli= new Estudiante("jcaipapa3", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería Mecatrónica");
 
         PriorityQueue<Casilla> casillasAndres = new PriorityQueue<>(true);
-        Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, Metodos.calendarGenerator(2020, 5, 4, 14, 0), Metodos.calendarGenerator(2020, 5, 4, 16, 0));
+        Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, Metodos.calendarGenerator(2020, 6, 5, 14, 0), Metodos.calendarGenerator(2020, 6, 5, 16, 0));
+        Actividad activ2= new Actividad("Recordatorio Parcial Estructuras", "Estudiar arboles", 5, Metodos.calendarGenerator(2020, 6, 7, 14, 0), Metodos.calendarGenerator(2020, 6, 7, 16, 0));
+        Actividad activ3 = new Actividad("Recordatorio Parcial Electro", "Estudiar leyes de Maxwell", 5, Metodos.calendarGenerator(2020, 6, 8, 14, 0), Metodos.calendarGenerator(2020, 6, 8, 16, 0));
         casillasAndres.add(activ1);
+        casillasAndres.add(activ2);
+        casillasAndres.add(activ3);
+        
+        
         Estudiante andres = new Estudiante("aholguinr", "clave", 1000794275, "Andres", "Holguin", casillasAndres, "Ingeniería Mecatrónica");
+//        Metodos.seleccionarGrupo(andres, estructuras, 5);
+//        Metodos.seleccionarGrupo(andres, dic, 1);
+//        Metodos.seleccionarGrupo(andres, PQ, 1);
+//        
+        
+
         HashGeneric<String,Persona> administradores=new HashGeneric<>();
         HashGeneric<String,Persona> usuarios=new HashGeneric<>();
 //        administradores.add(admin1.getUsuario(), admin1);
 //        administradores.add(admin2.getUsuario(), admin2);
 //        administradores.add(admin3.getUsuario(), admin3);
 //        administradores.add(admin4.getUsuario(), admin4);
-//        administradores.add(admin5.getUsuario(), admin5);
-        usuarios.add(est1.getUsuario(), est1);
-        usuarios.add(est2.getUsuario(), est2);
-        usuarios.add(est3.getUsuario(), est3);
-        usuarios.add(julian.getUsuario(), julian);
-        usuarios.add(juliana.getUsuario(), juliana);
-        usuarios.add(juliani.getUsuario(), juliani);
-        usuarios.add(andres.getUsuario(), andres);
-        usuarios.add(j.getUsuario(), j);
-        usuarios.add(ju.getUsuario(), ju);
-        usuarios.add(jul.getUsuario(), jul);
-        usuarios.add(juli.getUsuario(), juli);
+//        administradores.add(admin5.getUsuario(), admin5);        
+//        usuarios.add(j.getUsuario(), j);
+//        usuarios.add(est1.getUsuario(), est1);
+//        usuarios.add(est2.getUsuario(), est2);
+//        usuarios.add(est3.getUsuario(), est3);
+//        usuarios.add(julian.getUsuario(), julian);
+//        usuarios.add(juliana.getUsuario(), juliana);
+//        usuarios.add(juliani.getUsuario(), juliani);
+//        usuarios.add(andres.getUsuario(), andres);
+//        usuarios.add(ju.getUsuario(), ju);
+//        usuarios.add(jul.getUsuario(), jul);
+//        usuarios.add(juli.getUsuario(), juli);
+
 
         UsuariosDataBaseHandler userdatabase=new UsuariosDataBaseHandler();
         AdminDataBaseHandler admindatabase=new AdminDataBaseHandler();
@@ -235,8 +270,13 @@ public class Inicio {
         HashGeneric<Integer,Materia> materias1=materiasbase.LeerDBC();
         HashGeneric<String,Persona> usuarios1=userdatabase.LeerDBC();
         HashGeneric<String,Persona> administradores1=admindatabase.LeerDBC();
-//        System.out.println(usuarios.size());
-        //System.out.println(usuarios);
+        Estudiante p=(Estudiante)usuarios1.get(andres.getUsuario());
+//        System.out.println(p.getCasillas());
+//        Materia[] materiasxd=Metodos.extraerMateria(p.getCasillas());
+//        for(Materia mats: materiasxd){
+//            System.out.println(mats);
+//        }
+//        userdatabase.ModificarDBC(andres);
 //        userdatabase.InsertarDBC(est1);
 //        userdatabase.InsertarDBC(est2);
 //        userdatabase.InsertarDBC(est3);
@@ -255,17 +295,8 @@ public class Inicio {
 //        materiasbase.InsertarDBC(PQ);
 //        materiasbase.InsertarDBC(dina);
 //        materiasbase.InsertarDBC(dic);
-        Materia m=materias.get(fEyM.getCodigo());
-//        materias1=materiasbase.LeerDBC();
-//        m=materias1.get(dic.getCodigo());
-//        m.toStringMateria();
-//        DynamicArray personas=userdatabase.LeerDBC();
-//        DynamicArray admins=admindatabase.LeerDBC(); 
-//        personas.printitems();
-//        admins.printitems();
-   
-//        GUIInicio inic = new GUIInicio(usuarios, administradores);
-//        inic.setVisible(true);
+
+
         
         GUIInicio inicio = new GUIInicio(usuarios1, administradores1,materias1,admindatabase,materiasbase,userdatabase);
         inicio.setVisible(true);
