@@ -28,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -74,7 +75,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     static JPanel pnlCalendar;
     static JLabel fechaSelec;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
-    static GregorianCalendar fecha2 = new GregorianCalendar();
+    static GregorianCalendar fecha2; 
     Casilla casillas[];
     Estudiante estudiante;
     
@@ -87,6 +88,8 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.materiasbase=materiasbase;
         this.userbase=userbase;
         this.estudiante=estudiante;
+        fecha2 = new GregorianCalendar();
+        
 //        this.casillas=estudiante.getCasillas().toArray();
         this.casillas=Casilla.getArray(estudiante.getCasillas().toArray());
         initComponents();
@@ -110,9 +113,7 @@ public class GUIBuscador extends javax.swing.JFrame {
         Graphics graphic=VolverAInicio.getGraphics();
         graphic.setColor(new Color(20,34,255));
         VolverAInicio.paint(graphic);
-        
-        
-        
+        jLabel3.setText("Bienvenido "+estudiante.getUsuario()+", aquí puede ver todas sus clases y actividades programadas");
         crearCatalogo(casillas);
         
     }
@@ -125,11 +126,15 @@ public class GUIBuscador extends javax.swing.JFrame {
         panelAct.removeAll();
         panelAct.setLayout(new BoxLayout(panelAct, BoxLayout.Y_AXIS));
         
-        for(int i =1;i<casillas.length;i++){
+        for(int i =1;i<casillas.length;i++){    
             
-            panelAct.add(crearProducto(casillas[i], panelAct));
+
+            if(fecha2.get(Calendar.DAY_OF_YEAR)<=casillas[i].getFechaInicio().get(Calendar.DAY_OF_YEAR)){  
+            panelAct.add(crearProducto(casillas[i], panelAct)); 
+            }
         }
-     
+        
+
         panelAct.validate();
         panelAct.repaint();
     }
@@ -204,14 +209,14 @@ public class GUIBuscador extends javax.swing.JFrame {
     }
 
     public static JPanel crearCalendario(JPanel sup) {
-        //Look and feel
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException e) {
-        } catch (UnsupportedLookAndFeelException e) {
-        }
+//        Look and feel
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (ClassNotFoundException e) {
+//        } catch (InstantiationException e) {
+//        } catch (IllegalAccessException e) {
+//        } catch (UnsupportedLookAndFeelException e) {
+//        }
 
         lblMonth = new JLabel("January");
         lblYear = new JLabel("Cambiar año:");
@@ -434,9 +439,11 @@ public class GUIBuscador extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLFecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        verHorario = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         JPCalendar = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         panelAct = new javax.swing.JPanel();
@@ -482,12 +489,12 @@ public class GUIBuscador extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(119, 119, 119)
-                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(173, 173, 173)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
                 .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -497,10 +504,10 @@ public class GUIBuscador extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -516,30 +523,15 @@ public class GUIBuscador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Fecha:");
 
-        jButton1.setBackground(new java.awt.Color(20, 34, 255));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Actualizar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -549,9 +541,7 @@ public class GUIBuscador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(300, 300, 300))
+                .addGap(355, 355, 355))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -566,20 +556,54 @@ public class GUIBuscador extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(20, 34, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        verHorario.setBackground(new java.awt.Color(20, 34, 255));
+        verHorario.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        verHorario.setForeground(new java.awt.Color(255, 255, 255));
+        verHorario.setText("Ver horario");
+        verHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verHorarioActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addGap(18, 18, 18)
+                .addComponent(verHorario)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 16, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addGap(0, 8, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1)
+                    .addComponent(verHorario)))
         );
 
         JPCalendar.setBackground(new java.awt.Color(255, 255, 255));
@@ -635,16 +659,16 @@ public class GUIBuscador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(JPCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JPCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -692,6 +716,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jLFecha.setText(String.valueOf(fecha2.getTime()));
+        crearCatalogo(casillas);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -702,6 +727,16 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void verHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verHorarioActionPerformed
+        // TODO add your handling code here:
+        
+        GUIVerHorario verHor = new GUIVerHorario(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        verHor.setVisible(true);
+        this.dispose();
+        
+        
+    }//GEN-LAST:event_verHorarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -746,6 +781,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     private javax.swing.JLabel jLFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -754,5 +790,6 @@ public class GUIBuscador extends javax.swing.JFrame {
     private javax.swing.JPanel panelAct;
     private javax.swing.JPanel panelTitulo;
     private javax.swing.JButton salir;
+    private javax.swing.JButton verHorario;
     // End of variables declaration//GEN-END:variables
 }

@@ -604,70 +604,21 @@ public class Metodos {
 
     }
 
-    static String extraerMateria(LinkedListGeneric<Casilla> casillas) {
-
-        NodeGeneric<Casilla> nodoN = new NodeGeneric<>();
-        Scanner scan = new Scanner(System.in);
-        nodoN = casillas.getHead();
-        int numeroTotalMaterias;
-        NodeGeneric<Casilla> nodoIterador = new NodeGeneric<>();
-        nodoIterador = null;
-        Materia mat = new Materia();
-        Casilla casillaIteradora = new Casilla();
-        LinkedListGeneric<Casilla> mostrarMat = new LinkedListGeneric<Casilla>();
+    public static  Materia[] extraerMateria(PriorityQueue<Casilla> casillas) {
+        Casilla[] f=Casilla.getArray(casillas.getHeap());
         Calendar fechamin = new GregorianCalendar(2020, 2, 2, 0, 0, 0);
         Calendar fechamax = new GregorianCalendar(2020, 2, 4, 0, 0, 0);
+        Materia[] materias=new Materia[f.length];
+        for(int i=0;i<f.length;i++){
 
-        System.out.println("A continuación se muestra las materias que tiene inscritas:\n\n");
-
-        while (nodoN != null) {
-            casillaIteradora = nodoN.getData();
-
-            if (casillaIteradora instanceof Materia && casillaIteradora.getFechaInicio().compareTo(fechamin) > 0 && casillaIteradora.getFechaInicio().compareTo(fechamax) < 0) {
-                mostrarMat.insert(casillaIteradora);
-                mat = (Materia) casillaIteradora;
-                System.out.println(mat.toStringMateriaHora());
-
+            if (f[i] instanceof Materia && f[i].getFechaInicio().compareTo(fechamin) > 0 && f[i].getFechaInicio().compareTo(fechamax) < 0) {
+                materias[i]=(Materia) f[i];           
             }
-            nodoIterador = nodoN;
-            nodoN = nodoN.getNext();
-
         }
-
-        numeroTotalMaterias = Materia.getNum();
-        Materia.setNum(1);
-
-        if (mostrarMat.isEmpty()) {
-            limpiarConsola();
-            System.out.println("Usted no tiene materias inscritas, cancelando la operación.\n\n");
-            return " ";
-        }
-
-        System.out.println("\nSeleccione el número de la materia que desee retirar.\n\n");
-
-        int numeroMateria = scan.nextInt();
-
-        if (numeroMateria > 0 && numeroMateria <= numeroTotalMaterias) {
-            int i = 1;
-            nodoN = casillas.getHead();
-            nodoIterador = null;
-
-            while (i <= numeroMateria) {
-
-                casillaIteradora = nodoN.getData();
-                nodoIterador = nodoN;
-                nodoN = nodoN.getNext();
-                i++;
-            }
-            return casillaIteradora.getTitulo();
-
-        } else {
-            System.out.println("Opción invalida, cancelando la operación");
-
-            return " ";
-        }
-
+        return materias;
     }
+    
+    
     
     static LinkedListGeneric<Casilla> eliminarMateria(LinkedListGeneric<Casilla> casillas, String titulo) {
         if (titulo.equals(" ")) {

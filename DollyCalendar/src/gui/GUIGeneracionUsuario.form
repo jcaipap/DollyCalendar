@@ -125,7 +125,7 @@
                       <Component id="inputReingresoNuevaContraseña" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="inputNuevaContraseña" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="inputEdad" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="inputCorreo" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                      <Component id="inputPregrado" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="correo" alignment="0" max="32767" attributes="0"/>
                       <Component id="reingresarContraseña" pref="240" max="32767" attributes="0"/>
                   </Group>
@@ -140,16 +140,18 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
                           <Component id="crearUsuario" min="-2" pref="209" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jLabel1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <EmptySpace pref="54" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="nombre" min="-2" pref="22" max="-2" attributes="0"/>
@@ -174,7 +176,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="correo" min="-2" pref="22" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="inputCorreo" min="-2" pref="26" max="-2" attributes="0"/>
+                          <Component id="inputPregrado" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
                           <Component id="inputEdad" min="-2" pref="26" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -188,7 +190,10 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="crearUsuario" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="crearUsuario" pref="45" max="32767" attributes="0"/>
+                      <Component id="jLabel1" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="terminosCondiciones" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -203,10 +208,10 @@
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputNombreKeyTyped"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="inputCorreo">
+        <Component class="javax.swing.JTextField" name="inputPregrado">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputCorreoActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputCorreoKeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputPregradoActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputPregradoKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="inputApellido">
@@ -349,11 +354,16 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Correo electr&#xf3;nico"/>
+            <Property name="text" type="java.lang.String" value="Pregrado"/>
           </Properties>
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
           </AccessibilityProperties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Error creando usuario*"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -389,7 +399,7 @@
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="labelLogo" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabel2" alignment="0" pref="61" max="32767" attributes="0"/>
                       <Component id="salir" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="VolverAInicio" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>

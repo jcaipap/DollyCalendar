@@ -66,7 +66,7 @@ public class GUIInicio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.iniciarSesion.setEnabled(false);
-        this.incorrecto.setVisible(false);
+        this.incorrecto.setForeground(Color.white);
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
@@ -429,7 +429,8 @@ public class GUIInicio extends javax.swing.JFrame {
 
     private void iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSesionActionPerformed
         
-        this.incorrecto.setVisible(true);
+        this.incorrecto.setForeground(Color.red);
+        
         if (estudiante&&inputContraseña.getText().equals(usuarios.get(inputUsuario.getText()).getContraseña())) {
 
                 GUIBuscador inicioEst = new GUIBuscador(usuarios, administradores,materias,adminbase, materiasbase, userbase, (Estudiante) usuarios.get(inputUsuario.getText()));
@@ -443,6 +444,7 @@ public class GUIInicio extends javax.swing.JFrame {
                 this.dispose();
                 
         }
+        
 
     }//GEN-LAST:event_iniciarSesionActionPerformed
 

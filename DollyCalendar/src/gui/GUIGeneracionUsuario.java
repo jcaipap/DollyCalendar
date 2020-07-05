@@ -3,11 +3,14 @@ package gui;
 
 
 import data.AdminDataBaseHandler;
+import data.Casilla;
+import data.Estudiante;
 import data.Materia;
 import data.MateriasDataBaseHandler;
 import data.Persona;
 import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
+import estructuas.PriorityQueue;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -54,9 +57,11 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
         
-        Graphics graphic=crearUsuario.getGraphics();
-        graphic.setColor(new Color(20,34,255));
-        crearUsuario.paint(graphic);
+        jLabel1.setForeground(Color.white);
+        
+//        Graphics graphic=crearUsuario.getGraphics();
+//        graphic.setColor(new Color(20,34,255));
+//        crearUsuario.paint(graphic);
 
     }
 
@@ -84,7 +89,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         usuarioExistente = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         inputNombre = new javax.swing.JTextField();
-        inputCorreo = new javax.swing.JTextField();
+        inputPregrado = new javax.swing.JTextField();
         inputApellido = new javax.swing.JTextField();
         inputUsuario = new javax.swing.JTextField();
         nombre = new javax.swing.JLabel();
@@ -101,6 +106,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         inputEdad = new javax.swing.JTextField();
         terminosCondiciones = new javax.swing.JLabel();
         correo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         panelTitulo = new javax.swing.JPanel();
         VolverAInicio = new javax.swing.JButton();
         salir = new javax.swing.JButton();
@@ -132,14 +138,14 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
-        inputCorreo.addActionListener(new java.awt.event.ActionListener() {
+        inputPregrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputCorreoActionPerformed(evt);
+                inputPregradoActionPerformed(evt);
             }
         });
-        inputCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+        inputPregrado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                inputCorreoKeyTyped(evt);
+                inputPregradoKeyTyped(evt);
             }
         });
 
@@ -166,23 +172,18 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        nombre.setForeground(new java.awt.Color(0, 0, 0));
         nombre.setText("Nombre");
 
         apellido.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        apellido.setForeground(new java.awt.Color(0, 0, 0));
         apellido.setText("Apellido");
 
         contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        contraseña.setForeground(new java.awt.Color(0, 0, 0));
         contraseña.setText("Contraseña");
 
         reingresarContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        reingresarContraseña.setForeground(new java.awt.Color(0, 0, 0));
         reingresarContraseña.setText("Reingresar contraseña");
 
         usuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        usuario.setForeground(new java.awt.Color(0, 0, 0));
         usuario.setText("Usuario");
 
         crearUsuario.setBackground(new java.awt.Color(20, 34, 255));
@@ -208,7 +209,6 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         id.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        id.setForeground(new java.awt.Color(0, 0, 0));
         id.setText("ID");
 
         inputNuevaContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +218,6 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        edad.setForeground(new java.awt.Color(0, 0, 0));
         edad.setText("Edad");
 
         inputEdad.addActionListener(new java.awt.event.ActionListener() {
@@ -232,12 +231,12 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
-        terminosCondiciones.setForeground(new java.awt.Color(0, 0, 0));
         terminosCondiciones.setText("Al seleccionar Crear Usuario usted acepta nuestros terminos y condiciones de uso.");
 
         correo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        correo.setForeground(new java.awt.Color(0, 0, 0));
-        correo.setText("Correo electrónico");
+        correo.setText("Pregrado");
+
+        jLabel1.setText("Error creando usuario*");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -268,7 +267,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                     .addComponent(inputReingresoNuevaContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputNuevaContraseña, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputEdad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputPregrado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(correo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(reingresarContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
@@ -279,13 +278,15 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                         .addComponent(terminosCondiciones))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(120, 120, 120))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +309,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(inputCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inputPregrado, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(inputEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -320,7 +321,9 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputReingresoNuevaContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(crearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(crearUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(terminosCondiciones)
                 .addGap(18, 18, 18))
@@ -361,7 +364,6 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("DollyCalendar");
 
@@ -386,7 +388,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -465,58 +467,29 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
 
+                
+        
+        if(!("".equals(inputNombre.getText())||"".equals(inputApellido.getText())||"".equals(inputPregrado.getText())||
+                "".equals(inputEdad.getText())||"".equals(inputId.getText())||"".equals(inputUsuario.getText())||
+                "".equals(inputNuevaContraseña.getText())||"".equals(inputReingresoNuevaContraseña.getText()))){
 
-//        
-//        if(!(GeneracionUsuario.validarDatosIngresados(inputNombre.getText(),
-//            inputApellido.getText(), inputCorreo.getText(),
-//            inputUsuario.getText(), inputNuevaContraseña.getText(),
-//            inputReingresoNuevaContraseña.getText(),inputEdad.getText(),
-//            inputId.getText(),baseDatosUsuarios))){  
-//                JOptionPane.showMessageDialog(rootPane, "Error creando el usuario",
-//                        "error", JOptionPane.ERROR_MESSAGE);
-//                if (!ControlErrores.comprobacionNumerica(inputEdad.getText())){
-//                edad.setForeground(Color.RED);
-//                edad.setText("Edad*");
-//            } if (!ControlErrores.comprobacionNumerica(inputId.getText())){
-//                id.setForeground(Color.RED);
-//                id.setText("ID*");
-//            } if (!(inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText()))){
-//                contraseña.setForeground(Color.RED);
-//                reingresarContraseña.setForeground(Color.RED);
-//                contraseña.setText(contraseña.getText()+"*");
-//                reingresarContraseña.setText(reingresarContraseña.getText()+"*");
-//            } if ("".equals(inputNombre.getText())){
-//                nombre.setForeground(Color.RED);
-//                nombre.setText("Nombre*");
-//            } if ("".equals(inputApellido.getText())){
-//                apellido.setForeground(Color.RED);
-//                apellido.setText("Apellido*");
-//            } if ("".equals(inputCorreo.getText())){
-//                correo.setForeground(Color.RED);
-//                correo.setText("Correo*");
-//            } if ("".equals(inputUsuario.getText())){
-//                usuario.setForeground(Color.RED);
-//                usuario.setText("Usuario*");
-//            } if ("".equals(inputNuevaContraseña.getText())){
-//                contraseña.setForeground(Color.RED);
-//                contraseña.setText("Contraseña*");
-//            } if ("".equals(inputReingresoNuevaContraseña.getText())){
-//                reingresarContraseña.setForeground(Color.RED);
-//                reingresarContraseña.setText("Reingresar contraseña*");
-//
-//            }
-//        }
+            if(inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText())){  
+                System.out.println(usuarios.get(inputUsuario.getText()));  
+               if(usuarios.get(inputUsuario.getText())==null){
+                   
+                usuarios.add(inputUsuario.getText(), new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla> (),  inputPregrado.getText()));
+                
+                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+                inicio.setVisible(true);
+                this.dispose();
+               } 
+                
+            }
+        }
         
+        jLabel1.setForeground(Color.red);
         
-        
-        
-        
-        
-        GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
-        inicio.setVisible(true);
-        this.dispose();
-        
-        
+      
     }//GEN-LAST:event_crearUsuarioActionPerformed
 
     private void inputUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputUsuarioKeyTyped
@@ -547,19 +520,19 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_inputApellidoActionPerformed
 
-    private void inputCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputCorreoKeyTyped
+    private void inputPregradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPregradoKeyTyped
         // TODO add your handling code here:
         char tecla;
         tecla=evt.getKeyChar();
-        if(!Character.isLetterOrDigit(tecla)&&tecla!='@'&&tecla!='.'){
+        if(!Character.isLetterOrDigit(tecla)&&tecla!=' '){
             evt.consume();
         }
         
-    }//GEN-LAST:event_inputCorreoKeyTyped
+    }//GEN-LAST:event_inputPregradoKeyTyped
 
-    private void inputCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputCorreoActionPerformed
+    private void inputPregradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPregradoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputCorreoActionPerformed
+    }//GEN-LAST:event_inputPregradoActionPerformed
 
     private void inputNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputNombreKeyTyped
         // TODO add your handling code here:
@@ -624,13 +597,14 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel id;
     private javax.swing.JLabel idExistente;
     private javax.swing.JTextField inputApellido;
-    private javax.swing.JTextField inputCorreo;
     private javax.swing.JTextField inputEdad;
     private javax.swing.JTextField inputId;
     private javax.swing.JTextField inputNombre;
     private javax.swing.JPasswordField inputNuevaContraseña;
+    private javax.swing.JTextField inputPregrado;
     private javax.swing.JPasswordField inputReingresoNuevaContraseña;
     private javax.swing.JTextField inputUsuario;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

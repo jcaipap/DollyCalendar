@@ -67,12 +67,12 @@ public class HashGeneric<K, V> implements Serializable {
         if (head == null) {
             return null;
         }
-        size--;
         if (prev != null) {
             prev.next = head.next;
         } else {
             bucketArray[bucketIndex] = head.next;
         }
+        size--;
         return head.value;
     }
     
@@ -112,7 +112,6 @@ public class HashGeneric<K, V> implements Serializable {
             head = head.next;
         }
         
-        size++;
         if (size==load*capacity) {
             HashNode<K, V>[] temp = bucketArray;
             capacity *= 2;
@@ -129,6 +128,7 @@ public class HashGeneric<K, V> implements Serializable {
                 }
             }
         }
+        size++;
         head = bucketArray[bucketIndex];
         HashNode<K, V> newNode = new HashNode<>(key, value);
         newNode.next = head;
