@@ -27,53 +27,46 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     /**
      * Creates new form GUIINICIOADMIN
      */
-    
-    public HashGeneric<String,Persona> usuarios;
-    public HashGeneric<Integer,Materia> materias;
-    public HashGeneric<String,Persona> administradores;
+    public HashGeneric<String, Persona> usuarios;
+    public HashGeneric<Integer, Materia> materias;
+    public HashGeneric<String, Persona> administradores;
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
-    
-    public GUIInicioAdmin(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
-        this.usuarios=usuarios;
-        this.administradores=administradores;
-        this.materias=materias;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
+
+    public GUIInicioAdmin(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase) {
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
-        ImageIcon icon= new ImageIcon();
-        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
+        ImageIcon icon = new ImageIcon();
+        Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
-        
-        ImageIcon icon2= new ImageIcon();
-        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+
+        ImageIcon icon2 = new ImageIcon();
+        Image image2 = new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
 
-        Graphics graphic=jBVolverInicio.getGraphics();
-        graphic.setColor(new Color(20,34,255));
+        Graphics graphic = jBVolverInicio.getGraphics();
+        graphic.setColor(new Color(20, 34, 255));
         jBVolverInicio.paint(graphic);
-        
-        
+
     }
 
     public GUIInicioAdmin() {
     }
 
-    
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -103,7 +96,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DollyCalendar");
+        jLabel1.setText("UNcalendar");
         jLabel1.setToolTipText("");
         jLabel1.setOpaque(true);
 
@@ -166,29 +159,28 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jBVolverInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(120, 120, 120)
+                .addComponent(jBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jBVolverInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                        .addGap(25, 25, 25)
-                        .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(120, 120, 120)
-                        .addComponent(jBSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
                         .addComponent(jBVerUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(200, 200, 200)
                         .addComponent(jBVerCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))))
-                .addContainerGap())
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel4)))
+                .addGap(115, 115, 115))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +191,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
                     .addComponent(jBVolverInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
@@ -211,7 +203,7 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBVerUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBVerCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,45 +223,38 @@ public class GUIInicioAdmin extends javax.swing.JFrame {
     private void jBVolverInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVolverInicioActionPerformed
         // TODO add your handling code here:
 
-        int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea volver al inicio?",
-        "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){  
-                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
-                inicio.setVisible(true);
-                this.dispose();
+        GUIInicio inicio = new GUIInicio(usuarios, administradores, materias, adminbase, materiasbase, userbase);
+        inicio.setVisible(true);
+        this.dispose();
 
-                
-        }
-        
-        
 
     }//GEN-LAST:event_jBVolverInicioActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
 
         int respuesta = JOptionPane.showConfirmDialog(jPanel1, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBVerCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerCursosActionPerformed
         // TODO add your handling code here:
-        GUIVerMaterias verCursos = new GUIVerMaterias(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+        GUIVerMaterias verCursos = new GUIVerMaterias(usuarios, administradores, materias, adminbase, materiasbase, userbase);
         verCursos.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_jBVerCursosActionPerformed
 
     private void jBVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVerUsuariosActionPerformed
         // TODO add your handling code here:
 
-        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios,usuarios,administradores,materias,adminbase, materiasbase, userbase);
+        GUIVerUsuarios verUsuarios = new GUIVerUsuarios(usuarios, usuarios, administradores, materias, adminbase, materiasbase, userbase);
         verUsuarios.setVisible(true);
         this.dispose();
-        
-        
+
+
     }//GEN-LAST:event_jBVerUsuariosActionPerformed
 
     /**

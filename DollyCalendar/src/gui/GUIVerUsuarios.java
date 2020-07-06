@@ -46,12 +46,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.geom.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableCellRenderer;
-
-
-
 
 /**
  *
@@ -63,78 +63,65 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
      * Creates new form GUIVerUsuarios
      */
     public boolean editar = false;
-    public HashGeneric<String,Persona> usuarios;
-    public HashGeneric<String,Persona> usuariosIniciales;
-    public HashGeneric<String,Persona> administradores;
-    public HashGeneric<Integer,Materia> materias;
+    public HashGeneric<String, Persona> usuarios;
+    public HashGeneric<String, Persona> usuariosIniciales;
+    public HashGeneric<String, Persona> administradores;
+    public HashGeneric<Integer, Materia> materias;
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
     DynamicArray arrayEstudiantes;
     boolean arregloBooleano[];
 
-    
     Estudiante est1 = new Estudiante("USUARIO", "contraseña", 1000, "nombre", "apellido", "pregrado");
-    
 
-    public GUIVerUsuarios(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> usuarios2,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
-        this.usuariosIniciales=usuarios;
-        this.materias=materias;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
-        this.usuarios=usuarios2;
-        this.administradores=administradores;
-        arrayEstudiantes=this.usuarios.getHashArray();
+    public GUIVerUsuarios(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> usuarios2, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase) {
+        this.usuariosIniciales = usuarios;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
+        this.usuarios = usuarios2;
+        this.administradores = administradores;
+        arrayEstudiantes = this.usuarios.getHashArray();
         arrayEstudiantes.trimToSize();
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.arregloBooleano=new boolean[arrayEstudiantes.size()];
-        
-        
-        
-        
+        this.arregloBooleano = new boolean[arrayEstudiantes.size()];
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
-        ImageIcon icon= new ImageIcon();
-        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
+        ImageIcon icon = new ImageIcon();
+        Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
-
-        ImageIcon icon2= new ImageIcon();
-        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+        ImageIcon icon2 = new ImageIcon();
+        Image image2 = new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        
-        Graphics graphic=VolverAInicio.getGraphics();
-        graphic.setColor(new Color(20,34,255));
+        Graphics graphic = VolverAInicio.getGraphics();
+        graphic.setColor(new Color(20, 34, 255));
         VolverAInicio.paint(graphic);
-        
-        
+
         addRowtoJTable();
-
-        
-        jLUsuariosCreados.setText("Usuarios creados: "+String.valueOf(usuarios.size()));
+        jLUsuariosCreados.setText("Usuarios creados: " + String.valueOf(usuarios.size()));
 
     }
-    
+
     public GUIVerUsuarios() {
-        
-    }
-    
-    
 
-    public void addRowtoJTable(){
+    }
+
+    public void addRowtoJTable() {
         String[] columnas = new String[]{
             "Eliminar", "N#", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Clave"
         };
-        
+
         jTTablaUsuarios.setBackground(Color.WHITE);
         jTTablaUsuarios.getParent().setBackground(Color.WHITE);
-        
+
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
             int.class,
@@ -146,15 +133,15 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             java.lang.String.class,
             java.lang.String.class
         };
-        
+
         Estudiante es;
-            JButton boton = new JButton("Eliminar");
-            boton.setSize(jTTablaUsuarios.getWidth()*1/16, jTTablaUsuarios.getParent().getHeight()/10);
+        JButton boton = new JButton("Eliminar");
+        boton.setSize(jTTablaUsuarios.getWidth() * 1 / 16, jTTablaUsuarios.getParent().getHeight() / 10);
         Object[][] datos = new Object[arrayEstudiantes.size()][9];
         for (int i = 0; i < arrayEstudiantes.size(); i++) {
             es = (Estudiante) arrayEstudiantes.getitem(i);
             datos[i][0] = boton;
-            datos[i][1] = i+1;
+            datos[i][1] = i + 1;
             datos[i][2] = es.getNombre();
             datos[i][3] = es.getApellido();
             datos[i][4] = es.getUsuario();
@@ -163,7 +150,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             datos[i][7] = es.getCorreo();
             datos[i][8] = es.getContraseña();
         }
-        
+
         jTTablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
                 datos,
                 columnas) {
@@ -178,82 +165,77 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             public boolean isCellEditable(int row, int column) {
                 return !(this.getColumnClass(column).equals(JButton.class));
             }
-            
 
         });
-        
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTTablaUsuarios.setDefaultRenderer(String.class, centerRenderer);
-        
-        
-        for(int x=0;x<jTTablaUsuarios.getColumnCount();x++){
-            if(x!=0){
-            jTTablaUsuarios.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
+
+        for (int x = 0; x < jTTablaUsuarios.getColumnCount(); x++) {
+            if (x != 0) {
+                jTTablaUsuarios.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
             }
         }
-        
+
         jTTablaUsuarios.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-               jtable.setAlignmentY(TOP_ALIGNMENT);
-               return (Component) o;
-               
+                jtable.setAlignmentY(TOP_ALIGNMENT);
+                return (Component) o;
+
             }
-            
-           
+
         });
 
-        
         jTTablaUsuarios.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                editar=true;
-                
+                editar = true;
+
                 int fila = jTTablaUsuarios.rowAtPoint(e.getPoint());
                 int columna = jTTablaUsuarios.columnAtPoint(e.getPoint());
                 if (jTTablaUsuarios.getModel().getColumnClass(columna).equals(JButton.class)) {
-                    
 
-                    usuarios.remove(String.valueOf(jTTablaUsuarios.getValueAt(fila,4)));
+                    try {
+                        userbase.ModificarDBC(usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(fila, 4))));
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
+                    usuarios.remove(String.valueOf(jTTablaUsuarios.getValueAt(fila, 4)));
 
-                DefaultTableModel model=new DefaultTableModel();
-                    model=(DefaultTableModel)jTTablaUsuarios.getModel();
+                    DefaultTableModel model = new DefaultTableModel();
+                    model = (DefaultTableModel) jTTablaUsuarios.getModel();
                     model.removeRow(jTTablaUsuarios.getSelectedRow());
 
-                }else{
-                    
-                  arregloBooleano[fila]=true;  
-                    
-                    
+                } else {
+
+                    arregloBooleano[fila] = true;
+
                 }
-                jLUsuariosCreados.setText("Usuarios creados: "+String.valueOf(usuarios.size()));
+                jLUsuariosCreados.setText("Usuarios creados: " + String.valueOf(usuarios.size()));
             }
         });
-        
-        
+
         jTTablaUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            jTTablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
-            jTTablaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(jTTablaUsuarios.getWidth()*5/100);
-            jTTablaUsuarios.getColumnModel().getColumn(2).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
-            jTTablaUsuarios.getColumnModel().getColumn(3).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
-            jTTablaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
-            jTTablaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(jTTablaUsuarios.getWidth()*10/100);
-            jTTablaUsuarios.getColumnModel().getColumn(6).setPreferredWidth(jTTablaUsuarios.getWidth()*15/100);
-            jTTablaUsuarios.getColumnModel().getColumn(7).setPreferredWidth(jTTablaUsuarios.getWidth()*21/100);
-            jTTablaUsuarios.getColumnModel().getColumn(8).setPreferredWidth(jTTablaUsuarios.getWidth()*11/100);
+        jTTablaUsuarios.getColumnModel().getColumn(0).setPreferredWidth(jTTablaUsuarios.getWidth() * 10 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(1).setPreferredWidth(jTTablaUsuarios.getWidth() * 5 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(2).setPreferredWidth(jTTablaUsuarios.getWidth() * 10 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(3).setPreferredWidth(jTTablaUsuarios.getWidth() * 10 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(4).setPreferredWidth(jTTablaUsuarios.getWidth() * 10 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(5).setPreferredWidth(jTTablaUsuarios.getWidth() * 10 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(6).setPreferredWidth(jTTablaUsuarios.getWidth() * 15 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(7).setPreferredWidth(jTTablaUsuarios.getWidth() * 21 / 100);
+        jTTablaUsuarios.getColumnModel().getColumn(8).setPreferredWidth(jTTablaUsuarios.getWidth() * 11 / 100);
 //            jTTablaUsuarios.getColumnModel().getColumn(9).setPreferredWidth(jTTablaUsuarios.getWidth()/9);
-          
-            jTTablaUsuarios.setAlignmentY(CENTER_ALIGNMENT);
-            jTTablaUsuarios.setAlignmentX(CENTER_ALIGNMENT);
-            
-            jTTablaUsuarios.setRowHeight(jTTablaUsuarios.getParent().getHeight()/10);
+
+        jTTablaUsuarios.setAlignmentY(CENTER_ALIGNMENT);
+        jTTablaUsuarios.setAlignmentX(CENTER_ALIGNMENT);
+
+        jTTablaUsuarios.setRowHeight(jTTablaUsuarios.getParent().getHeight() / 10);
 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -309,7 +291,7 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -317,13 +299,13 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -466,10 +448,9 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
 
-
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosIniciales,administradores,materias,adminbase, materiasbase, userbase);
-                inicioAdmin.setVisible(true);
-                this.dispose();
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosIniciales, administradores, materias, adminbase, materiasbase, userbase);
+        inicioAdmin.setVisible(true);
+        this.dispose();
 
 
     }//GEN-LAST:event_VolverAInicioActionPerformed
@@ -477,82 +458,71 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_salirActionPerformed
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
         // TODO add your handling code here:
-        
 
-            for(int i=0;i<arregloBooleano.length;i++){
-                System.out.println(arregloBooleano[i]);
-                if(arregloBooleano[i]){
-                    Estudiante est = (Estudiante) arrayEstudiantes.getitem(i);
-                    PriorityQueue<Casilla> casillas = est.getCasillas();
-                    usuarios.remove(est.getUsuario());
-                    
-//                    "Eliminar", "N#", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Clave"
-    
-                   String usuario = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 4));
-                   String nombre = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 2));
-                   String apellido = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 3));
-                   String pregrado = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 6));
-                   String clave = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 8)); 
-                   int codigo = Integer.parseInt(String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 5)));       
-                    usuarios.add(usuario, new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
+        for (int i = 0; i < arregloBooleano.length; i++) {
+            if (arregloBooleano[i]) {
+                Estudiante est = (Estudiante) arrayEstudiantes.getitem(i);
+                PriorityQueue<Casilla> casillas = est.getCasillas();
+
+                try {
+                    userbase.ModificarDBC(est);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            }
-            
-            GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
-                inicioAdmin.setVisible(true);
-                this.dispose();
-        
-        
-        
-        
-        
 
-                
-                
-                
- 
-        
+                usuarios.remove(est.getUsuario());
+
+                String usuario = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 4));
+                String nombre = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 2));
+                String apellido = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 3));
+                String pregrado = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 6));
+                String clave = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 8));
+                int codigo = Integer.parseInt(String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 5)));
+
+                try {
+                    userbase.InsertarDBC(new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                usuarios.add(usuario, new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
+            }
+
+        }
+
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
+        inicioAdmin.setVisible(true);
+        this.dispose();
+
+
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
-       public HashGeneric<String,Persona> usuariosEditados(){
-            HashGeneric<String,Persona> estudiantes=new HashGeneric<>();
-            Estudiante estudiante;
-            Estudiante estudianteViejo;
-            
-            
-//                        datos[i][2] = es.getNombre();
-//            datos[i][3] = es.getApellido();
-//            datos[i][4] = es.getUsuario();
-//            datos[i][5] = es.getCodigo();
-//            datos[i][6] = es.getPregrado();
-//            datos[i][7] = es.getCorreo();
-//            datos[i][8] = es.getContraseña();
-            
-           for(int i=0;i<jTTablaUsuarios.getRowCount();i++){
-               estudianteViejo=(Estudiante) usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(i,4)));
-               estudiante = new Estudiante(String.valueOf(jTTablaUsuarios.getValueAt(i,4)),
-                       String.valueOf(jTTablaUsuarios.getValueAt(i,8)), 
-                       Integer.parseInt(String.valueOf(jTTablaUsuarios.getValueAt(i,5))),
-                       String.valueOf(jTTablaUsuarios.getValueAt(i,2)), 
-                       String.valueOf(jTTablaUsuarios.getValueAt(i,3)), 
-                       estudianteViejo.getCasillas(), String.valueOf(jTTablaUsuarios.getValueAt(i,6)));
-               estudiantes.add(String.valueOf(jTTablaUsuarios.getValueAt(i,4)), estudiante);
-               
-           }
-           return estudiantes;
+    public HashGeneric<String, Persona> usuariosEditados() {
+        HashGeneric<String, Persona> estudiantes = new HashGeneric<>();
+        Estudiante estudiante;
+        Estudiante estudianteViejo;
+
+        for (int i = 0; i < jTTablaUsuarios.getRowCount(); i++) {
+            estudianteViejo = (Estudiante) usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(i, 4)));
+            estudiante = new Estudiante(String.valueOf(jTTablaUsuarios.getValueAt(i, 4)),
+                    String.valueOf(jTTablaUsuarios.getValueAt(i, 8)),
+                    Integer.parseInt(String.valueOf(jTTablaUsuarios.getValueAt(i, 5))),
+                    String.valueOf(jTTablaUsuarios.getValueAt(i, 2)),
+                    String.valueOf(jTTablaUsuarios.getValueAt(i, 3)),
+                    estudianteViejo.getCasillas(), String.valueOf(jTTablaUsuarios.getValueAt(i, 6)));
+            estudiantes.add(String.valueOf(jTTablaUsuarios.getValueAt(i, 4)), estudiante);
+
         }
-    
-    
-    
+        return estudiantes;
+    }
+
     /**
      * @param args the command line arguments
      */

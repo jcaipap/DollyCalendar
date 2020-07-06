@@ -1,6 +1,4 @@
-
 package gui;
-
 
 import data.AdminDataBaseHandler;
 import data.Casilla;
@@ -14,31 +12,31 @@ import estructuas.PriorityQueue;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 public class GUIGeneracionUsuario extends javax.swing.JFrame {
-    
-    
-    
-    HashGeneric<String,Persona> usuarios;
-    HashGeneric<String,Persona> administradores;
-    HashGeneric<Integer,Materia> materias;
+
+    HashGeneric<String, Persona> usuarios;
+    HashGeneric<String, Persona> administradores;
+    HashGeneric<Integer, Materia> materias;
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
-  
-    public GUIGeneracionUsuario(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
-        this.usuarios=usuarios;
-        this.administradores=administradores;
-        this.materias=materias;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
+
+    public GUIGeneracionUsuario(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase) {
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -46,32 +44,24 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
-        ImageIcon icon= new ImageIcon();
-        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
+        ImageIcon icon = new ImageIcon();
+        Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
-        
-        ImageIcon icon2= new ImageIcon();
-        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+
+        ImageIcon icon2 = new ImageIcon();
+        Image image2 = new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        
+
         jLabel1.setForeground(Color.white);
-        
-//        Graphics graphic=crearUsuario.getGraphics();
-//        graphic.setColor(new Color(20,34,255));
-//        crearUsuario.paint(graphic);
 
     }
 
     public GUIGeneracionUsuario() {
     }
 
-
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -374,7 +364,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -383,10 +373,10 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addGap(45, 45, 45)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -423,32 +413,32 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
-        
+
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea volver al inicio?",
-        "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){       
-            GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
+            GUIInicio inicio = new GUIInicio(usuarios, administradores, materias, adminbase, materiasbase, userbase);
             inicio.setVisible(true);
             this.dispose();
         }
-        
-                   
+
+
     }//GEN-LAST:event_VolverAInicioActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
-                int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
+        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
-                if(respuesta==0){       
-                    System.exit(0);
-                }
+        if (respuesta == 0) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_salirActionPerformed
 
     private void inputEdadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputEdadKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isDigit(tecla)){
+        tecla = evt.getKeyChar();
+        if (!Character.isDigit(tecla)) {
             evt.consume();
         }
     }//GEN-LAST:event_inputEdadKeyTyped
@@ -464,8 +454,8 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     private void inputIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputIdKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isDigit(tecla)){
+        tecla = evt.getKeyChar();
+        if (!Character.isDigit(tecla)) {
             evt.consume();
         }
     }//GEN-LAST:event_inputIdKeyTyped
@@ -476,36 +466,37 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
 
     private void crearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearUsuarioActionPerformed
 
-                
-        
-        if(!("".equals(inputNombre.getText())||"".equals(inputApellido.getText())||"".equals(inputPregrado.getText())||
-                "".equals(inputEdad.getText())||"".equals(inputId.getText())||"".equals(inputUsuario.getText())||
-                "".equals(inputNuevaContraseña.getText())||"".equals(inputReingresoNuevaContraseña.getText()))){
+        if (!("".equals(inputNombre.getText()) || "".equals(inputApellido.getText()) || "".equals(inputPregrado.getText())
+                || "".equals(inputEdad.getText()) || "".equals(inputId.getText()) || "".equals(inputUsuario.getText())
+                || "".equals(inputNuevaContraseña.getText()) || "".equals(inputReingresoNuevaContraseña.getText()))) {
 
-            if(inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText())){  
-                System.out.println(usuarios.get(inputUsuario.getText()));  
-               if(usuarios.get(inputUsuario.getText())==null){
-                   
-                usuarios.add(inputUsuario.getText(), new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla> (),  inputPregrado.getText()));
-                
-                GUIInicio inicio = new GUIInicio(usuarios,administradores,materias,adminbase, materiasbase, userbase);
-                inicio.setVisible(true);
-                this.dispose();
-               } 
-                
+            if (inputNuevaContraseña.getText().equals(inputReingresoNuevaContraseña.getText())) {
+                if (usuarios.get(inputUsuario.getText()) == null) {
+
+                    usuarios.add(inputUsuario.getText(), new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla>(), inputPregrado.getText()));
+                    try {
+                        userbase.InsertarDBC(new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla>(), inputPregrado.getText()));
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIGeneracionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    GUIInicio inicio = new GUIInicio(usuarios, administradores, materias, adminbase, materiasbase, userbase);
+                    inicio.setVisible(true);
+                    this.dispose();
+                }
+
             }
         }
-        
+
         jLabel1.setForeground(Color.red);
-        
-      
+
+
     }//GEN-LAST:event_crearUsuarioActionPerformed
 
     private void inputUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputUsuarioKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isLetterOrDigit(tecla)){
+        tecla = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(tecla)) {
             evt.consume();
         }
     }//GEN-LAST:event_inputUsuarioKeyTyped
@@ -518,25 +509,25 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isLetter(tecla)){
+        tecla = evt.getKeyChar();
+        if (!Character.isLetter(tecla)) {
             evt.consume();
         }
     }//GEN-LAST:event_inputApellidoKeyTyped
 
     private void inputApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputApellidoActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_inputApellidoActionPerformed
 
     private void inputPregradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPregradoKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isLetterOrDigit(tecla)&&tecla!=' '){
+        tecla = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(tecla) && tecla != ' ') {
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_inputPregradoKeyTyped
 
     private void inputPregradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPregradoActionPerformed
@@ -546,8 +537,8 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
     private void inputNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputNombreKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
-        if((!Character.isLetter(tecla))){
+        tecla = evt.getKeyChar();
+        if ((!Character.isLetter(tecla))) {
             evt.consume();
         } else {
         }
@@ -589,7 +580,6 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             @Override
             public void run() {
                 new GUIGeneracionUsuario().setVisible(true);
-                
 
             }
         });

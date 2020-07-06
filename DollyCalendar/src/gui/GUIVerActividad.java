@@ -18,7 +18,10 @@ import static gui.GUIBuscador.crearCalendario;
 import static gui.GUIBuscador.fecha2;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -34,7 +37,6 @@ public class GUIVerActividad extends javax.swing.JFrame {
     /**
      * Creates new form GUIVerActividad
      */
-    
     HashGeneric<String, Persona> usuarios;
     HashGeneric<String, Persona> administradores;
     HashGeneric<Integer, Materia> materias;
@@ -44,10 +46,10 @@ public class GUIVerActividad extends javax.swing.JFrame {
     Casilla casilla;
     Estudiante estudiante;
     Actividad actividadNueva;
-    
-    
-    public GUIVerActividad(Casilla casilla, HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase, Estudiante estudiante) {
+
+    public GUIVerActividad(Casilla casilla, HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
@@ -62,73 +64,53 @@ public class GUIVerActividad extends javax.swing.JFrame {
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        this.casilla=casilla;
+        this.casilla = casilla;
         TituloText.setText(casilla.getTitulo());
         ImpText.setText(String.valueOf(casilla.getImportancia()));
         descText.setText(casilla.getDescripcion());
-        this.usuarios=usuarios;
-        this.administradores=administradores;
-        this.materias=materias;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
-        this.estudiante=estudiante;
-        
-        
-        
-        jComboBoxHora.setSelectedIndex(casilla.getFechaInicio().getTime().getHours()-1);
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
+        this.estudiante = estudiante;
+
+        jComboBoxHora.setSelectedIndex(casilla.getFechaInicio().getTime().getHours() - 1);
         jComboBoxMinuto.setSelectedItem(casilla.getFechaInicio().getTime().getMinutes());
-        
-        jComboBoxAño.setModel(( new DefaultComboBoxModel(
-                new String[] { String.valueOf(casilla.getFechaInicio().getTime().getYear()-2+1900), String.valueOf(casilla.getFechaInicio().getTime().getYear()-1+1900), String.valueOf(casilla.getFechaInicio().getTime().getYear()+1900), String.valueOf(casilla.getFechaInicio().getTime().getYear()+1+1900),String.valueOf(casilla.getFechaInicio().getTime().getYear()+2+1900) })
-              ));
-        jComboBoxAño.setSelectedItem(String.valueOf(casilla.getFechaInicio().getTime().getYear()+1900));
-        jComboBoxMes.setModel(( new DefaultComboBoxModel(
-                new String[] { "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"})
-              ));
-        
+
+        jComboBoxAño.setModel((new DefaultComboBoxModel(
+                new String[]{String.valueOf(casilla.getFechaInicio().getTime().getYear() - 2 + 1900), String.valueOf(casilla.getFechaInicio().getTime().getYear() - 1 + 1900), String.valueOf(casilla.getFechaInicio().getTime().getYear() + 1900), String.valueOf(casilla.getFechaInicio().getTime().getYear() + 1 + 1900), String.valueOf(casilla.getFechaInicio().getTime().getYear() + 2 + 1900)})));
+        jComboBoxAño.setSelectedItem(String.valueOf(casilla.getFechaInicio().getTime().getYear() + 1900));
+        jComboBoxMes.setModel((new DefaultComboBoxModel(
+                new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})));
+
         jComboBoxMes.setSelectedIndex(casilla.getFechaInicio().getTime().getMonth());
-        jComboBoxDia.setModel(( new DefaultComboBoxModel(
-                new String[] { "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"})
-              ));
-        jComboBoxDia.setSelectedIndex(casilla.getFechaInicio().getTime().getDate()-1);
+        jComboBoxDia.setModel((new DefaultComboBoxModel(
+                new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"})));
+        jComboBoxDia.setSelectedIndex(casilla.getFechaInicio().getTime().getDate() - 1);
         jComboBoxHora.setSelectedItem(casilla.getFechaInicio().getTime().getHours());
         jComboBoxMinuto.setSelectedItem(String.valueOf(casilla.getFechaInicio().getTime().getMinutes()));
-        
-       
-        jComboBoxAño2.setModel(( new DefaultComboBoxModel(
-                new String[] { String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()-2+1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()-1+1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()+1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()+1+1900),String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()+2+1900) })
-              ));
-        jComboBoxAño2.setSelectedItem(String.valueOf(casilla.getFechaFinalizacion().getTime().getYear()+1900));
-        jComboBoxMes2.setModel(( new DefaultComboBoxModel(
-                new String[] { "Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"})
-              ));
-        
+
+        jComboBoxAño2.setModel((new DefaultComboBoxModel(
+                new String[]{String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() - 2 + 1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() - 1 + 1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() + 1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() + 1 + 1900), String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() + 2 + 1900)})));
+        jComboBoxAño2.setSelectedItem(String.valueOf(casilla.getFechaFinalizacion().getTime().getYear() + 1900));
+        jComboBoxMes2.setModel((new DefaultComboBoxModel(
+                new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"})));
 
         jComboBoxMes2.setSelectedIndex(casilla.getFechaFinalizacion().getTime().getMonth());
-        
-        
-        jComboBoxDia2.setModel(( new DefaultComboBoxModel(
-                new String[] {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"})
-              ));
-        
-        
-        
-        
-        jComboBoxDia2.setSelectedIndex(casilla.getFechaFinalizacion().getTime().getDate()-1);
-        jComboBoxHora2.setSelectedIndex(casilla.getFechaFinalizacion().getTime().getHours()-1);
+
+        jComboBoxDia2.setModel((new DefaultComboBoxModel(
+                new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"})));
+
+        jComboBoxDia2.setSelectedIndex(casilla.getFechaFinalizacion().getTime().getDate() - 1);
+        jComboBoxHora2.setSelectedIndex(casilla.getFechaFinalizacion().getTime().getHours() - 1);
         jComboBoxMinuto2.setSelectedItem(String.valueOf(casilla.getFechaFinalizacion().getTime().getMinutes()));
         jLabel18.setForeground(Color.white);
     }
 
-    
-    
-    
     public GUIVerActividad() {
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,6 +174,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         panelTitulo.setBackground(new java.awt.Color(255, 255, 255));
         panelTitulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -211,7 +194,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -230,13 +213,13 @@ public class GUIVerActividad extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addGap(31, 31, 31)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -253,7 +236,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        TituloText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        TituloText.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         TituloText.setText("jTextField1");
         TituloText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +249,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        ImpText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        ImpText.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         ImpText.setText("jTextField2");
         ImpText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,15 +262,16 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Aquí puede editar su actividad");
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel6.setText("Título:");
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel7.setText("Importancia (1-5):");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 22)); // NOI18N
         jLabel8.setText("Descripción:");
 
         JBGuardarYVolver.setBackground(new java.awt.Color(20, 34, 255));
@@ -305,7 +289,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
         });
 
         descText.setColumns(20);
-        descText.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        descText.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         descText.setRows(5);
         descText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -330,22 +314,22 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel9.setText("Fecha de finalización:");
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel10.setText("Fecha de inicio:");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Mes");
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Dia");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel4.setText("Hora");
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel11.setText("Minuto");
 
         jComboBoxAño.setBackground(new java.awt.Color(255, 255, 255));
@@ -364,7 +348,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel12.setText("Año");
 
         jComboBoxMes.setBackground(new java.awt.Color(255, 255, 255));
@@ -375,7 +359,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel13.setText("Año");
 
         jComboBoxAño2.setBackground(new java.awt.Color(255, 255, 255));
@@ -386,7 +370,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel14.setText("Mes");
 
         jComboBoxMes2.setBackground(new java.awt.Color(255, 255, 255));
@@ -397,7 +381,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel15.setText("Dia");
 
         jComboBoxDia2.setBackground(new java.awt.Color(255, 255, 255));
@@ -408,7 +392,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel16.setText("Hora");
 
         jComboBoxHora2.setBackground(new java.awt.Color(255, 255, 255));
@@ -419,7 +403,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel17.setText("Minuto");
 
         jComboBoxMinuto2.setBackground(new java.awt.Color(255, 255, 255));
@@ -465,13 +449,10 @@ public class GUIVerActividad extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(47, 47, 47))
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(85, 85, 85)
@@ -480,7 +461,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
                                             .addComponent(ImpText)
                                             .addComponent(TituloText)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel12)
@@ -525,7 +506,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(JBBorrarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(276, 276, 276)
-                                .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -533,7 +514,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -545,47 +526,48 @@ public class GUIVerActividad extends javax.swing.JFrame {
                     .addComponent(ImpText))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBoxHora2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxMinuto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel14)
-                        .addComponent(jLabel15)
-                        .addComponent(jLabel16)
-                        .addComponent(jLabel17)
-                        .addComponent(jComboBoxAño2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxDia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxMes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel13)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JBBorrarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(83, 83, 83)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jComboBoxAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(87, 87, 87)
+                                    .addComponent(jLabel10)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jComboBoxHora2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxMinuto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel17)
+                                .addComponent(jComboBoxAño2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxDia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxMes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JBBorrarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -628,48 +610,58 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
         Calendar fechaI = Metodos.calendarGenerator(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes.getSelectedIndex())), Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxHora.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMinuto.getSelectedItem())));
         Calendar fechaF = Metodos.calendarGenerator(Integer.parseInt(String.valueOf(jComboBoxAño2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes2.getSelectedIndex())), Integer.parseInt(String.valueOf(jComboBoxDia2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxHora2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMinuto2.getSelectedItem())));
-        
-        if(fechaF.compareTo(fechaI)==1){
-            
-        Casilla actividadNueva=new Casilla(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI,fechaF);
 
-        estudiante.getCasillas().remove(casilla);
-        estudiante.getCasillas().add(actividadNueva);
+        if (fechaF.compareTo(fechaI) == 1) {
+
+            Casilla actividadNueva = new Casilla(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI, fechaF);
+            try {
+                userbase.ModificarDBC(this.estudiante);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            estudiante.getCasillas().remove(casilla);
+            estudiante.getCasillas().add(actividadNueva);
+            try {
+                userbase.InsertarDBC(this.estudiante);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
             busc.setVisible(true);
             this.dispose();
-        }else{
-            jLabel18.setForeground(Color.white);
+        } else {
+            jLabel18.setForeground(Color.red);
         }
 
-        
+
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
     private void TituloTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TituloTextKeyTyped
         // TODO add your handling code here:
-        
+
         char tecla;
-        tecla=evt.getKeyChar();
-        if(!Character.isLetterOrDigit(tecla)&&tecla!=' '){
+        tecla = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(tecla) && tecla != ' ') {
             evt.consume();
         }
-        
-        
+
+
     }//GEN-LAST:event_TituloTextKeyTyped
 
     private void ImpTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ImpTextKeyTyped
         // TODO add your handling code here:
         char tecla;
-        tecla=evt.getKeyChar();
+        tecla = evt.getKeyChar();
 //        Character.isDigit(tecla)
-        if(ImpText.getText().toCharArray().length!=0){
+        if (ImpText.getText().toCharArray().length != 0) {
             evt.consume();
-        } else if(!Character.isDigit(tecla)){
+        } else if (!Character.isDigit(tecla)) {
             evt.consume();
-        }else if(Integer.parseInt(String.valueOf(tecla))>5||Integer.parseInt(String.valueOf(tecla))<1){
+        } else if (Integer.parseInt(String.valueOf(tecla)) > 5 || Integer.parseInt(String.valueOf(tecla)) < 1) {
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_ImpTextKeyTyped
 
     private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
@@ -725,7 +717,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
+                "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             System.exit(0);
         }
@@ -734,7 +726,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
 
-        GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase,estudiante);
+        GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
         busc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_VolverAInicioActionPerformed
@@ -746,21 +738,25 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
     private void descTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descTextMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_descTextMouseClicked
 
     private void JBBorrarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarYVolverActionPerformed
         // TODO add your handling code here:
-        
-        estudiante.getCasillas().remove(casilla);
-        
-        GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
-        busc.setVisible(true);
-        this.dispose();
-        
-        
-        
-        
+
+        try {
+            // TODO add your handling code here:
+            userbase.ModificarDBC(estudiante);
+            estudiante.getCasillas().remove(casilla);
+            userbase.InsertarDBC(estudiante);
+            GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+            busc.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_JBBorrarYVolverActionPerformed
 
     /**

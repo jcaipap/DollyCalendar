@@ -16,8 +16,11 @@ import data.UsuariosDataBaseHandler;
 import estructuas.HashGeneric;
 import java.awt.Color;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -44,6 +47,7 @@ public class GUICrearActividad extends javax.swing.JFrame {
 
     public GUICrearActividad(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
@@ -64,15 +68,11 @@ public class GUICrearActividad extends javax.swing.JFrame {
         this.administradores = administradores;
         this.materias = materias;
         this.estudiante = estudiante;
-//        this.adminbase=adminbase;
-//        this.materiasbase=materiasbase;
-//        this.userbase=userbase;
 
         jLabel18.setForeground(Color.WHITE);
         Calendar casilla = Calendar.getInstance();
 
         jComboBoxHora.setSelectedIndex(casilla.getTime().getHours());
-//        jComboBoxMinuto.setSelectedIndex(casilla.getTime().getMinutes());
 
         jComboBoxAño.setModel((new DefaultComboBoxModel(
                 new String[]{String.valueOf(casilla.getTime().getYear() - 2 + 1900), String.valueOf(casilla.getTime().getYear() - 1 + 1900), String.valueOf(casilla.getTime().getYear() + 1900), String.valueOf(casilla.getTime().getYear() + 1 + 1900), String.valueOf(casilla.getTime().getYear() + 2 + 1900)})));
@@ -98,11 +98,11 @@ public class GUICrearActividad extends javax.swing.JFrame {
         jComboBoxDia2.setModel((new DefaultComboBoxModel(
                 new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"})));
         jComboBoxDia2.setSelectedIndex(casilla.getTime().getDate() - 1);
-        
-        if(casilla.getTime().getHours()!=23){
-        jComboBoxHora2.setSelectedIndex(casilla.getTime().getHours()+1);
-            
-        }else{
+
+        if (casilla.getTime().getHours() != 23) {
+            jComboBoxHora2.setSelectedIndex(casilla.getTime().getHours() + 1);
+
+        } else {
             jComboBoxHora2.setSelectedIndex(casilla.getTime().getHours());
         }
 
@@ -161,6 +161,7 @@ public class GUICrearActividad extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -495,9 +496,9 @@ public class GUICrearActividad extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Rockwell", 2, 56)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -516,13 +517,13 @@ public class GUICrearActividad extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addGap(36, 36, 36)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                .addGap(46, 46, 46)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(35, 35, 35)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -532,7 +533,7 @@ public class GUICrearActividad extends javax.swing.JFrame {
                 .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                        .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -597,16 +598,13 @@ public class GUICrearActividad extends javax.swing.JFrame {
 
         Calendar fechaI = Metodos.calendarGenerator(Integer.parseInt(String.valueOf(jComboBoxAño.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes.getSelectedIndex())), Integer.parseInt(String.valueOf(jComboBoxDia.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxHora.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMinuto.getSelectedItem())));
         Calendar fechaF = Metodos.calendarGenerator(Integer.parseInt(String.valueOf(jComboBoxAño2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMes2.getSelectedIndex())), Integer.parseInt(String.valueOf(jComboBoxDia2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxHora2.getSelectedItem())), Integer.parseInt(String.valueOf(jComboBoxMinuto2.getSelectedItem())));
-        
-        if(fechaF.compareTo(fechaI)==1){
-            estudiante.getCasillas().add(new Casilla(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI,fechaF));
-                            
-            
-//            usuarios.remove(estudiante.);
-            
+
+        if (fechaF.compareTo(fechaI) == 1) {
+            estudiante.getCasillas().add(new Actividad(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI, fechaF));
+
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
-                            busc.setVisible(true);
-                            this.dispose(); 
+            busc.setVisible(true);
+            this.dispose();
         } else {
             jLabel18.setForeground(Color.red);
         }
@@ -665,7 +663,13 @@ public class GUICrearActividad extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            System.exit(0);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
+                System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_salirActionPerformed
 

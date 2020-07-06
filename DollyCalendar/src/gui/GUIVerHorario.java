@@ -24,6 +24,8 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -61,6 +63,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
 
     public GUIVerHorario(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         this.usuarios = usuarios;
         this.administradores = administradores;
         this.materias = materias;
@@ -109,9 +112,6 @@ public class GUIVerHorario extends javax.swing.JFrame {
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
 
-        DynamicArray arrayMaterias = new DynamicArray();
-        arrayMaterias = this.materias.getHashArray();
-        //estudiante.materias[]
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
             java.lang.String.class,
@@ -124,24 +124,21 @@ public class GUIVerHorario extends javax.swing.JFrame {
             java.lang.String.class,};
 
         Materia mat;
-        
-        
-        
+
         Grupo grupo;
         Object[][] datos = new Object[materiasUs.length][8];
         for (int i = 0; i < materiasUs.length; i++) {
             mat = (Materia) materiasUs[i];
-            Grupo arrayGrupos[] =materias.get(mat.getCodigo()).getGrupos();
-        int cantidadGrupos=arrayGrupos.length;
-            
-        grupo = (Grupo) arrayGrupos[mat.getNumeroGrupo() - 1];
-            String horario="";
-            for(int j=0;j<grupo.getHorario().length;j++){
-               
-                horario=horario.concat("Dia: "+String.valueOf(nombreDia[grupo.getHorario()[j].getTime().getDay()])+"    Hora: "+grupo.getHorario()[j].getTime().getHours()+":00          ") ;
+            Grupo arrayGrupos[] = materias.get(mat.getCodigo()).getGrupos();
+            int cantidadGrupos = arrayGrupos.length;
 
-                }
-            
+            grupo = (Grupo) arrayGrupos[mat.getNumeroGrupo() - 1];
+            String horario = "";
+            for (int j = 0; j < grupo.getHorario().length; j++) {
+
+                horario = horario.concat("Dia: " + String.valueOf(nombreDia[grupo.getHorario()[j].getTime().getDay()]) + "    Hora: " + grupo.getHorario()[j].getTime().getHours() + ":00          ");
+
+            }
 
             if (mat != null) {
                 datos[i][0] = new JButton("Eliminar");
@@ -173,16 +170,15 @@ public class GUIVerHorario extends javax.swing.JFrame {
         });
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTTablaMaterias.setDefaultRenderer(String.class, centerRenderer);
-        
-        
-        for(int x=0;x<jTTablaMaterias.getColumnCount();x++){
-            if(x!=0&&x!=1){
-            jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
+
+        for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
+            if (x != 0 && x != 1) {
+                jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
             }
         }
-        
+
         for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
             if (x != 0 && x != 1) {
                 jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
@@ -207,7 +203,18 @@ public class GUIVerHorario extends javax.swing.JFrame {
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
                 if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
+
+                    try {
+                        userbase.ModificarDBC(estudiante);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     estudiante.setCasillas(Metodos.eliminarMateria(estudiante.getCasillas(), String.valueOf(jTTablaMaterias.getValueAt(fila, 1))));
+                    try {
+                        userbase.InsertarDBC(estudiante);
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                     counter--;
 
@@ -216,18 +223,18 @@ public class GUIVerHorario extends javax.swing.JFrame {
                     model.removeRow(jTTablaMaterias.getSelectedRow());
 
                 }
-                jLUsuariosCreados.setText("Materias creadas: " + String.valueOf(counter));
+                jLUsuariosCreados.setText("Materias inscritas: " + String.valueOf(counter));
             }
         });
 
         jTTablaMaterias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
         jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth() * 25 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 12 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 13 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 5 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 5 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
         jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 40 / 100);
 
         jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
@@ -256,11 +263,12 @@ public class GUIVerHorario extends javax.swing.JFrame {
         jTTablaMaterias = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         JBGuardarYVolver = new javax.swing.JButton();
+        JBAñadirMat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLUsuariosCreados = new javax.swing.JLabel();
-        JBAñadirMat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         panelTitulo.setBackground(new java.awt.Color(255, 255, 255));
         panelTitulo.setForeground(new java.awt.Color(255, 255, 255));
@@ -291,7 +299,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -299,13 +307,13 @@ public class GUIVerHorario extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addGap(74, 74, 74)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -371,18 +379,36 @@ public class GUIVerHorario extends javax.swing.JFrame {
             }
         });
 
+        JBAñadirMat.setBackground(new java.awt.Color(20, 34, 255));
+        JBAñadirMat.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        JBAñadirMat.setForeground(new java.awt.Color(255, 255, 255));
+        JBAñadirMat.setText("Añadir Materias");
+        JBAñadirMat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        JBAñadirMat.setBorderPainted(false);
+        JBAñadirMat.setMaximumSize(new java.awt.Dimension(180, 40));
+        JBAñadirMat.setMinimumSize(new java.awt.Dimension(180, 40));
+        JBAñadirMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBAñadirMatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JBAñadirMat, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(JBAñadirMat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -408,20 +434,6 @@ public class GUIVerHorario extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        JBAñadirMat.setBackground(new java.awt.Color(20, 34, 255));
-        JBAñadirMat.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        JBAñadirMat.setForeground(new java.awt.Color(255, 255, 255));
-        JBAñadirMat.setText("Añadir Materias");
-        JBAñadirMat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        JBAñadirMat.setBorderPainted(false);
-        JBAñadirMat.setMaximumSize(new java.awt.Dimension(180, 40));
-        JBAñadirMat.setMinimumSize(new java.awt.Dimension(180, 40));
-        JBAñadirMat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBAñadirMatActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -432,10 +444,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(JBAñadirMat, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -448,9 +457,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JBAñadirMat, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -471,14 +478,18 @@ public class GUIVerHorario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            System.exit(0);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
+                System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_salirActionPerformed
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
-//                System.out.println("Antes de la pendejada\n"+estudiante.getCasillas());
-//                estudiante.setCasillas(estudiante.getCasillas());
-//                System.out.println("\n\nDespues de la pendejada\n\n"+estudiante.getCasillas());
+
         GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
         busc.setVisible(true);
         this.dispose();

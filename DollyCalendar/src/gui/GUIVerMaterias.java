@@ -48,29 +48,28 @@ public class GUIVerMaterias extends javax.swing.JFrame {
      * Creates new form GUIVerMaterias
      */
     public boolean editar = false;
-    public HashGeneric<String,Persona> usuarios;
-    public HashGeneric<Integer,Materia> materias;
-    public HashGeneric<String,Persona> administradores;
+    public HashGeneric<String, Persona> usuarios;
+    public HashGeneric<Integer, Materia> materias;
+    public HashGeneric<String, Persona> administradores;
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
     boolean arregloBooleano[];
     DynamicArray arrayMaterias;
-    
-    
-    public GUIVerMaterias(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
-        this.materias=materias;
-        this.usuarios=usuarios;
-        this.administradores=administradores;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
-        this.arregloBooleano=new boolean[materias.size()];
-        this.arrayMaterias=materias.getHashArray();
-        for(int i=0;i<arregloBooleano.length;i++){
-            arregloBooleano[i]=false;
+
+    public GUIVerMaterias(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase) {
+        this.materias = materias;
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
+        this.arregloBooleano = new boolean[materias.size()];
+        this.arrayMaterias = materias.getHashArray();
+        for (int i = 0; i < arregloBooleano.length; i++) {
+            arregloBooleano[i] = false;
         }
-        
+
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -78,66 +77,55 @@ public class GUIVerMaterias extends javax.swing.JFrame {
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
-        ImageIcon icon= new ImageIcon();
-        Image image= new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
+        ImageIcon icon = new ImageIcon();
+        Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
 
-        ImageIcon icon2= new ImageIcon();
-        Image image2= new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
+        ImageIcon icon2 = new ImageIcon();
+        Image image2 = new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage();
         icon2.setImage(image2);
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        
-        Graphics graphic=VolverAInicio.getGraphics();
-        graphic.setColor(new Color(20,34,255));
+
+        Graphics graphic = VolverAInicio.getGraphics();
+        graphic.setColor(new Color(20, 34, 255));
         VolverAInicio.paint(graphic);
-        
-        
+
         addRowtoJTable();
 
-        
-        jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(materias.size()));
+        jLUsuariosCreados.setText("Materias creadas: " + String.valueOf(materias.size()));
     }
 
     public GUIVerMaterias() {
     }
-    
-    
-    
-    
-    
-    public void addRowtoJTable(){
+
+    public void addRowtoJTable() {
         String[] columnas = new String[]{
-            "Eliminar", "Ver grupos","N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
+            "Eliminar", "Ver grupos", "N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
         };
-        
+
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
-        
 
-
-        
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
             JButton.class,
-            int.class,
+            java.lang.Integer.class,
             java.lang.String.class,
             java.lang.String.class,
             java.lang.String.class,
             java.lang.Integer.class,
             java.lang.Integer.class,
-            java.lang.String.class,
+            java.lang.String.class,};
 
-        };
-        
         Materia mat;
         Object[][] datos = new Object[arrayMaterias.size()][9];
         for (int i = 0; i < arrayMaterias.size(); i++) {
             mat = (Materia) arrayMaterias.getitem(i);
             datos[i][0] = new JButton("Eliminar");
-            datos[i][1] = new JButton("F");
-            datos[i][2] = i+1;
+            datos[i][1] = new JButton("Ver");
+            datos[i][2] = i + 1;
             datos[i][3] = mat.getTitulo();
             datos[i][4] = mat.getCodigo();
             datos[i][5] = mat.getTipologia();
@@ -146,7 +134,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
             datos[i][8] = mat.getDescripcion();
 
         }
-        
+
         jTTablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
                 datos,
                 columnas) {
@@ -159,93 +147,87 @@ public class GUIVerMaterias extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return !(this.getColumnClass(column).equals(JButton.class));
+                return true;
             }
-            
 
         });
 
-        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTTablaMaterias.setDefaultRenderer(String.class, centerRenderer);
-        
-        
-        for(int x=0;x<jTTablaMaterias.getColumnCount();x++){
-            if(x!=0){
-            jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
+
+        for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
+            if (x != 0 && x != 1) {
+                jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
             }
         }
-        
+
         jTTablaMaterias.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-               jtable.setAlignmentY(TOP_ALIGNMENT);
-               return (Component) o;
-               
+                jtable.setAlignmentY(TOP_ALIGNMENT);
+                return (Component) o;
+
             }
-            
-           
+
         });
 
-        
         jTTablaMaterias.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               editar=true; 
-                
+                editar = true;
+
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
-                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==0) {
-                    
-                    materias.remove(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila,4))));
+                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
+                    try {
+                        materiasbase.ModificarDBC(materias.get(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4)))));
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    materias.remove(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4))));
 
-                DefaultTableModel model=new DefaultTableModel();
-                    model=(DefaultTableModel)jTTablaMaterias.getModel();
+                    DefaultTableModel model = new DefaultTableModel();
+                    model = (DefaultTableModel) jTTablaMaterias.getModel();
                     model.removeRow(jTTablaMaterias.getSelectedRow());
 
-                }else if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==1) {
-                    verGrupo(materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila,4)))));
-                    
+                } else if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 1) {
 
-                }else{
-                    
-                  arregloBooleano[fila]=true;  
-                    
+                    verGrupo((Materia) arrayMaterias.getitem(fila));
+
+                } else {
+
+                    arregloBooleano[fila] = true;
+
                 }
 
-                jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(materias.size()));
+                jLUsuariosCreados.setText("Materias creadas: " + String.valueOf(materias.size()));
             }
         });
-        
-        
+
         jTTablaMaterias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth()*5/100);
-            jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth()*23/100);
-            jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth()*12/100);
-            jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth()*6/100);
-            jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth()*6/100);
-            jTTablaMaterias.getColumnModel().getColumn(8).setPreferredWidth(jTTablaMaterias.getWidth()*30/100);
-          
-            jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
-            jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
-            
-            jTTablaMaterias.setRowHeight(jTTablaMaterias.getParent().getHeight()/10);
+        jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 5 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 27 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 8 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 12 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 6 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 6 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(8).setPreferredWidth(jTTablaMaterias.getWidth() * 40 / 100);
+
+        jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
+        jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
+
+        jTTablaMaterias.setRowHeight(jTTablaMaterias.getParent().getHeight() / 10);
 
     }
-    
-    
-    public void verGrupo(Materia materia){
-                GUIVerGrupos verGrupos = new GUIVerGrupos(usuarios,administradores,materias,materia,adminbase, materiasbase, userbase);
-                verGrupos.setVisible(true);
-                this.dispose();   
+
+    public void verGrupo(Materia materia) {
+        GUIVerGrupos verGrupos = new GUIVerGrupos(usuarios, administradores, materias, materia, adminbase, materiasbase, userbase);
+        verGrupos.setVisible(true);
+        this.dispose();
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -385,7 +367,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -393,13 +375,13 @@ public class GUIVerMaterias extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -449,64 +431,70 @@ public class GUIVerMaterias extends javax.swing.JFrame {
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
 
-        
-        for(int i=0;i<arregloBooleano.length;i++){
-                System.out.println(arregloBooleano[i]);
-                if(arregloBooleano[i]){
-                    Materia mat = (Materia) arrayMaterias.getitem(i);
-                    Grupo grupos[] = mat.getGrupos();
-                    
-                    materias.remove(mat.getCodigo());
-
-                    String titulo = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 3));
-                    int codigo = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 4)));
-                    String tipologia = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 5));
-                    int creditos = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 6)));
-                    String descripcion = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 8));
-                    
-                    materias.add(codigo, new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
-                      
+        for (int i = 0; i < arregloBooleano.length; i++) {
+            System.out.println(arregloBooleano[i]);
+            if (arregloBooleano[i]) {
+                Materia mat = (Materia) arrayMaterias.getitem(i);
+                Grupo grupos[] = mat.getGrupos();
+                try {
+                    materiasbase.ModificarDBC(mat);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        
 
-        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+                materias.remove(mat.getCodigo());
+
+                String titulo = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 3));
+                int codigo = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 4)));
+                String tipologia = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 5));
+                int creditos = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 6)));
+                String descripcion = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 8));
+
+                try {
+                    materiasbase.InsertarDBC(new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+                }
+//                    
+
+                materias.add(codigo, new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
+
+            }
+        }
+
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
         inicioAdmin.setVisible(true);
         this.dispose();
-        
+
 
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
-    public HashGeneric<Integer,Materia> materiasEditadas() throws IOException{
-            HashGeneric<Integer,Materia> materiasNuevas=new HashGeneric<>();
-            Materia materia;
-            Materia materiaVieja;
-            
-            
-           for(int i=0;i<jTTablaMaterias.getRowCount();i++){
+    public HashGeneric<Integer, Materia> materiasEditadas() throws IOException {
+        HashGeneric<Integer, Materia> materiasNuevas = new HashGeneric<>();
+        Materia materia;
+        Materia materiaVieja;
 
-               materiaVieja=materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,4))));
-               materia=new Materia(String.valueOf(jTTablaMaterias.getValueAt(i,3)),
-                       String.valueOf(jTTablaMaterias.getValueAt(i,8)), 
-                       Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,6))), 
-                       Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,4))), 
-                       Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,6))),
-                       String.valueOf(jTTablaMaterias.getValueAt(i,5)),
-                       materiaVieja.getGrupos());
-                materiasNuevas.add(Integer.parseInt(String.valueOf(materiaVieja.getCodigo())), materia);
-           }
-           
-           return materiasNuevas;
+        for (int i = 0; i < jTTablaMaterias.getRowCount(); i++) {
+
+            materiaVieja = materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i, 4))));
+            materia = new Materia(String.valueOf(jTTablaMaterias.getValueAt(i, 3)),
+                    String.valueOf(jTTablaMaterias.getValueAt(i, 8)),
+                    Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i, 6))),
+                    Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i, 4))),
+                    Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i, 6))),
+                    String.valueOf(jTTablaMaterias.getValueAt(i, 5)),
+                    materiaVieja.getGrupos());
+            materiasNuevas.add(Integer.parseInt(String.valueOf(materiaVieja.getCodigo())), materia);
         }
-    
-    
-    
-    
-    
+
+        return materiasNuevas;
+    }
+
+
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
 
-        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
         inicioAdmin.setVisible(true);
         this.dispose();
 
@@ -515,8 +503,8 @@ public class GUIVerMaterias extends javax.swing.JFrame {
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_salirActionPerformed

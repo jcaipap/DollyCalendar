@@ -21,10 +21,14 @@ import static java.awt.Component.TOP_ALIGNMENT;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -48,9 +52,10 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
     UsuariosDataBaseHandler userbase;
     Estudiante estudiante;
     Materia materia;
-    static int grupoActual = 0;
+    static int grupoActual;
     static Color color;
     public String[] nombreDia = new String[7];
+    Grupo arrayGrupos[];
 
     public GUIAñadirGrupo(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante, Materia materia) {
         this.usuarios = usuarios;
@@ -68,8 +73,10 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
         this.nombreDia[4] = "Viernes";
         this.nombreDia[5] = "Sabado";
         this.nombreDia[6] = "Domingo";
-
+        this.grupoActual = 0;
+        this.arrayGrupos = materia.getGrupos();
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -85,7 +92,7 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
         jLabel18.setForeground(Color.white);
-
+        jLUsuariosCreados.setText(jLUsuariosCreados.getText() + " " + arrayGrupos.length);
         addRowtoJTable();
 
     }
@@ -101,7 +108,6 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
 
-        Grupo arrayGrupos[] = materia.getGrupos();
         int cantidadGrupos = arrayGrupos.length;
 
         final Class[] tiposColumnas = new Class[]{
@@ -124,9 +130,6 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
                 horario = horario.concat("Dia: " + String.valueOf(nombreDia[grupo.getHorario()[j].getTime().getDay()]) + "    Hora: " + grupo.getHorario()[j].getTime().getHours() + ":00          ");
 
             }
-//                horario.
-//            horario.concat(horario);
-//            horario.concat("+F");
 
             datos[i][0] = new JButton("Seleccionar");
             datos[i][1] = grupo.getProfesor();
@@ -276,7 +279,7 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -285,11 +288,11 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
                 .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -383,7 +386,7 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLUsuariosCreados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLUsuariosCreados.setText("Materias creadas:");
+        jLUsuariosCreados.setText("Grupos disponibles:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -440,7 +443,18 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
+        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
+                "confirmacion", JOptionPane.YES_NO_OPTION);
 
+        if (respuesta == 0) {
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
+                System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_salirActionPerformed
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed

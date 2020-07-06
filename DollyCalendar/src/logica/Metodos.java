@@ -238,6 +238,18 @@ public class Metodos {
 
     //Funciones Admin
     
+     public static Materia[] trimArrayMaterias(DynamicArray materias){
+        Materia[] mat=new Materia[materias.size()];
+        for(int i=0;i<materias.size();i++){
+            mat[i]=(Materia) materias.getitem(i);
+        }
+        Materia[] materiasNueva=Arrays.stream(mat).filter(s -> (s != null)).toArray(Materia[]::new);
+        return materiasNueva;
+    }
+    
+    
+    
+    
     public static void seleccionarGrupo(Estudiante user, Materia materia, int numeroGrupo) {
         Grupo[] grupos = materia.getGrupos();
         Grupo grupoSelect = grupos[numeroGrupo - 1];

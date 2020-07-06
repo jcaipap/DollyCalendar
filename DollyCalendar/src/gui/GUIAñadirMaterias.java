@@ -22,6 +22,8 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,10 +54,13 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
     Estudiante estudiante;
     boolean editar = false;
     Materia materiasUsTotales[];
-    static int tamaño=0;
+    static int tamaño = 0;
+    DynamicArray MateriasDisponibles;
+    Materia materiasT[];
 
     public GUIAñadirMaterias(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         this.usuarios = usuarios;
         this.administradores = administradores;
         this.materias = materias;
@@ -77,7 +82,19 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        
+        this.MateriasDisponibles = materias.getHashArray();
+        this.materiasT = Metodos.trimArrayMaterias(MateriasDisponibles);
+
+        for (int i = 0; i < materiasT.length; i++) {
+            for (int j = 0; j < materiasUsTotales.length; j++) {
+                Materia materia = materiasT[i];
+                if (materiasUsTotales[j] != null && materia != null && materia.getCodigo() == materiasUsTotales[j].getCodigo()) {
+                    materiasT[i] = null;
+                }
+            }
+        }
+
+        materiasT = Metodos.trimArrayMaterias(materiasT);
         addRowtoJTable();
 
     }
@@ -87,29 +104,13 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
 
     public void addRowtoJTable() {
         String[] columnas = new String[]{
-            "Ver grupos","N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
+            "Ver grupos", "N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
         };
 
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
 
-        DynamicArray MateriasDisponibles=materias.getHashArray();
-//        materiasUsTotales
-
-        for(int i=0;i<MateriasDisponibles.size();i++){
-            for(int j=0;j<materiasUsTotales.length;j++){
-                
-             Materia materia = (Materia)MateriasDisponibles.getitem(i);
-                
-            if(materia.getCodigo()==materiasUsTotales[j].getCodigo()){
-                MateriasDisponibles.remove(i);
-                }    
-            } 
-        }
-
-        MateriasDisponibles.trimToSize();
-        tamaño=MateriasDisponibles.size();
-        jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(tamaño));
+        jLUsuariosCreados.setText("Materias disponibles: " + String.valueOf(materiasT.length));
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
             int.class,
@@ -121,11 +122,9 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
             java.lang.String.class,};
 
         Materia mat;
-
-//        "Ver grupos","N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
-        Object[][] datos = new Object[MateriasDisponibles.size()][9];
-        for (int i = 0; i < MateriasDisponibles.size(); i++) {
-            mat = (Materia) MateriasDisponibles.getitem(i);
+        Object[][] datos = new Object[materiasT.length][9];
+        for (int i = 0; i < materiasT.length; i++) {
+            mat = (Materia) materiasT[i];
             datos[i][0] = new JButton("Ver");
             datos[i][1] = i + 1;
             datos[i][2] = mat.getTitulo();
@@ -134,7 +133,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
             datos[i][5] = mat.getCreditos();
             datos[i][6] = mat.getGrupos().length;
             datos[i][7] = mat.getDescripcion();
-            
+
         }
 
         jTTablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
@@ -155,43 +154,39 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         });
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         jTTablaMaterias.setDefaultRenderer(String.class, centerRenderer);
-        
-        
-        for(int x=0;x<jTTablaMaterias.getColumnCount();x++){
-            if(x!=0){
-            jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
+
+        for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
+            if (x != 0) {
+                jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
             }
         }
-        
+
         jTTablaMaterias.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-               jtable.setAlignmentY(TOP_ALIGNMENT);
-               return (Component) o;
-               
+                jtable.setAlignmentY(TOP_ALIGNMENT);
+                return (Component) o;
+
             }
-            
-           
+
         });
 
 //        
         jTTablaMaterias.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               editar=true; 
-                
+
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
-                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==0) {
-                    verGrupo(materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila,3)))));
-                    
+                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
+                    GUIAñadirGrupo verGrupos = new GUIAñadirGrupo(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante, materiasT[fila]);
+                    verGrupos.setVisible(true);
+                    dispose();
 
                 }
 
-
-                
             }
         });
         jTTablaMaterias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -203,7 +198,6 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 8 / 100);
         jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 8 / 100);
         jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 30 / 100);
-       
 
         jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
         jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
@@ -211,15 +205,12 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         jTTablaMaterias.setRowHeight(jTTablaMaterias.getParent().getHeight() / 10);
 
     }
-    
-    public void verGrupo(Materia materia){
-                GUIAñadirGrupo verGrupos = new GUIAñadirGrupo(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante, materia);
-                verGrupos.setVisible(true);
-                this.dispose();   
+
+    public void verGrupo(Materia materia) {
+        GUIAñadirGrupo verGrupos = new GUIAñadirGrupo(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante, materia);
+        verGrupos.setVisible(true);
+        this.dispose();
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -274,7 +265,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Rockwell", 2, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DollyCalendar");
+        jLabel2.setText("UNcalendar");
 
         javax.swing.GroupLayout panelTituloLayout = new javax.swing.GroupLayout(panelTitulo);
         panelTitulo.setLayout(panelTituloLayout);
@@ -282,13 +273,13 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -372,7 +363,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
         jLUsuariosCreados.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLUsuariosCreados.setText("Materias creadas:");
+        jLUsuariosCreados.setText("Materias disponibles:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -434,8 +425,15 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            System.exit(0);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
+                System.exit(0);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
     }//GEN-LAST:event_salirActionPerformed
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
