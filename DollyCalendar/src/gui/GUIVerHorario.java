@@ -8,6 +8,7 @@ package gui;
 import data.AdminDataBaseHandler;
 import data.Casilla;
 import data.Estudiante;
+import data.Grupo;
 import data.Materia;
 import data.MateriasDataBaseHandler;
 import data.Persona;
@@ -42,10 +43,8 @@ public class GUIVerHorario extends javax.swing.JFrame {
 
     /**
      * Creates new form GUIVerHorario
-     * 
+     *
      */
-    
-    
     HashGeneric<String, Persona> usuarios;
     HashGeneric<String, Persona> administradores;
     HashGeneric<Integer, Materia> materias;
@@ -54,23 +53,24 @@ public class GUIVerHorario extends javax.swing.JFrame {
     UsuariosDataBaseHandler userbase;
     Casilla casilla;
     Estudiante estudiante;
-    boolean editar=false;
+    boolean editar = false;
     Materia materiasUs[];
     PriorityQueue<Casilla> p;
     int counter;
-    
-    public GUIVerHorario(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores,HashGeneric<Integer, Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase, Estudiante estudiante) {
+    public String[] nombreDia = new String[7];
+
+    public GUIVerHorario(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
-        this.usuarios=usuarios;
-        this.administradores=administradores;
-        this.materias=materias;
-        this.adminbase=adminbase;
-        this.materiasbase=materiasbase;
-        this.userbase=userbase;
-        this.estudiante=estudiante;
-        this.materiasUs= Metodos.extraerMateria(estudiante.getCasillas());
-        this.counter=materiasUs.length;
-        this.p=estudiante.getCasillas();
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
+        this.estudiante = estudiante;
+        this.materiasUs = Metodos.extraerMateria(estudiante.getCasillas());
+        this.counter = materiasUs.length;
+        this.p = estudiante.getCasillas();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
@@ -84,32 +84,36 @@ public class GUIVerHorario extends javax.swing.JFrame {
         Icon iconScale2;
         iconScale2 = new ImageIcon(icon2.getImage().getScaledInstance(labelLogo.getWidth(), labelLogo.getHeight(), Image.SCALE_SMOOTH));
         labelLogo.setIcon(iconScale2);
-        jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(materiasUs.length));
-        
-        addRowtoJTable();
-        
-    }
+        jLUsuariosCreados.setText("Materias creadas: " + String.valueOf(materiasUs.length));
 
-    
+        this.nombreDia[0] = "Lunes";
+        this.nombreDia[1] = "Martes";
+        this.nombreDia[2] = "Miercoles";
+        this.nombreDia[3] = "Jueves";
+        this.nombreDia[4] = "Viernes";
+        this.nombreDia[5] = "Sabado";
+        this.nombreDia[6] = "Domingo";
+
+        addRowtoJTable();
+
+    }
 
     public GUIVerHorario() {
     }
-   
-        
-    public void addRowtoJTable(){
+
+    public void addRowtoJTable() {
         String[] columnas = new String[]{
-            "Eliminar","N#", "Titulo", "Codigo", "Tipologia", "Creditos", "Grupo","Profesor","Horario", "Descripcion"
+            "Eliminar", "Titulo", "Codigo", "Tipologia", "Creditos", "Grupo", "Profesor", "Horario"
         };
-        
+
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
-        
-        DynamicArray arrayMaterias=new DynamicArray();
-        arrayMaterias=this.materias.getHashArray();               
+
+        DynamicArray arrayMaterias = new DynamicArray();
+        arrayMaterias = this.materias.getHashArray();
         //estudiante.materias[]
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
-            int.class,
             java.lang.String.class,
             int.class,
             java.lang.String.class,
@@ -117,29 +121,40 @@ public class GUIVerHorario extends javax.swing.JFrame {
             int.class,
             java.lang.String.class,
             java.lang.String.class,
-            java.lang.String.class,
-        };
-     
+            java.lang.String.class,};
+
         Materia mat;
-        Object[][] datos = new Object[materiasUs.length][10];
+        
+        
+        
+        Grupo grupo;
+        Object[][] datos = new Object[materiasUs.length][8];
         for (int i = 0; i < materiasUs.length; i++) {
             mat = (Materia) materiasUs[i];
+            Grupo arrayGrupos[] =materias.get(mat.getCodigo()).getGrupos();
+        int cantidadGrupos=arrayGrupos.length;
             
-            if(mat!=null){
-            datos[i][0] = new JButton("Eliminar");
-            datos[i][1] = i+1;
-            datos[i][2] = mat.getTitulo();
-            datos[i][3] = mat.getCodigo();
-            datos[i][4] = mat.getTipologia();
-            datos[i][5] = mat.getCreditos();
-            datos[i][6] = mat.getNumeroGrupo();
-            datos[i][7] = mat.getProfesor();
-            datos[i][8] = "Horario";
-            datos[i][9] = mat.getDescripcion();  
+        grupo = (Grupo) arrayGrupos[mat.getNumeroGrupo() - 1];
+            String horario="";
+            for(int j=0;j<grupo.getHorario().length;j++){
+               
+                horario=horario.concat("Dia: "+String.valueOf(nombreDia[grupo.getHorario()[j].getTime().getDay()])+"    Hora: "+grupo.getHorario()[j].getTime().getHours()+":00          ") ;
+
+                }
+            
+
+            if (mat != null) {
+                datos[i][0] = new JButton("Eliminar");
+                datos[i][1] = mat.getTitulo();
+                datos[i][2] = mat.getCodigo();
+                datos[i][3] = mat.getTipologia();
+                datos[i][4] = mat.getCreditos();
+                datos[i][5] = mat.getNumeroGrupo();
+                datos[i][6] = mat.getProfesor();
+                datos[i][7] = horario;
             }
         }
-        
-        
+
         jTTablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
                 datos,
                 columnas) {
@@ -152,13 +167,11 @@ public class GUIVerHorario extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return !(this.getColumnClass(column).equals(JButton.class));
+                return false;
             }
-            
 
         });
 
-        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
         jTTablaMaterias.setDefaultRenderer(String.class, centerRenderer);
@@ -170,65 +183,60 @@ public class GUIVerHorario extends javax.swing.JFrame {
             }
         }
         
-        
+        for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
+            if (x != 0 && x != 1) {
+                jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+            }
+        }
+
         jTTablaMaterias.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-               jtable.setAlignmentY(TOP_ALIGNMENT);
-               return (Component) o;
-               
+                jtable.setAlignmentY(TOP_ALIGNMENT);
+                return (Component) o;
+
             }
 
         });
 
-       
-      
         jTTablaMaterias.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               editar=true; 
-                
+                editar = true;
+
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
-                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==0) {
-                    estudiante.setCasillas(Metodos.eliminarMateria(estudiante.getCasillas(),String.valueOf(jTTablaMaterias.getValueAt(fila,2))));
-                    System.out.println(estudiante.getCasillas());
+                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
+                    estudiante.setCasillas(Metodos.eliminarMateria(estudiante.getCasillas(), String.valueOf(jTTablaMaterias.getValueAt(fila, 1))));
+
                     counter--;
 
-                    DefaultTableModel model=new DefaultTableModel();
-                    model=(DefaultTableModel)jTTablaMaterias.getModel();
+                    DefaultTableModel model = new DefaultTableModel();
+                    model = (DefaultTableModel) jTTablaMaterias.getModel();
                     model.removeRow(jTTablaMaterias.getSelectedRow());
 
                 }
-                jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(counter));
+                jLUsuariosCreados.setText("Materias creadas: " + String.valueOf(counter));
             }
         });
-        
-        
+
         jTTablaMaterias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth()*5/100);
-            jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth()*23/100);
-            jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth()*10/100);
-            jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth()*12/100);
-            jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth()*6/100);
-            jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth()*6/100);
-            jTTablaMaterias.getColumnModel().getColumn(8).setPreferredWidth(jTTablaMaterias.getWidth()*30/100);
-          
-            jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
-            jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
-            
-            jTTablaMaterias.setRowHeight(jTTablaMaterias.getParent().getHeight()/10);
+        jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth() * 25 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 12 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 13 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 40 / 100);
+
+        jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
+        jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
+
+        jTTablaMaterias.setRowHeight(jTTablaMaterias.getParent().getHeight() / 10);
 
     }
-    
-    
-    
-    
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -291,13 +299,13 @@ public class GUIVerHorario extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -452,8 +460,8 @@ public class GUIVerHorario extends javax.swing.JFrame {
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
         this.estudiante.setCasillas(this.p);
-        
-        GUIBuscador buscador=new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+
+        GUIBuscador buscador = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
         buscador.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_VolverAInicioActionPerformed
@@ -461,39 +469,33 @@ public class GUIVerHorario extends javax.swing.JFrame {
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){
+                "confirmacion", JOptionPane.YES_NO_OPTION);
+        if (respuesta == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_salirActionPerformed
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
+//                System.out.println("Antes de la pendejada\n"+estudiante.getCasillas());
+//                estudiante.setCasillas(estudiante.getCasillas());
+//                System.out.println("\n\nDespues de la pendejada\n\n"+estudiante.getCasillas());
+        GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        busc.setVisible(true);
+        this.dispose();
 
-        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Desea guardar cambios y volver?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
 
-        if (respuesta == 0) {
-
-                GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias,adminbase, materiasbase, userbase,estudiante);
-                busc.setVisible(true);
-                this.dispose();
-
-        }
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
     private void JBAñadirMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAñadirMatActionPerformed
         // TODO add your handling code here:
-        
-        GUIAñadirMaterias añadirMat = new GUIAñadirMaterias(usuarios, administradores, materias,adminbase, materiasbase, userbase,estudiante);
-                añadirMat.setVisible(true);
-                this.dispose();
-        
-        
-        
+
+        GUIAñadirMaterias añadirMat = new GUIAñadirMaterias(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        añadirMat.setVisible(true);
+        this.dispose();
+
+
     }//GEN-LAST:event_JBAñadirMatActionPerformed
 
-    
-    
     /**
      * @param args the command line arguments
      */

@@ -6,6 +6,7 @@
 package gui;
 
 import data.AdminDataBaseHandler;
+import data.Casilla;
 import data.Estudiante;
 import data.Grupo;
 import data.Materia;
@@ -14,6 +15,7 @@ import data.Persona;
 import data.UsuariosDataBaseHandler;
 import estructuas.DynamicArray;
 import estructuas.HashGeneric;
+import estructuas.PriorityQueue;
 import java.awt.Color;
 import java.awt.Component;
 import static java.awt.Component.CENTER_ALIGNMENT;
@@ -52,6 +54,8 @@ public class GUIVerMaterias extends javax.swing.JFrame {
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
+    boolean arregloBooleano[];
+    DynamicArray arrayMaterias;
     
     
     public GUIVerMaterias(HashGeneric<String,Persona> usuarios,HashGeneric<String,Persona> administradores,HashGeneric<Integer,Materia> materias,AdminDataBaseHandler adminbase,MateriasDataBaseHandler materiasbase,UsuariosDataBaseHandler userbase) {
@@ -61,6 +65,11 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         this.adminbase=adminbase;
         this.materiasbase=materiasbase;
         this.userbase=userbase;
+        this.arregloBooleano=new boolean[materias.size()];
+        this.arrayMaterias=materias.getHashArray();
+        for(int i=0;i<arregloBooleano.length;i++){
+            arregloBooleano[i]=false;
+        }
         
         initComponents();
         getContentPane().setBackground(Color.WHITE);
@@ -106,10 +115,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
         
-        DynamicArray arrayMaterias=new DynamicArray();
-        arrayMaterias=this.materias.getHashArray();
-        
-        
+
 
         
         final Class[] tiposColumnas = new Class[]{
@@ -130,7 +136,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         for (int i = 0; i < arrayMaterias.size(); i++) {
             mat = (Materia) arrayMaterias.getitem(i);
             datos[i][0] = new JButton("Eliminar");
-            datos[i][1] = new JButton("Ver");
+            datos[i][1] = new JButton("F");
             datos[i][2] = i+1;
             datos[i][3] = mat.getTitulo();
             datos[i][4] = mat.getCodigo();
@@ -166,11 +172,10 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         
         
         for(int x=0;x<jTTablaMaterias.getColumnCount();x++){
-            if(x!=0&&x!=1){
+            if(x!=0){
             jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
             }
         }
-        
         
         jTTablaMaterias.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
@@ -179,7 +184,8 @@ public class GUIVerMaterias extends javax.swing.JFrame {
                return (Component) o;
                
             }
-
+            
+           
         });
 
         
@@ -198,12 +204,14 @@ public class GUIVerMaterias extends javax.swing.JFrame {
                     model=(DefaultTableModel)jTTablaMaterias.getModel();
                     model.removeRow(jTTablaMaterias.getSelectedRow());
 
-                }
-                
-                if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==1) {
+                }else if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class)&&columna==1) {
                     verGrupo(materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila,4)))));
                     
 
+                }else{
+                    
+                  arregloBooleano[fila]=true;  
+                    
                 }
 
                 jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(materias.size()));
@@ -441,33 +449,32 @@ public class GUIVerMaterias extends javax.swing.JFrame {
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
 
-        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Desea guardar cambios y volver?",
-                "confirmacion", JOptionPane.YES_NO_OPTION);
+        
+        for(int i=0;i<arregloBooleano.length;i++){
+                System.out.println(arregloBooleano[i]);
+                if(arregloBooleano[i]){
+                    Materia mat = (Materia) arrayMaterias.getitem(i);
+                    Grupo grupos[] = mat.getGrupos();
+                    
+                    materias.remove(mat.getCodigo());
 
-        if (respuesta == 0) {
-
-            
-            if(editar){
-                
-                GUIInicioAdmin inicioAdmin=null;
-                try {
-                    inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materiasEditadas(),adminbase, materiasbase, userbase);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+                    String titulo = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 3));
+                    int codigo = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 4)));
+                    String tipologia = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 5));
+                    int creditos = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 6)));
+                    String descripcion = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 8));
+                    
+                    materias.add(codigo, new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
+                      
                 }
-                inicioAdmin.setVisible(true);
-                this.dispose();
-                
-            }else{
-                
-                
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias,adminbase, materiasbase, userbase);
-                inicioAdmin.setVisible(true);
-                this.dispose();
-                
             }
+        
 
-        }
+        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+        inicioAdmin.setVisible(true);
+        this.dispose();
+        
+
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
     public HashGeneric<Integer,Materia> materiasEditadas() throws IOException{
@@ -475,23 +482,10 @@ public class GUIVerMaterias extends javax.swing.JFrame {
             Materia materia;
             Materia materiaVieja;
             
-
-//                        datos[i][0] = new JButton("Eliminar");
-//            datos[i][1] = new JButton("Ver");
-//            datos[i][2] = i+1;
-//            datos[i][3] = mat.getTitulo();
-//            datos[i][4] = mat.getCodigo();
-//            datos[i][5] = mat.getTipologia();
-//            datos[i][6] = mat.getCreditos();
-//            datos[i][7] = mat.getGrupos().length;
-//            datos[i][8] = mat.getDescripcion();
-            
-            
             
            for(int i=0;i<jTTablaMaterias.getRowCount();i++){
 
                materiaVieja=materias.getValue(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,4))));
-//               new Materia(titulo, descripcion, ABORT, codigo, SOMEBITS, tipologia, grupos)
                materia=new Materia(String.valueOf(jTTablaMaterias.getValueAt(i,3)),
                        String.valueOf(jTTablaMaterias.getValueAt(i,8)), 
                        Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(i,6))), 

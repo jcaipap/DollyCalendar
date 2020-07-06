@@ -52,6 +52,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
     Estudiante estudiante;
     boolean editar = false;
     Materia materiasUsTotales[];
+    static int tamaño=0;
 
     public GUIAñadirMaterias(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
         initComponents();
@@ -92,37 +93,23 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         jTTablaMaterias.setBackground(Color.WHITE);
         jTTablaMaterias.getParent().setBackground(Color.WHITE);
 
-        DynamicArray arrayMaterias = new DynamicArray();
-        arrayMaterias = this.materias.getHashArray();
-        Materia materiasUs[] = new Materia[this.materias.getHashArray().size()];
-        boolean continuar = true;
-        int k = 0;
-        for (int i = 0; i < arrayMaterias.size(); i++) {
-            continuar = true;
-            while (continuar) {
+        DynamicArray MateriasDisponibles=materias.getHashArray();
+//        materiasUsTotales
+
+        for(int i=0;i<MateriasDisponibles.size();i++){
+            for(int j=0;j<materiasUsTotales.length;j++){
                 
-                for (int j = 0; j < materiasUsTotales.length; j++) {
-                    Materia matDynamic = (Materia) arrayMaterias.getitem(i);
-                    if (materiasUsTotales[j]!=null&&matDynamic.getCodigo() == materiasUsTotales[j].getCodigo()) {
-                        continuar = false;
-                    }
-                }
-                if (continuar) {
-                    materiasUs[k] = (Materia) arrayMaterias.getitem(i);
-                    k++;
-                    continuar=false;
-                }
-            }
-
-        }
-        
-        Materia materiasUsFinales[]=new Materia[k+1];
-        
-        for(int i=0;i<k+1;i++){
-            materiasUsFinales[i]=materiasUs[i];
+             Materia materia = (Materia)MateriasDisponibles.getitem(i);
+                
+            if(materia.getCodigo()==materiasUsTotales[j].getCodigo()){
+                MateriasDisponibles.remove(i);
+                }    
+            } 
         }
 
-        //estudiante.materias[]
+        MateriasDisponibles.trimToSize();
+        tamaño=MateriasDisponibles.size();
+        jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(tamaño));
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
             int.class,
@@ -134,12 +121,11 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
             java.lang.String.class,};
 
         Materia mat;
-        
-        
+
 //        "Ver grupos","N#", "Titulo", "Codigo", "Tipologia", "Creditos", "#Grupos", "Descripcion"
-        Object[][] datos = new Object[materiasUs.length][9];
-        for (int i = 0; i < materiasUs.length; i++) {
-            mat = (Materia) materiasUs[i];
+        Object[][] datos = new Object[MateriasDisponibles.size()][9];
+        for (int i = 0; i < MateriasDisponibles.size(); i++) {
+            mat = (Materia) MateriasDisponibles.getitem(i);
             datos[i][0] = new JButton("Ver");
             datos[i][1] = i + 1;
             datos[i][2] = mat.getTitulo();
@@ -163,29 +149,31 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return !(this.getColumnClass(column).equals(JButton.class));
+                return false;
             }
 
         });
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
         jTTablaMaterias.setDefaultRenderer(String.class, centerRenderer);
-
-        for (int x = 0; x < jTTablaMaterias.getColumnCount(); x++) {
-            if (x != 0 && x != 1) {
-                jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+        
+        
+        for(int x=0;x<jTTablaMaterias.getColumnCount();x++){
+            if(x!=0){
+            jTTablaMaterias.getColumnModel().getColumn(x).setCellRenderer( centerRenderer );
             }
         }
-
+        
         jTTablaMaterias.setDefaultRenderer(JButton.class, new TableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
-                jtable.setAlignmentY(TOP_ALIGNMENT);
-                return (Component) o;
-
+               jtable.setAlignmentY(TOP_ALIGNMENT);
+               return (Component) o;
+               
             }
-
+            
+           
         });
 
 //        
@@ -203,19 +191,19 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
                 }
 
 
-                jLUsuariosCreados.setText("Materias creadas: "+String.valueOf(materias.size()));
+                
             }
         });
         jTTablaMaterias.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 5 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 23 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 10 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 12 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 6 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 6 / 100);
-        jTTablaMaterias.getColumnModel().getColumn(8).setPreferredWidth(jTTablaMaterias.getWidth() * 30 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(0).setPreferredWidth(jTTablaMaterias.getWidth() * 7 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(1).setPreferredWidth(jTTablaMaterias.getWidth() * 5 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(2).setPreferredWidth(jTTablaMaterias.getWidth() * 25 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(3).setPreferredWidth(jTTablaMaterias.getWidth() * 13 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(4).setPreferredWidth(jTTablaMaterias.getWidth() * 15 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(5).setPreferredWidth(jTTablaMaterias.getWidth() * 8 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(6).setPreferredWidth(jTTablaMaterias.getWidth() * 8 / 100);
+        jTTablaMaterias.getColumnModel().getColumn(7).setPreferredWidth(jTTablaMaterias.getWidth() * 30 / 100);
+       
 
         jTTablaMaterias.setAlignmentY(CENTER_ALIGNMENT);
         jTTablaMaterias.setAlignmentX(CENTER_ALIGNMENT);
@@ -225,7 +213,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
     }
     
     public void verGrupo(Materia materia){
-                GUIAñadirGrupo verGrupos = new GUIAñadirGrupo(usuarios,administradores,materias,materia,adminbase, materiasbase, userbase);
+                GUIAñadirGrupo verGrupos = new GUIAñadirGrupo(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante, materia);
                 verGrupos.setVisible(true);
                 this.dispose();   
     }
@@ -294,13 +282,13 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
             panelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addComponent(VolverAInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                .addComponent(salir, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelTituloLayout.setVerticalGroup(
@@ -436,7 +424,9 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
 
     private void VolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverAInicioActionPerformed
         // TODO add your handling code here:
-
+        GUIVerHorario verHorario = new GUIVerHorario(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        verHorario.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VolverAInicioActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
@@ -450,10 +440,9 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
 
-        GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
-        inicioAdmin.setVisible(true);
+        GUIVerHorario verHorario = new GUIVerHorario(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        verHorario.setVisible(true);
         this.dispose();
-
 
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 

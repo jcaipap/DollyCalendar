@@ -178,6 +178,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jComboBoxMinuto2 = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
+        JBBorrarYVolver = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -434,6 +435,20 @@ public class GUIVerActividad extends javax.swing.JFrame {
         jLabel18.setForeground(new java.awt.Color(255, 0, 51));
         jLabel18.setText("Hay un error en la creación de la actividad*");
 
+        JBBorrarYVolver.setBackground(new java.awt.Color(20, 34, 255));
+        JBBorrarYVolver.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        JBBorrarYVolver.setForeground(new java.awt.Color(255, 255, 255));
+        JBBorrarYVolver.setText("Borrar y volver");
+        JBBorrarYVolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        JBBorrarYVolver.setBorderPainted(false);
+        JBBorrarYVolver.setMaximumSize(new java.awt.Dimension(180, 40));
+        JBBorrarYVolver.setMinimumSize(new java.awt.Dimension(180, 40));
+        JBBorrarYVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBBorrarYVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -508,9 +523,12 @@ public class GUIVerActividad extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jComboBoxMinuto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(JBBorrarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(276, 276, 276)
+                                .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(30, 30, 30))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -561,11 +579,13 @@ public class GUIVerActividad extends javax.swing.JFrame {
                         .addComponent(jComboBoxDia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBoxMes2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel13)))
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JBGuardarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(JBBorrarYVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -729,6 +749,20 @@ public class GUIVerActividad extends javax.swing.JFrame {
         
     }//GEN-LAST:event_descTextMouseClicked
 
+    private void JBBorrarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarYVolverActionPerformed
+        // TODO add your handling code here:
+        
+        estudiante.getCasillas().remove(casilla);
+        
+        GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
+        busc.setVisible(true);
+        this.dispose();
+        
+        
+        
+        
+    }//GEN-LAST:event_JBBorrarYVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -766,6 +800,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ImpText;
+    private javax.swing.JButton JBBorrarYVolver;
     private javax.swing.JButton JBGuardarYVolver;
     private javax.swing.JTextField TituloText;
     private javax.swing.JButton VolverAInicio;

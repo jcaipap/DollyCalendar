@@ -77,6 +77,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     static JLabel fechaSelec;
     static int realYear, realMonth, realDay, currentYear, currentMonth;
     static GregorianCalendar fecha2; 
+    static int filtro=1;
     Casilla casillas[];
     Estudiante estudiante;
     PriorityQueue<Casilla> f;
@@ -93,7 +94,6 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.f=estudiante.getCasillas();
         fecha2 = new GregorianCalendar();
         this.casillas=Metodos.imprimirOrden(estudiante.getCasillas());
-        //this.casillas=Casilla.getArray(estudiante.getCasillas().toArray());
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -116,25 +116,70 @@ public class GUIBuscador extends javax.swing.JFrame {
         graphic.setColor(new Color(20,34,255));
         VolverAInicio.paint(graphic);
         jLabel3.setText("Bienvenido "+estudiante.getUsuario()+", aquí puede ver todas sus clases y actividades programadas");
-        crearCatalogo(casillas);
+        crearCatalogo(casillas,filtro);
         
     }
     
     public GUIBuscador() {
     }
     
-        private void crearCatalogo(Casilla[] casillas) {
+        private void crearCatalogo(Casilla[] casillas, int k) {
 
         panelAct.removeAll();
         panelAct.setLayout(new BoxLayout(panelAct, BoxLayout.Y_AXIS));
-        
-        for(int i =1;i<casillas.length;i++){    
-            
 
-            if(fecha2.get(Calendar.DAY_OF_YEAR)<=casillas[i].getFechaInicio().get(Calendar.DAY_OF_YEAR)){  
-            panelAct.add(crearProducto(casillas[i], panelAct)); 
+        
+        
+        switch(k){
+            
+            case 1:
+                
+                
+                for(int i =0;i<casillas.length;i++){    
+            
+            
+            if(fecha2.get(Calendar.DAY_OF_YEAR)==casillas[i].getFechaInicio().get(Calendar.DAY_OF_YEAR)){  
+
+                panelAct.add(crearProducto(casillas[i], panelAct)); 
             }
         }
+                
+                
+                break;
+                
+            case 2:
+                
+                for(int i =0;i<casillas.length;i++){    
+            
+            
+            if(fecha2.get(Calendar.WEEK_OF_YEAR)==casillas[i].getFechaInicio().get(Calendar.WEEK_OF_YEAR)){  
+
+                panelAct.add(crearProducto(casillas[i], panelAct)); 
+            }
+        }
+ 
+                break;
+                
+            case 3:
+                
+                for(int i =0;i<casillas.length;i++){    
+            
+            
+            if(fecha2.get(Calendar.DAY_OF_YEAR)<=casillas[i].getFechaInicio().get(Calendar.DAY_OF_YEAR)){  
+
+                panelAct.add(crearProducto(casillas[i], panelAct)); 
+            }
+        }
+                
+                
+                
+                break;
+                
+            default:
+                break;
+            
+        }
+        
         
 
         panelAct.validate();
@@ -189,9 +234,14 @@ public class GUIBuscador extends javax.swing.JFrame {
         panelProducto.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
+                if(casilla instanceof Actividad){
+                    
                 GUIVerActividad mostrarProducto = new GUIVerActividad(casilla, usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
                 mostrarProducto.setVisible(rootPaneCheckingEnabled);
                 dispose();
+                }
+                
             }
         });
 //
@@ -432,6 +482,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         panelTitulo = new javax.swing.JPanel();
         VolverAInicio = new javax.swing.JButton();
@@ -441,6 +492,10 @@ public class GUIBuscador extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLFecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -492,8 +547,8 @@ public class GUIBuscador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTituloLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(VolverAInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(labelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(114, 114, 114)
+                .addComponent(labelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(99, 99, 99)
@@ -522,8 +577,42 @@ public class GUIBuscador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Fecha:");
+
+        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Dia");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jRadioButton2.setText("Semana");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jRadioButton3.setText("Completo");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setText("Filtrar por:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -531,9 +620,18 @@ public class GUIBuscador extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -543,7 +641,15 @@ public class GUIBuscador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1))
-                .addGap(355, 355, 355))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jRadioButton3)
+                .addGap(155, 155, 155))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -578,6 +684,7 @@ public class GUIBuscador extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setText("jLabel3");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -586,22 +693,23 @@ public class GUIBuscador extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
-                .addGap(18, 18, 18)
-                .addComponent(verHorario)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(verHorario)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 8, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)
@@ -668,9 +776,9 @@ public class GUIBuscador extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -719,7 +827,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jLFecha.setText(String.valueOf(fecha2.getTime()));
-        crearCatalogo(casillas);
+        crearCatalogo(casillas, filtro);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -740,6 +848,27 @@ public class GUIBuscador extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_verHorarioActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        filtro=1;
+        crearCatalogo(casillas, filtro);
+        
+        
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        filtro=2;
+        crearCatalogo(casillas, filtro);
+        
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        filtro=3;
+        crearCatalogo(casillas, filtro);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -779,15 +908,20 @@ public class GUIBuscador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPCalendar;
     private javax.swing.JButton VolverAInicio;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JPanel panelAct;

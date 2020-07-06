@@ -238,7 +238,7 @@ public class Metodos {
 
     //Funciones Admin
     
-    static void seleccionarGrupo(Estudiante user, Materia materia, int numeroGrupo) {
+    public static void seleccionarGrupo(Estudiante user, Materia materia, int numeroGrupo) {
         Grupo[] grupos = materia.getGrupos();
         Grupo grupoSelect = grupos[numeroGrupo - 1];
         Calendar[] horario = grupoSelect.getHorario();
@@ -596,7 +596,6 @@ public class Metodos {
             if (casillaIteradora instanceof Materia && casillaIteradora.getFechaInicio().compareTo(fechamin) > 0 && casillaIteradora.getFechaInicio().compareTo(fechamax) < 0) {
                 mostrarMat.insert(casillaIteradora);
                 mat = (Materia) casillaIteradora;
-                System.out.println(mat.toStringMateriaHora());
             }
 
             nodoIterador = nodoN;
@@ -627,18 +626,26 @@ public class Metodos {
         return trimArrayMaterias(materias);
     }
     public static Casilla[] imprimirOrden(PriorityQueue<Casilla> casillas){
-        Casilla[] cas=Casilla.getArray(casillas.toArray());
+        Casilla cas[]=Casilla.getArray(casillas.toArray());
         PriorityQueue<Casilla> nueva= new PriorityQueue<>(true);
+
         for(Casilla casilla: cas){
             if(casilla!=null){
                 nueva.add(casilla);
-                System.out.println(casilla);
+
             }
         }
         Casilla[] f=new Casilla[casillas.length()];
-        for(int i=0;i<f.length;i++){
+        int i=0;
+        while(!nueva.isEmpty()){
+            
+
             f[i]=nueva.poll();
+            i++;
         }
+        
+
+
         return f;
     }
     public static Materia[] materiasDifUsuario(HashGeneric<Integer,Materia> materias, Materia[] materiasUsuario){
@@ -664,9 +671,7 @@ public class Metodos {
         PriorityQueue<Casilla> nuevas = new PriorityQueue<>(true);
         for (int i = 0; i < f.length; i++) {
             if(f[i]!=null){
-                System.out.println(titulo.equals((String) f[i].getTitulo()));
                 if (!(f[i] instanceof Materia&&titulo.equals((String) f[i].getTitulo()))) {
-                    System.out.println(f[i]);
                     nuevas.add(f[i]);
                 }
             }
@@ -687,7 +692,7 @@ public class Metodos {
         Casilla casillaIteradora = new Casilla();
         LinkedListGeneric<Casilla> mostrarAct = new LinkedListGeneric<Casilla>();
 
-        System.out.println("A continuación se muestra las actividades que tiene programadas:\n\n");
+//        System.out.println("A continuación se muestra las actividades que tiene programadas:\n\n");
 
         while (nodoN != null) {
             casillaIteradora = nodoN.getData();
@@ -695,7 +700,7 @@ public class Metodos {
             if (casillaIteradora instanceof Actividad) {
                 mostrarAct.insert(casillaIteradora);
                 act = (Actividad) casillaIteradora;
-                System.out.println(Actividad.getNum() + ". " + act.toString());
+//                System.out.println(Actividad.getNum() + ". " + act.toString());
                 Actividad.setNum(Actividad.getNum() + 1);
             }
             nodoIterador = nodoN;

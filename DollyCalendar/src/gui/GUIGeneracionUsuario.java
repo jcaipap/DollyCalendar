@@ -127,6 +127,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        inputNombre.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNombreActionPerformed(evt);
@@ -138,6 +139,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
+        inputPregrado.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputPregrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputPregradoActionPerformed(evt);
@@ -149,6 +151,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
+        inputApellido.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputApellidoActionPerformed(evt);
@@ -160,6 +163,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
+        inputUsuario.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputUsuarioActionPerformed(evt);
@@ -197,6 +201,7 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
             }
         });
 
+        inputId.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputIdActionPerformed(evt);
@@ -211,15 +216,19 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
         id.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         id.setText("ID");
 
+        inputNuevaContraseña.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputNuevaContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputNuevaContraseñaActionPerformed(evt);
             }
         });
 
+        inputReingresoNuevaContraseña.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+
         edad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         edad.setText("Edad");
 
+        inputEdad.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         inputEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputEdadActionPerformed(evt);

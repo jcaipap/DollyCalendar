@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import estructuas.StackArraySpot;
 import gui.Calendario;
+import gui.GUIAñadirGrupo;
 import gui.GUIBuscador;
 import gui.GUIGeneracionUsuario;
 import gui.GUIInicio;

@@ -20,6 +20,7 @@
 package gui;
 
 import data.AdminDataBaseHandler;
+import data.Casilla;
 import data.Estudiante;
 import data.Materia;
 import data.MateriasDataBaseHandler;
@@ -28,6 +29,7 @@ import data.UsuariosDataBaseHandler;
 import estructuas.DynamicArray;
 import estructuas.HashGeneric;
 import estructuas.HashNode;
+import estructuas.PriorityQueue;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
@@ -68,6 +70,8 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     AdminDataBaseHandler adminbase;
     MateriasDataBaseHandler materiasbase;
     UsuariosDataBaseHandler userbase;
+    DynamicArray arrayEstudiantes;
+    boolean arregloBooleano[];
 
     
     Estudiante est1 = new Estudiante("USUARIO", "contraseña", 1000, "nombre", "apellido", "pregrado");
@@ -81,11 +85,17 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         this.userbase=userbase;
         this.usuarios=usuarios2;
         this.administradores=administradores;
+        arrayEstudiantes=this.usuarios.getHashArray();
+        arrayEstudiantes.trimToSize();
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-
+        this.arregloBooleano=new boolean[arrayEstudiantes.size()];
+        
+        
+        
+        
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
         this.setTitle("DollyCalendar");
         ImageIcon icon= new ImageIcon();
@@ -124,10 +134,6 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
         
         jTTablaUsuarios.setBackground(Color.WHITE);
         jTTablaUsuarios.getParent().setBackground(Color.WHITE);
-        
-        DynamicArray arrayEstudiantes=new DynamicArray();
-        arrayEstudiantes=this.usuarios.getHashArray();
-        
         
         final Class[] tiposColumnas = new Class[]{
             JButton.class,
@@ -217,6 +223,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                     model=(DefaultTableModel)jTTablaUsuarios.getModel();
                     model.removeRow(jTTablaUsuarios.getSelectedRow());
 
+                }else{
+                    
+                  arregloBooleano[fila]=true;  
+                    
+                    
                 }
                 jLUsuariosCreados.setText("Usuarios creados: "+String.valueOf(usuarios.size()));
             }
@@ -475,30 +486,41 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
         // TODO add your handling code here:
         
-        HashGeneric<String,Persona> us;
-        int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Desea guardar cambios y volver?",
-            "confirmacion", JOptionPane.YES_NO_OPTION);
-        if(respuesta==0){ 
-            
-            
-            if(editar){
-                
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuariosEditados(),administradores,materias,adminbase, materiasbase, userbase);
-                inicioAdmin.setVisible(true);
-                this.dispose();
-                
-            }else{
-                
-                
-                GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
-                inicioAdmin.setVisible(true);
-                this.dispose();
+
+            for(int i=0;i<arregloBooleano.length;i++){
+                System.out.println(arregloBooleano[i]);
+                if(arregloBooleano[i]){
+                    Estudiante est = (Estudiante) arrayEstudiantes.getitem(i);
+                    PriorityQueue<Casilla> casillas = est.getCasillas();
+                    usuarios.remove(est.getUsuario());
+                    
+//                    "Eliminar", "N#", "Nombre", "Apellido", "Usuario", "Código", "Pregrado", "Correo", "Clave"
+    
+                   String usuario = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 4));
+                   String nombre = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 2));
+                   String apellido = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 3));
+                   String pregrado = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 6));
+                   String clave = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 8)); 
+                   int codigo = Integer.parseInt(String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 5)));       
+                    usuarios.add(usuario, new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
+                }
                 
             }
             
+            GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios,administradores,materias,adminbase, materiasbase, userbase);
+                inicioAdmin.setVisible(true);
+                this.dispose();
+        
+        
+        
+        
+        
 
                 
-        }
+                
+                
+ 
+        
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 
        public HashGeneric<String,Persona> usuariosEditados(){

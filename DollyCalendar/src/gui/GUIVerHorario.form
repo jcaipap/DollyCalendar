@@ -74,13 +74,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="VolverAInicio" pref="204" max="32767" attributes="0"/>
+                  <Component id="VolverAInicio" pref="258" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="labelLogo" pref="61" max="32767" attributes="0"/>
+                  <Component id="labelLogo" pref="118" max="32767" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jLabel2" pref="370" max="32767" attributes="0"/>
+                  <Component id="jLabel2" pref="424" max="32767" attributes="0"/>
                   <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="salir" pref="98" max="32767" attributes="0"/>
+                  <Component id="salir" pref="152" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
