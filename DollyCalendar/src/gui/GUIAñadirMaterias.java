@@ -255,7 +255,7 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         salir.setForeground(new java.awt.Color(255, 255, 255));
-        salir.setText("Salir");
+        salir.setText("Guardar y salir");
         salir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -424,14 +424,15 @@ public class GUIAñadirMaterias extends javax.swing.JFrame {
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
+        userbase=new UsuariosDataBaseHandler();
         if (respuesta == 0) {
-//            try {
-//                userbase.ModificarDBC(estudiante);
-//                userbase.InsertarDBC(estudiante);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
                 System.exit(0);
-//            } catch (IOException ex) {
-//                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            } catch (IOException ex) {
+                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_salirActionPerformed

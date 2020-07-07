@@ -203,7 +203,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
                 if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
-
+                    userbase=new UsuariosDataBaseHandler();
 //                    try {
 //                        userbase.ModificarDBC(estudiante);
 //                    } catch (IOException ex) {
@@ -289,7 +289,7 @@ public class GUIVerHorario extends javax.swing.JFrame {
         salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         salir.setForeground(new java.awt.Color(255, 255, 255));
-        salir.setText("Salir");
+        salir.setText("Guardar y salir");
         salir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -477,14 +477,15 @@ public class GUIVerHorario extends javax.swing.JFrame {
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
+        userbase=new UsuariosDataBaseHandler();
         if (respuesta == 0) {
-//            try {
-//                userbase.ModificarDBC(estudiante);
-//                userbase.InsertarDBC(estudiante);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
                 System.exit(0);
-//            } catch (IOException ex) {
-//                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            } catch (IOException ex) {
+                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_salirActionPerformed
 

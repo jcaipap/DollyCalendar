@@ -180,6 +180,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
                 if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
+                    materiasbase=new MateriasDataBaseHandler();
 //                    try {
 //                        materiasbase.ModificarDBC(materias.get(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4)))));
 //                    } catch (IOException ex) {
@@ -357,7 +358,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         salir.setBackground(new java.awt.Color(20, 34, 255));
         salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         salir.setForeground(new java.awt.Color(255, 255, 255));
-        salir.setText("Salir");
+        salir.setText("Guardar y salir");
         salir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -430,16 +431,16 @@ public class GUIVerMaterias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
-for (int i = 0; i < arregloBooleano.length; i++) {
-            System.out.println(arregloBooleano[i]);
+    for (int i = 0; i < arregloBooleano.length; i++) {
             if (arregloBooleano[i]) {
                 Materia mat = (Materia) arrayMaterias.getitem(i);
                 Grupo grupos[] = mat.getGrupos();
-//                try {
-//                    materiasbase.ModificarDBC(mat);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                materiasbase=new MateriasDataBaseHandler();
+                try {
+                    materiasbase.ModificarDBC(mat);
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 materias.remove(mat.getCodigo());
 
@@ -449,12 +450,12 @@ for (int i = 0; i < arregloBooleano.length; i++) {
                 int creditos = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 6)));
                 String descripcion = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 8));
 
-//                try {
-//                    materiasbase.InsertarDBC(new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
-//                } catch (IOException ex) {
-//                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//                    
+                try {
+                    materiasbase.InsertarDBC(new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
+                } catch (IOException ex) {
+                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    
 
                 materias.add(codigo, new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
 
@@ -503,6 +504,7 @@ for (int i = 0; i < arregloBooleano.length; i++) {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
+            
             System.exit(0);
         }
     }//GEN-LAST:event_salirActionPerformed

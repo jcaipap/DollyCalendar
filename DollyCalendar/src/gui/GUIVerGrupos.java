@@ -448,13 +448,13 @@ public class GUIVerGrupos extends javax.swing.JFrame {
         }
 
         materias.get(materia.getCodigo()).setGrupos(grupos);
-
-//        try {
-//            materiasbase.ModificarDBC(materias.get(materia.getCodigo()));
-//            materiasbase.InsertarDBC(materias.get(materia.getCodigo()));
-//        } catch (IOException ex) {
-//            Logger.getLogger(GUIVerGrupos.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        materiasbase=new MateriasDataBaseHandler();
+        try {
+            materiasbase.ModificarDBC(materias.get(materia.getCodigo()));
+            materiasbase.InsertarDBC(materias.get(materia.getCodigo()));
+        } catch (IOException ex) {
+            Logger.getLogger(GUIVerGrupos.class.getName()).log(Level.SEVERE, null, ex);
+        }
         GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
         inicioAdmin.setVisible(true);
         this.dispose();

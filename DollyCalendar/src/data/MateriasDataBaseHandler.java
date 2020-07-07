@@ -173,4 +173,10 @@ public class MateriasDataBaseHandler {
         }
         
     }
+
+    @Override
+    public String toString() {
+        return "MateriasDataBaseHandler{" + "db=" + db + ", url=" + url + ", userDb=" + userDb + '}';
+    }
+    
 }

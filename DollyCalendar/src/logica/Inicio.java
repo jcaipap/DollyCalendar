@@ -221,13 +221,14 @@ public class Inicio {
         Estudiante est1 = new Estudiante("usuario1", "clave1", 1, "nombre1", "apellido1", casillas, "Ing1");
         Estudiante est2 = new Estudiante("dfcantors", "contraseña", 1072717690, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
         Estudiante est3 = new Estudiante("usuarioextra", "contraseña", 1072717699, "Daniel", "Cantor", casillas, "Ingeniería Mecatrónica");
-        Estudiante julian = new Estudiante("jcaipap", "password", 1010042777, "Julian", "Caipa", casillas, "Ingeniería Mecatrónica");
-        Estudiante juliana = new Estudiante("jcaipapi", "password", 101123710, "David", "Herrera", casillas, "Ingeniería Mecatrónica");
-        Estudiante juliani= new Estudiante("jcaipapa", "password", 1010036710, "Julian", "Cadena", casillas, "Ingeniería Mecatrónica");
-        Estudiante j= new Estudiante("fsgalindope", "password", 1010692710, "Juliana", "Sandoval", casillas, "Ingeniería Mecatrónica");
-        Estudiante ju= new Estudiante("jcaipapa1", "password", 1013052710, "Juli", "Caipa", casillas, "Ingeniería Mecatrónica");
-        Estudiante jul= new Estudiante("jcaipapa2", "password", 1010042710, "Julio", "Alvarez", casillas, "Ingeniería Mecatrónica");
-        Estudiante juli= new Estudiante("jcaipapa3", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería Mecatrónica");
+        Estudiante julian = new Estudiante("jcaipap", "password", 1010042710, "Julian", "Caipa", casillas, "Ingeniería Mecatrónica");
+        Estudiante david = new Estudiante("dherreraal", "password", 101123710, "David", "Herrera", casillas, "Ingeniería Mecatrónica");
+        Estudiante cadena= new Estudiante("jcadenaa", "password", 1010036710, "Julian", "Cadena", casillas, "Ingeniería Mecatrónica");
+        Estudiante fabiang= new Estudiante("fsgalindope", "password", 1010692710, "Fabian", "Galindo", casillas, "Ingeniería Mecatrónica");
+        Estudiante juliana= new Estudiante("jsandovalr", "password", 1013052710, "Juliana", "Sandoval", casillas, "Ingeniería Mecatrónica");
+        Estudiante guillermo= new Estudiante("gualvarezc", "password",1010042777 , "Guillermo", "Alvarez", casillas, "Ingeniería Mecanica");
+        Estudiante tequila= new Estudiante("jscuervos", "password", 1014232320, "Jose", "Cuervo", casillas, "Ingeniería de procesos para licores");
+        Estudiante perico= new Estudiante("peescobarg", "password", 123456789, "Pablo", "Escobar", casillas, "Ingeniería química");
 
         PriorityQueue<Casilla> casillasAndres = new PriorityQueue<>(true);
         Actividad activ1 = new Actividad("Recordatorio Parcial Dinámica", "Estudiar teoría de cuerpo rígido", 5, Metodos.calendarGenerator(2020, 6, 5, 14, 0), Metodos.calendarGenerator(2020, 6, 5, 16, 0));
@@ -252,17 +253,17 @@ public class Inicio {
 //        administradores.add(admin3.getUsuario(), admin3);
 //        administradores.add(admin4.getUsuario(), admin4);
 //        administradores.add(admin5.getUsuario(), admin5);        
-//        usuarios.add(j.getUsuario(), j);
-//        usuarios.add(est1.getUsuario(), est1);
-//        usuarios.add(est2.getUsuario(), est2);
-//        usuarios.add(est3.getUsuario(), est3);
-//        usuarios.add(julian.getUsuario(), julian);
-//        usuarios.add(juliana.getUsuario(), juliana);
-//        usuarios.add(juliani.getUsuario(), juliani);
-//        usuarios.add(andres.getUsuario(), andres);
-//        usuarios.add(ju.getUsuario(), ju);
-//        usuarios.add(jul.getUsuario(), jul);
-//        usuarios.add(juli.getUsuario(), juli);
+        usuarios.add(david.getUsuario(), david);
+        usuarios.add(est1.getUsuario(), est1);
+        usuarios.add(est2.getUsuario(), est2);
+        usuarios.add(est3.getUsuario(), est3);
+        usuarios.add(julian.getUsuario(), julian);
+        usuarios.add(juliana.getUsuario(), juliana);
+        usuarios.add(cadena.getUsuario(), cadena);
+        usuarios.add(andres.getUsuario(), andres);
+        usuarios.add(fabiang.getUsuario(), fabiang);
+        usuarios.add(guillermo.getUsuario(), guillermo);
+        usuarios.add(tequila.getUsuario(), tequila);
 
 
         UsuariosDataBaseHandler userdatabase=new UsuariosDataBaseHandler();
@@ -272,23 +273,22 @@ public class Inicio {
         HashGeneric<String,Persona> usuarios1=userdatabase.LeerDBC();
         HashGeneric<String,Persona> administradores1=admindatabase.LeerDBC();
         Estudiante p=(Estudiante)usuarios1.get(andres.getUsuario());
-//        System.out.println(p.getCasillas());
-//        Materia[] materiasxd=Metodos.extraerMateria(p.getCasillas());
-//        for(Materia mats: materiasxd){
-//            System.out.println(mats);
-//        }
-//        userdatabase.ModificarDBC(andres);
+//        userdatabase.InsertarDBC(david);
 //        userdatabase.InsertarDBC(est1);
 //        userdatabase.InsertarDBC(est2);
 //        userdatabase.InsertarDBC(est3);
 //        userdatabase.InsertarDBC(julian);
 //        userdatabase.InsertarDBC(juliana);
-//        userdatabase.InsertarDBC(juliani);
+//        userdatabase.InsertarDBC(cadena);
 //        userdatabase.InsertarDBC(andres);
-//        userdatabase.InsertarDBC(j);
-//        userdatabase.InsertarDBC(ju);
-//        userdatabase.InsertarDBC(jul);
-//        userdatabase.InsertarDBC(juli);
+//        userdatabase.InsertarDBC(fabiang);
+//        userdatabase.InsertarDBC(guillermo);
+//        userdatabase.InsertarDBC(tequila);
+//        System.out.println(p.getCasillas());
+//        Materia[] materiasxd=Metodos.extraerMateria(p.getCasillas());
+//        for(Materia mats: materiasxd){
+//            System.out.println(mats);
+//        }
 //        materiasbase.InsertarDBC(estructuras);
 //        materiasbase.InsertarDBC(ecuaciones);
 //        materiasbase.InsertarDBC(analoga);

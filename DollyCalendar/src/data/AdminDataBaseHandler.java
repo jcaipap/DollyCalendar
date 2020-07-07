@@ -146,4 +146,10 @@ public class AdminDataBaseHandler {
             }
         } 
     }
+
+    @Override
+    public String toString() {
+        return "AdminDataBaseHandler{" + "db=" + db + ", url=" + url + ", userDb=" + userDb + '}';
+    }
+    
 }

@@ -445,15 +445,15 @@ public class GUIAñadirGrupo extends javax.swing.JFrame {
         // TODO add your handling code here:
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
-
+        userbase=new UsuariosDataBaseHandler();
         if (respuesta == 0) {
-//            try {
-//                userbase.ModificarDBC(estudiante);
-//                userbase.InsertarDBC(estudiante);
+            try {
+                userbase.ModificarDBC(estudiante);
+                userbase.InsertarDBC(estudiante);
                 System.exit(0);
-//            } catch (IOException ex) {
-//                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            } catch (IOException ex) {
+                Logger.getLogger(GUIAñadirMaterias.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_salirActionPerformed
 

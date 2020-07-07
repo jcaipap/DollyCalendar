@@ -272,7 +272,6 @@ public class Metodos {
             }
         }
         user.setCasillas(mat);
-        System.out.println("\n\nMateria añadida correctamente.\n\n");
     }
 
     static StackArraySpot cambiarMateria(StackArraySpot materias) {

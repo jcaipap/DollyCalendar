@@ -619,18 +619,19 @@ public class GUIVerActividad extends javax.swing.JFrame {
             System.out.println(estudiante.getCodigo());
             estudiante.getCasillas().remove(casilla);
             estudiante.getCasillas().add(actividadNueva);
-//            try {                
-//                userbase.ModificarDBC(estudiante);
-//            }catch (NullPointerException e){
-//                System.out.println("F");
-//            }catch (IOException ex) {
-//                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            try {
-//                userbase.InsertarDBC(estudiante);
-//            } catch (IOException ex) {
-//                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            userbase=new UsuariosDataBaseHandler();
+            try {                
+                userbase.ModificarDBC(estudiante);
+            }catch (NullPointerException e){
+                System.out.println("F");
+            }catch (IOException ex) {
+                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                userbase.InsertarDBC(estudiante);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
             busc.setVisible(true);
@@ -750,16 +751,18 @@ public class GUIVerActividad extends javax.swing.JFrame {
         // TODO add your handling code here:
 
             estudiante.getCasillas().remove(casilla);
+            userbase=new UsuariosDataBaseHandler();
+        try {
+            // TODO add your handling code here:
+            userbase.ModificarDBC(estudiante);
+            userbase.InsertarDBC(estudiante);
+        } catch (IOException ex) {
+            Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+        }
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
             busc.setVisible(true);
             this.dispose();
-//        try {
-//            // TODO add your handling code here:
-//            userbase.ModificarDBC(estudiante);
-//            userbase.InsertarDBC(estudiante);
-//        } catch (IOException ex) {
-//            Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        
 
 
     }//GEN-LAST:event_JBBorrarYVolverActionPerformed

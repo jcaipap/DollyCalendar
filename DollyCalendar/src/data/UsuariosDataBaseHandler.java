@@ -123,7 +123,6 @@ public class UsuariosDataBaseHandler {
     
     public void ModificarDBC (Persona persona) throws IOException{
         try{        
-            System.out.println(persona.getCodigo());
             Class.forName("com.mysql.jdbc.Driver");
             cnU=DriverManager.getConnection(url,userDb,passwordDb);
             int codigo=persona.getCodigo();
@@ -160,6 +159,11 @@ public class UsuariosDataBaseHandler {
                 
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "UsuariosDataBaseHandler{" + "db=" + db + ", url=" + url + ", userDb=" + userDb + '}';
     }
     
 }
