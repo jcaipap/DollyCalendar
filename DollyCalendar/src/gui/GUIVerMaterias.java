@@ -180,11 +180,11 @@ public class GUIVerMaterias extends javax.swing.JFrame {
                 int fila = jTTablaMaterias.rowAtPoint(e.getPoint());
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
                 if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
-                    try {
-                        materiasbase.ModificarDBC(materias.get(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4)))));
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try {
+//                        materiasbase.ModificarDBC(materias.get(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4)))));
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     materias.remove(Integer.parseInt(String.valueOf(jTTablaMaterias.getValueAt(fila, 4))));
 
                     DefaultTableModel model = new DefaultTableModel();
@@ -430,17 +430,16 @@ public class GUIVerMaterias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBGuardarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarYVolverActionPerformed
-
-        for (int i = 0; i < arregloBooleano.length; i++) {
+for (int i = 0; i < arregloBooleano.length; i++) {
             System.out.println(arregloBooleano[i]);
             if (arregloBooleano[i]) {
                 Materia mat = (Materia) arrayMaterias.getitem(i);
                 Grupo grupos[] = mat.getGrupos();
-                try {
-                    materiasbase.ModificarDBC(mat);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    materiasbase.ModificarDBC(mat);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 
                 materias.remove(mat.getCodigo());
 
@@ -450,11 +449,11 @@ public class GUIVerMaterias extends javax.swing.JFrame {
                 int creditos = Integer.parseInt(String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 6)));
                 String descripcion = String.valueOf(jTTablaMaterias.getModel().getValueAt(i, 8));
 
-                try {
-                    materiasbase.InsertarDBC(new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    materiasbase.InsertarDBC(new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GUIVerMaterias.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 //                    
 
                 materias.add(codigo, new Materia(titulo, descripcion, creditos, codigo, creditos, tipologia, grupos));
@@ -465,7 +464,6 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         GUIInicioAdmin inicioAdmin = new GUIInicioAdmin(usuarios, administradores, materias, adminbase, materiasbase, userbase);
         inicioAdmin.setVisible(true);
         this.dispose();
-
 
     }//GEN-LAST:event_JBGuardarYVolverActionPerformed
 

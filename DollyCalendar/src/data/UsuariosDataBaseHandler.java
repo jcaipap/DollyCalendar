@@ -122,13 +122,11 @@ public class UsuariosDataBaseHandler {
     }
     
     public void ModificarDBC (Persona persona) throws IOException{
-        try{            
+        try{        
+            System.out.println(persona.getCodigo());
             Class.forName("com.mysql.jdbc.Driver");
             cnU=DriverManager.getConnection(url,userDb,passwordDb);
             int codigo=persona.getCodigo();
-            ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(byteArray);
-            oos.writeObject(persona);
             pstU=cnU.prepareStatement("DELETE FROM users WHERE codigo="+codigo);
             pstU.executeUpdate();
             pstU.close();
@@ -144,4 +142,24 @@ public class UsuariosDataBaseHandler {
             }
         }
     }
+    public void ModificarDBC (int codigo) throws IOException{
+        try{        
+            Class.forName("com.mysql.jdbc.Driver");
+            cnU=DriverManager.getConnection(url,userDb,passwordDb);
+            pstU=cnU.prepareStatement("DELETE FROM users WHERE codigo="+codigo);
+            pstU.executeUpdate();
+            pstU.close();
+        }catch (SQLException e){
+            Logger.getLogger(UsuariosDataBaseHandler.class.getName()).log(Level.SEVERE, null,e);
+        } catch (ClassNotFoundException ex){
+            ex.printStackTrace();
+        } finally{
+            try{
+                cnU.close();
+            }catch(SQLException exc){
+                
+            }
+        }
+    }
+    
 }

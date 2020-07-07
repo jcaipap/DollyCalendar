@@ -48,6 +48,14 @@ public class GUIVerActividad extends javax.swing.JFrame {
     Actividad actividadNueva;
 
     public GUIVerActividad(Casilla casilla, HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
+        this.usuarios = usuarios;
+        this.administradores = administradores;
+        this.materias = materias;
+        this.adminbase = adminbase;
+        this.materiasbase = materiasbase;
+        this.userbase = userbase;
+        this.estudiante = estudiante;
+
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -68,14 +76,7 @@ public class GUIVerActividad extends javax.swing.JFrame {
         TituloText.setText(casilla.getTitulo());
         ImpText.setText(String.valueOf(casilla.getImportancia()));
         descText.setText(casilla.getDescripcion());
-        this.usuarios = usuarios;
-        this.administradores = administradores;
-        this.materias = materias;
-        this.adminbase = adminbase;
-        this.materiasbase = materiasbase;
-        this.userbase = userbase;
-        this.estudiante = estudiante;
-
+        
         jComboBoxHora.setSelectedIndex(casilla.getFechaInicio().getTime().getHours() - 1);
         jComboBoxMinuto.setSelectedItem(casilla.getFechaInicio().getTime().getMinutes());
 
@@ -613,19 +614,23 @@ public class GUIVerActividad extends javax.swing.JFrame {
 
         if (fechaF.compareTo(fechaI) == 1) {
 
-            Casilla actividadNueva = new Casilla(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI, fechaF);
-            try {
-                userbase.ModificarDBC(this.estudiante);
-            } catch (IOException ex) {
-                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Actividad actividadNueva = new Actividad(TituloText.getText(), descText.getText(), Integer.parseInt(ImpText.getText()), fechaI, fechaF);
+            System.out.println(estudiante);
+            System.out.println(estudiante.getCodigo());
             estudiante.getCasillas().remove(casilla);
             estudiante.getCasillas().add(actividadNueva);
-            try {
-                userbase.InsertarDBC(this.estudiante);
-            } catch (IOException ex) {
-                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {                
+//                userbase.ModificarDBC(estudiante);
+//            }catch (NullPointerException e){
+//                System.out.println("F");
+//            }catch (IOException ex) {
+//                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            try {
+//                userbase.InsertarDBC(estudiante);
+//            } catch (IOException ex) {
+//                Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+//            }
 
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
             busc.setVisible(true);
@@ -744,17 +749,17 @@ public class GUIVerActividad extends javax.swing.JFrame {
     private void JBBorrarYVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarYVolverActionPerformed
         // TODO add your handling code here:
 
-        try {
-            // TODO add your handling code here:
-            userbase.ModificarDBC(estudiante);
             estudiante.getCasillas().remove(casilla);
-            userbase.InsertarDBC(estudiante);
             GUIBuscador busc = new GUIBuscador(usuarios, administradores, materias, adminbase, materiasbase, userbase, estudiante);
             busc.setVisible(true);
             this.dispose();
-        } catch (IOException ex) {
-            Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            // TODO add your handling code here:
+//            userbase.ModificarDBC(estudiante);
+//            userbase.InsertarDBC(estudiante);
+//        } catch (IOException ex) {
+//            Logger.getLogger(GUIVerActividad.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 
     }//GEN-LAST:event_JBBorrarYVolverActionPerformed

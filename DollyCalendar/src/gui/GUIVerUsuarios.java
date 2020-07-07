@@ -197,11 +197,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 int columna = jTTablaUsuarios.columnAtPoint(e.getPoint());
                 if (jTTablaUsuarios.getModel().getColumnClass(columna).equals(JButton.class)) {
 
-                    try {
-                        userbase.ModificarDBC(usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(fila, 4))));
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try {
+//                        userbase.ModificarDBC(usuarios.get(String.valueOf(jTTablaUsuarios.getValueAt(fila, 4))));
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
 
                     usuarios.remove(String.valueOf(jTTablaUsuarios.getValueAt(fila, 4)));
 
@@ -472,11 +472,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 Estudiante est = (Estudiante) arrayEstudiantes.getitem(i);
                 PriorityQueue<Casilla> casillas = est.getCasillas();
 
-                try {
-                    userbase.ModificarDBC(est);
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    userbase.ModificarDBC(est);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+//                }
 
                 usuarios.remove(est.getUsuario());
 
@@ -487,11 +487,11 @@ public class GUIVerUsuarios extends javax.swing.JFrame {
                 String clave = String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 8));
                 int codigo = Integer.parseInt(String.valueOf(jTTablaUsuarios.getModel().getValueAt(i, 5)));
 
-                try {
-                    userbase.InsertarDBC(new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
-                } catch (IOException ex) {
-                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    userbase.InsertarDBC(new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
+//                } catch (IOException ex) {
+//                    Logger.getLogger(GUIVerUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 usuarios.add(usuario, new Estudiante(usuario, clave, codigo, nombre, apellido, casillas, pregrado));
             }
 

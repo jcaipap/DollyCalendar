@@ -204,17 +204,17 @@ public class GUIVerHorario extends javax.swing.JFrame {
                 int columna = jTTablaMaterias.columnAtPoint(e.getPoint());
                 if (jTTablaMaterias.getModel().getColumnClass(columna).equals(JButton.class) && columna == 0) {
 
-                    try {
-                        userbase.ModificarDBC(estudiante);
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try {
+//                        userbase.ModificarDBC(estudiante);
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     estudiante.setCasillas(Metodos.eliminarMateria(estudiante.getCasillas(), String.valueOf(jTTablaMaterias.getValueAt(fila, 1))));
-                    try {
-                        userbase.InsertarDBC(estudiante);
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try {
+//                        userbase.InsertarDBC(estudiante);
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GUIVerHorario.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
 
                     counter--;
 
@@ -478,13 +478,13 @@ public class GUIVerHorario extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            try {
-                userbase.ModificarDBC(estudiante);
-                userbase.InsertarDBC(estudiante);
+//            try {
+//                userbase.ModificarDBC(estudiante);
+//                userbase.InsertarDBC(estudiante);
                 System.exit(0);
-            } catch (IOException ex) {
-                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            } catch (IOException ex) {
+//                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_salirActionPerformed
 

@@ -84,6 +84,7 @@ public class GUIBuscador extends javax.swing.JFrame {
     static int filtro = 1;
     Casilla casillas[];
     Estudiante estudiante;
+    Estudiante estudiante2;
     PriorityQueue<Casilla> f;
 
     public GUIBuscador(HashGeneric<String, Persona> usuarios, HashGeneric<String, Persona> administradores, HashGeneric<Integer, Materia> materias, AdminDataBaseHandler adminbase, MateriasDataBaseHandler materiasbase, UsuariosDataBaseHandler userbase, Estudiante estudiante) {
@@ -94,6 +95,7 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.materiasbase = materiasbase;
         this.userbase = userbase;
         this.estudiante = estudiante;
+        this.estudiante2 = estudiante;
         this.f = estudiante.getCasillas();
         fecha2 = new GregorianCalendar();
         fechaActual = new GregorianCalendar();
@@ -827,13 +829,13 @@ public class GUIBuscador extends javax.swing.JFrame {
         int respuesta = JOptionPane.showConfirmDialog(panelTitulo, "Esta seguro que desea salir?",
                 "confirmacion", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
-            try {
-                userbase.ModificarDBC(estudiante);
-                userbase.InsertarDBC(estudiante);
+//            try {
+//                userbase.ModificarDBC(estudiante.getCodigo());
+//                userbase.InsertarDBC(estudiante);
                 System.exit(0);
-            } catch (IOException ex) {
-                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            } catch (IOException ex) {
+//                Logger.getLogger(GUIBuscador.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }//GEN-LAST:event_salirActionPerformed
 

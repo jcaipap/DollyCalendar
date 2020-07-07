@@ -474,11 +474,11 @@ public class GUIGeneracionUsuario extends javax.swing.JFrame {
                 if (usuarios.get(inputUsuario.getText()) == null) {
 
                     usuarios.add(inputUsuario.getText(), new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla>(), inputPregrado.getText()));
-                    try {
-                        userbase.InsertarDBC(new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla>(), inputPregrado.getText()));
-                    } catch (IOException ex) {
-                        Logger.getLogger(GUIGeneracionUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+//                    try {
+//                        userbase.InsertarDBC(new Estudiante(inputUsuario.getText(), inputReingresoNuevaContraseña.getText(), Integer.parseInt(inputId.getText()), inputNombre.getText(), inputApellido.getText(), new PriorityQueue<Casilla>(), inputPregrado.getText()));
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(GUIGeneracionUsuario.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                     GUIInicio inicio = new GUIInicio(usuarios, administradores, materias, adminbase, materiasbase, userbase);
                     inicio.setVisible(true);
                     this.dispose();

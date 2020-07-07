@@ -69,6 +69,7 @@ public class DynamicArray <T extends Comparable<T>> implements Serializable{
     public void trimToSize(){
 //        System.out.println("Trimming the array");
 	T[] temp = (T[]) new Comparable [size];
+        
         for (int i=0; i < size; i++){
             temp[i] = array[i];
         }
