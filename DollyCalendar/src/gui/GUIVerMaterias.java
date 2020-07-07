@@ -76,7 +76,7 @@ public class GUIVerMaterias extends javax.swing.JFrame {
         this.setResizable(false);
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
-        this.setTitle("DollyCalendar");
+        this.setTitle("UNcalendar");
         ImageIcon icon = new ImageIcon();
         Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);

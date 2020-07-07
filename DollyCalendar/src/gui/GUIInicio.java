@@ -73,7 +73,7 @@ public class GUIInicio extends javax.swing.JFrame {
         this.incorrecto.setForeground(Color.white);
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
-        this.setTitle("DollyCalendar");
+        this.setTitle("UNcalendar");
         ImageIcon icon = new ImageIcon();
         Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
@@ -230,7 +230,7 @@ public class GUIInicio extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Bienvenido a DollyCalendar, una opción fácil y rápida de organizar sus actividades.");
+        jLabel2.setText("Bienvenido a UNcalendar, una opción fácil y rápida de organizar sus actividades.");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         jLabel3.setBackground(Color.WHITE);

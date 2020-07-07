@@ -104,7 +104,7 @@ public class GUIBuscador extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
-        this.setTitle("DollyCalendar");
+        this.setTitle("UNcalendar");
         ImageIcon icon = new ImageIcon();
         Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
@@ -857,7 +857,7 @@ public class GUIBuscador extends javax.swing.JFrame {
         horaActual = String.format("%tr\n", fechaActual);
 
         jLFecha1.setText(horaActual + " " + stringFechaActual);
-
+        filtro=1;
         crearCatalogo(casillas, filtro);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -894,7 +894,7 @@ public class GUIBuscador extends javax.swing.JFrame {
         horaActual = String.format("%tr\n", fechaActual);
 
         jLFecha1.setText(horaActual + " " + stringFechaActual);
-
+        jRadioButton1.setSelected(true);
 
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 

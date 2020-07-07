@@ -75,11 +75,12 @@ public class GUIVerGrupos extends javax.swing.JFrame {
         this.arrayGrupos = this.materia.getGrupos();
         this.arregloBooleano = new boolean[arrayGrupos.length];
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
         this.setIconImage(new ImageIcon(getClass().getResource("/recursos/iconApp.jpg")).getImage());
-        this.setTitle("DollyCalendar");
+        this.setTitle("UNcalendar");
         ImageIcon icon = new ImageIcon();
         Image image = new ImageIcon(getClass().getResource("/recursos/iconDolly.jpg")).getImage();
         icon.setImage(image);
@@ -233,6 +234,7 @@ public class GUIVerGrupos extends javax.swing.JFrame {
         JBGuardarYVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
